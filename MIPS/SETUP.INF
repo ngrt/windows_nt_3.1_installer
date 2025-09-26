@@ -1,0 +1,864 @@
+[GeneralConstants]
+    Radio1  = "1"
+    Radio2  = "2"
+    Radio3  = "3"
+    Radio4  = "4"
+    Radio5  = "5"
+    Radio6  = "6"
+    Radio7  = "7"
+    Radio8  = "8"
+    Radio9  = "9"
+    Chosen    = "ON"
+    NotChosen = "OFF"
+[ProcessorID]
+    ProcessorID_I386  = I386
+    ProcessorID_I486  = I486
+    ProcessorID_I586  = I586
+    ProcessorID_R4000 = R4000
+[PlatformID]
+    PlatformID_I386 = I386
+    PlatformID_Mips = Mips
+[ProcessorVar]
+    STF_PROCESSOR = "" ? $(!LIBHANDLE) GetProcessor
+[LanguageVar]
+    STF_LANGUAGE   = "" ? $(!LIBHANDLE) GetLanguage
+[UiVars]
+    STF_NTDRIVE        = ""
+    STF_NTPATH         = ""
+    STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+    STF_INSTALL_MODE = "CUSTOM"
+    STF_INSTALL_TYPE = "MAINTENANCE"
+    STF_UPGRADE      = "YES"
+    STF_CONTROLSET   = "CurrentControlSet"
+    STF_COMPUTERNAME = "" ? $(!LIBHANDLE) GetMyComputerName
+[SystemInformationClasses]
+    Video
+    Pointer
+    Keyboard
+[VarsI386]
+DefaultVideo   = "VGA"
+[VarsMips]
+DefaultVideo   = ""
+[VideoVars]
+    VideoHardwareDetected      = "" ? $(!LIBHANDLE) GetMyVideoType
+    VideoSystemSet             = "" ? $(!LIBHANDLE) GetSelectedVideo
+    VideoDefault               = $(DefaultVideo)
+    VideoOurINFOptions         = {}
+    VideoOemINFOptions         = {}
+    VideoMergedOptions         = {}
+    VideoSpecialOption         = {}
+    VideoCurrentOption         = {}
+    VideoOptionList            = {}
+    VideoOptionTextList        = {}
+    VideoOption                = {}
+    VideoINF                   = ""
+    VideoInstall               = "NO"
+    VideoSrcDir                = ""
+    VideoDstDir                = ""
+[PointerVars]
+    PointerHardwareDetected      = "" ? $(!LIBHANDLE) GetMyPointerType
+    PointerSystemSet             = "" ? $(!LIBHANDLE) GetSelectedPointer
+    PointerDefault               = ""
+    PointerOurINFOptions         = {}
+    PointerOemINFOptions         = {}
+    PointerMergedOptions         = {}
+    PointerSpecialOption         = {}
+    PointerCurrentOption         = {}
+    PointerOptionList            = {}
+    PointerOptionTextList        = {}
+    PointerOption                = {}
+    PointerINF                   = ""
+    PointerInstall               = "NO"
+    PointerSrcDir                = ""
+    PointerDstDir                = ""
+[KeyboardVars]
+    KeyboardHardwareDetected      = "" ? $(!LIBHANDLE) GetMyKeyboardType
+    KeyboardSystemSet             = "" ? $(!LIBHANDLE) GetSelectedKeyboard
+    KeyboardDefault               = "PCAT_ENHANCED"
+    KeyboardOurINFOptions         = {}
+    KeyboardOemINFOptions         = {}
+    KeyboardMergedOptions         = {}
+    KeyboardSpecialOption         = {}
+    KeyboardCurrentOption         = {}
+    KeyboardOptionList            = {}
+    KeyboardOptionTextList        = {}
+    KeyboardOption                = {}
+    KeyboardINF                   = ""
+    KeyboardInstall               = "NO"
+    KeyboardSrcDir                = ""
+    KeyboardDstDir                = ""
+[Shell Commands]
+    Set !G:DebugOutputControl = 0
+    set Exit_Code    = $(!SETUP_ERROR_GENERAL)
+    set DrivesToFree = {}
+    set-title "Windows NT Setup"
+    LoadLibrary "x" $(!STF_CWDDIR)\setupdll.dll !LIBHANDLE
+    set-subst LF = "\n"
+    set Reboot = NO
+    StartWait
+    read-syms GeneralConstants
+    read-syms LanguageVar
+    detect    LanguageVar
+    read-syms Strings$(!STF_LANGUAGE)
+    read-syms ProcessorID
+    read-syms PlatformID
+    read-syms ProductType
+    read-syms ProcessorVar
+    detect    ProcessorVar
+    ifstr(i) $(STF_PROCESSOR) == $(ProcessorID_I386)
+        ifstr(i) $(STF_PLATFORM) != $(PlatformID_I386)
+            EndWait
+            shell "subroutn.inf" SetupMessage $(STF_LANGUAGE) "FATAL" $(String14)
+            StartWait
+            goto end
+        endif
+    else-ifstr(i) $(STF_PROCESSOR) == $(ProcessorID_I486)
+        ifstr(i) $(STF_PLATFORM) != $(PlatformID_I386)
+            EndWait
+            shell "subroutn.inf" SetupMessage $(STF_LANGUAGE) "FATAL" $(String14)
+            StartWait
+            goto end
+        endif
+    else-ifstr(i) $(STF_PROCESSOR) == $(ProcessorID_I586)
+        ifstr(i) $(STF_PLATFORM) != $(PlatformID_I386)
+            EndWait
+            shell "subroutn.inf" SetupMessage $(STF_LANGUAGE) "FATAL" $(String14)
+            StartWait
+            goto end
+        endif
+    else-ifstr(i) $(STF_PROCESSOR) == $(ProcessorID_R4000)
+        ifstr(i) $(STF_PLATFORM) != $(PlatformID_Mips)
+            EndWait
+            shell "subroutn.inf" SetupMessage $(STF_LANGUAGE) "FATAL" $(String14)
+            StartWait
+            goto end
+        endif
+    else
+        EndWait
+        shell "subroutn.inf" SetupMessage $(STF_LANGUAGE) "FATAL" $(String5)
+        StartWait
+        goto end
+    endif
+    read-syms Vars$(!STF_PLATFORM)
+    set STF_SRCDIR = A:\
+    shell "registry.inf" GetNTSource
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+    else
+        set STF_SRCDIR = $($R1)
+    endif
+    shell "subroutn.inf" PushBillboard STATUSDLG $(String15)
+    read-syms UiVars
+    detect    UiVars
+    set !STF_NTPATH = $(!STF_WINDOWSSYSPATH)
+    GetDriveInPath !STF_NTDRIVE $(!STF_WINDOWSSYSPATH)
+    shell "subroutn.inf" ReadSetupHelpIds
+    SetHelpFile "setupnt.hlp" $(!MinimumID) $(!MaximumID)
+    set ConfigureOptions = {}
+    read-syms OemOptionDiskettes$(!STF_LANGUAGE)
+    set OptionTypeList = {Video, Pointer, Keyboard}
+    ForListDo $(OptionTypeList)
+        read-syms $($)Vars
+        detect    $($)Vars
+    EndForListDo
+    ForListDo $(OptionTypeList)
+        shell "hardware.inf" InitOptionVars $(!STF_LANGUAGE) $($) $($($)HardwareDetected) $($($)SystemSet) $($($)Default)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)OurINFOptions = $($R1)
+            set $($)OemINFOptions = $($R2)
+            set $($)MergedOptions = $($R3)
+            set $($)SpecialOption = $($R4)
+            set $($)CurrentOption = $($R5)
+            set $($)Option        = *($($R5), 1)
+            set $($)NewOption     = *($($R5), 1)
+        else
+            shell "subroutn.inf" PopBillboard
+            EndWait
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String1)
+            StartWait
+            goto end
+        endif
+    EndForListDo
+    ForListDo $(OptionTypeList)
+        shell "hardware.inf" InitListBoxVars $(!STF_LANGUAGE) $($($)MergedOptions) $($($)SpecialOption) $(Other)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set $($)OptionList     = $($R1)
+            set $($)OptionTextList = $($R2)
+        else
+            shell "subroutn.inf" PopBillboard
+            EndWait
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String2)
+            StartWait
+            goto  end
+        endif
+    EndForListDo
+    EndWait
+    shell "subroutn.inf" PopBillboard
+maintenance = +
+    read-syms MaintDlg$(!STF_LANGUAGE)
+    EndWait
+    ui start "Maintenance"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+        set Status = STATUS_SUCCESSFUL
+        ui pop 1
+        goto end
+    else-ifstr(i) $(DLGEVENT) == "EXIT"
+        set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+        set Status = STATUS_USERQUIT
+        ui pop 1
+        goto end
+    else-ifstr(i) $(DLGEVENT) == "SYSTEM"
+        shell "registry.inf" CheckSetupModify
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "shelling CheckSetupModify failed"
+            set Reinit = NO
+            goto maintenance
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String7)
+            set ReInit = NO
+            goto maintenance
+        endif
+        StartWait
+        ForListDo $(OptionTypeList)
+            set $($)NewOption = $($($)Option)
+        EndForListDo
+        goto system
+    else-ifstr(i) $(DLGEVENT) == "APPINSTALL"
+        StartWait
+        shell "registry.inf" CheckSetupModify
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "shelling CheckSetupModify failed"
+            set Reinit = NO
+            goto maintenance
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            EndWait
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String7)
+            StartWait
+            set ReInit = NO
+            goto maintenance
+        endif
+        shell "app.inf" DoAppSearch
+        set ReInit = NO
+        goto maintenance
+    else-ifstr(i) $(DLGEVENT) == "ADDREMOVE"
+        StartWait
+        set DoPartial = YES
+        shell "partial.inf" MaintainProgmanComponents
+        set ReInit = NO
+        goto maintenance
+    else-ifstr(i) $(DLGEVENT) == "ADDREMOVESCSI"
+        StartWait
+        shell "" DoDriverInstall "SCSI"
+        set ReInit = NO
+        goto maintenance
+    else-ifstr(i) $(DLGEVENT) == "ADDREMOVETAPE"
+        StartWait
+        shell "" DoDriverInstall "Tape"
+        set ReInit = NO
+        goto maintenance
+    else-ifstr(i) $(DLGEVENT) == "PROFILE"
+        StartWait
+        shell "" DoProfiles
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "shelling DoProfiles failed"
+        endif
+        set ReInit = NO
+        goto maintenance
+    else
+        ui pop 1
+        goto end
+    endif
+system = +
+    read-syms SystemDlg$(!STF_LANGUAGE)
+    EndWait
+    ui start "System"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        StartWait
+        ForListDo $(OptionTypeList)
+            set Option = $($)
+            ifstr(i) $($(Option)Option) != $($(Option)NewOption)
+                ifstr(i) $($(Option)SpecialOption) != {}
+                    ifstr(i) $($(Option)NewOption) == *($($(Option)SpecialOption), 1)
+                        goto skip_install
+                    endif
+                endif
+                shell "hardware.inf" GetOptionFile $($(Option)NewOption) $($(Option)OemINFOptions)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set $(Option)INF    = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+                    set $(Option)SrcDir = $($(Option)DisketteSrc)
+                    goto do_install
+                endif
+                shell "hardware.inf" GetOptionFile $($(Option)NewOption) $($(Option)OurINFOptions)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set $(Option)INF    = $($R1)
+                    set $(Option)SrcDir = $(!STF_SRCDIR)
+                    goto do_install
+                endif
+do_install = +
+                shell $($(Option)INF) InstallOption $(!STF_LANGUAGE) $($(Option)NewOption) $($(Option)SrcDir) "YES" "YES" "YES"
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Debug-Output "Shelling installOption "$($(Option)NewOption)" in INF "$($(Option)INF)" failed"
+                    goto skip_install
+                endif
+                ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                    Debug-Output "InstallOption "$($(Option)NewOption)" in INF "$($(Option)INF)" failed"
+                    goto skip_install
+                endif
+                shell "registry.inf" MakeSetupOptionEntry $(Option) $($(Option)NewOption)
+                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                    Debug-Output "shelling MakeSetupOptionEntry failed"
+                    goto skip_install
+                endif
+                ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                    Debug-Output "Making setup entry for "$(Option)" = "$($(Option)NewOption)" failed."
+                    goto skip_install
+                endif
+                set $(Option)Option = $($(Option)NewOption)
+                set Reboot = YES
+skip_install = +
+            endif
+        EndForListDo
+        ui pop 1
+        set ReInit = YES
+        goto maintenance
+    else-ifstr(i) $(DLGEVENT) == "NOTIFY"
+        set OptionNum = $(ButtonChecked)
+        set Option    = *($(OptionTypeList), $(ButtonChecked))
+        set ReInit = YES
+        ifstr(i) $(Combo$(OptionNum)Out) != $(Other)
+            set $(Option)NewOption = *($($(Option)OptionList), ~($(Combo$(OptionNum)List), $(Combo$(OptionNum)Out)))
+            set ReInit = NO
+        else
+            shell "other.inf" GetNewOEMOption $(!STF_LANGUAGE) $($(Option)OemINFOptions) $(Option) $($(Option)DisketteSrc)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                set $(Option)OemINFOptions  = $($R1)
+                set $(Option)NewOption      = $($R2)
+                set $(Option)DisketteSrc    = $($R4)
+                shell "hardware.inf" MergeOptions $($(Option)OurINFOptions) $($(Option)OemINFOptions)
+                ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    set $(Option)MergedOptions = {$($R1), $($R2)}
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String4)
+                    ui pop 1
+                    goto finish_system
+                endif
+                shell "hardware.inf" InitListBoxVars $(!STF_LANGUAGE) $($(Option)MergedOptions) $($(Option)SpecialOption) $(Other)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set $(Option)OptionList     = $($R1)
+                    set $(Option)OptionTextList = $($R2)
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String2)
+                    ui pop 1
+                    goto  finish_system
+                endif
+            else-ifstr(i) $($R0) == "STATUS_USERCANCEL"
+                set ReInit = YES
+                goto system
+            else
+                shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+                set ReInit = YES
+                goto system
+            endif
+        endif
+        goto system
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        ui pop 1
+        set  ReInit = YES
+        goto maintenance
+    else
+        ui pop 1
+        set ReInit = YES
+        goto maintenance
+    endif
+finish_system = +
+    set ReInit = YES
+    goto maintenance
+end = +
+    ForListDo $(DrivesToFree)
+        LibraryProcedure STATUS,$(!LIBHANDLE), DeleteNetConnection $($) "TRUE"
+    EndForListDo
+    ifstr(i) $(Reboot) == "YES"
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "STATUS" $(String6)
+    endif
+    FreeLibrary $(!LIBHANDLE)
+    exit
+[DoProfiles]
+    set Status = STATUS_FAILED
+    read-syms ProfileStrings$(!STF_LANGUAGE)
+    read-syms ProfileVars
+    detect    ProfileVars
+    ifstr(i) $(!STF_COMPUTERNAME) == ""
+        set !STF_COMPUTERNAME = $(String1)
+    endif
+    ifstr(i) $(UserAccounts) == {}
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "STATUS" $(String2)
+        set Status = STATUS_SUCCESSFUL
+        goto finish_doprofiles
+    endif
+    set UserProfileList = {}
+    ForListDo $(UserAccounts)
+        set UserProfileList = >($(UserProfileList), *($($), 2))
+    EndForListDo
+profile_rst =+
+    read-syms ProfileDlg$(!STF_LANGUAGE)
+    EndWait
+    ui start "Profile"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set Status = STATUS_SUCCESSFUL
+        ui pop 1
+        goto finish_doprofiles
+    else-ifstr(i) $(DLGEVENT) == "FREEBUTTON1"
+        ifstr(i) $(ListItemsOut) == ""
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            set ReInit = NO
+            goto profile_rst
+        else-ifstr(i) $(ListItemsOut) == $(UserName)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String7)
+            set ReInit = NO
+            goto profile_rst
+        endif
+        set UserProfileFile = ""
+        ForListDo $(UserAccounts)
+            ifstr(i) *($($), 2) == $(ListItemsOut)
+                set UserProfileKey  = *($($), 1)
+                set UserProfileFile = *($($), 3)
+            endif
+        EndForListDo
+        LibraryProcedure STATUS, $(!LIBHANDLE), DeleteUserProfile $(UserProfileFile) $(UserProfileKey)
+        ifstr(i) $(STATUS) == "YES"
+            set NewUserProfileList = {}
+            ForListDo $(UserProfileList)
+                ifstr(i) $($) != $(ListItemsOut)
+                    set NewUserProfileList = >($(NewUserProfileList), $($))
+                endif
+            EndForListDo
+            set UserProfileList = $(NewUserProfileList)
+            set ReInit = YES
+            goto profile_rst
+        else-ifstr(i) $(STATUS) == "ERROR_PRIVILEGE"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String4)
+            set ReInit = NO
+            goto profile_rst
+        else-ifstr(i) $(STATUS) == "ERROR_ACTIVE"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String5)
+            set ReInit = NO
+            goto profile_rst
+        else
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String6)
+            set ReInit = NO
+            goto profile_rst
+        endif
+    else
+        ui pop 1
+        goto finish_doprofiles
+    endif
+finish_doprofiles = +
+    StartWait
+    Return $(Status)
+[ProfileVars]
+    UserAccounts = {} ? $(!LIBHANDLE) GetUserAccounts
+    UserName     = "" ? $(!LIBHANDLE) GetMyUserName
+    UserProfileList = {}
+    UserProfile     = ""
+[DoDriverInstall]
+    set Status = STATUS_FAILED
+    read-syms Strings$(!STF_LANGUAGE)
+    read-syms $($0)Strings$(!STF_LANGUAGE)
+    set OptionType = $($0)
+    set DisketteSrc = "A:\"
+    shell "hardware.inf" InitOptionVars $(!STF_LANGUAGE) $(OptionType) "" "" ""
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set OurINFOptions = $($R1)
+        set OemINFOptions = $($R2)
+        set MergedOptions = $($R3)
+    else
+        EndWait
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String1)
+        StartWait
+        goto end
+    endif
+    set DeviceInfFiles = {}
+    ForListDo $(OurINFOptions)
+        set DeviceInfFiles = >($(DeviceInfFiles), *($($), 1))
+    EndForListDo
+    ForListDo $(OemINFOptions)
+        set DeviceInfFiles = >($(DeviceInfFiles), *($($), 1))
+    EndForListDo
+    set InstalledList     = {}
+    set InstalledTextList = {}
+    ForListDo $(DeviceInfFiles)
+        shell $($) GetInstalledOptions $(!STF_LANGUAGE)
+        ifint $($ShellCode) == $(!SHELL_CODE_OK)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                ForListDo $($R1)
+                    set InstalledList     = >($(InstalledList), $($))
+                    set InstalledTextList = >($(InstalledTextList), *($($R2), $(#)))
+                EndForListDo
+            endif
+        endif
+    EndForListDo
+    set CurrentInstalledOption     = ""
+    set CurrentInstalledOptionText = ""
+    shell "hardware.inf" InitListBoxVars $(!STF_LANGUAGE) $(MergedOptions) {} $(Other)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set OptionList     = $($R1)
+        set OptionTextList = $($R2)
+        Debug-Output "Option text list: "$(OptionTextList)
+        set NewOption      = *($($R1), 1)
+    else
+        EndWait
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String2)
+        StartWait
+        goto  finish_DoDriverInstall
+    endif
+driver_install = +
+    read-syms DriverInstall$(!STF_LANGUAGE)
+    EndWait
+    ui start "DriverInstall"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        set Status = STATUS_SUCCESSFUL
+        ui pop 1
+        goto finish_DoDriverInstall
+    else-ifstr(i) $(DLGEVENT) == "FREEBUTTON1"
+        Debug-Output "Add Selected"
+        shell "registry.inf" CheckSetupModify
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "shelling CheckSetupModify failed"
+            set Reinit = NO
+            goto driver_install
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String7)
+            set ReInit = NO
+            goto driver_install
+        endif
+        ifstr(i) $(OptionType) == "scsi"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "WARNING" $(OptionString50)
+            ifstr(i) $($R0) != STATUS_SUCCESSFUL
+                set ReInit = NO
+                goto driver_install
+            endif
+            ifstr(i) $($R1) == "CANCEL"
+                set ReInit = NO
+                goto driver_install
+            endif
+        endif
+        goto adddriver
+        set ReInit = YES
+        goto driver_install
+    else-ifstr(i) $(DLGEVENT) == "FREEBUTTON2"
+        Debug-Output "Remove Selected"
+        ifstr(i) $(ListItemsOut) == ""
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString1)
+            set ReInit = NO
+            goto driver_install
+        endif
+        set CurrentInstalledOptionText = $(ListItemsOut)
+        shell "registry.inf" CheckSetupModify
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "shelling CheckSetupModify failed"
+            set Reinit = NO
+            goto driver_install
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String7)
+            set ReInit = NO
+            goto driver_install
+        endif
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "WARNING" $(OptionString3)
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            set ReInit = NO
+            goto driver_install
+        endif
+        ifstr(i) $($R1) == "CANCEL"
+            set ReInit = NO
+            goto driver_install
+        endif
+        set OptionToRemove = *($(InstalledList), ~($(InstalledTextList), $(ListItemsOut)))
+        shell "hardware.inf" GetOptionFile $(OptionToRemove) $(OemINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set INF    = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+            goto do_removal
+        endif
+        shell "hardware.inf" GetOptionFile $(OptionToRemove) $(OurINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set  INF    = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+            goto do_removal
+        endif
+        set ReInit = NO
+        goto driver_install
+do_removal = +
+        shell $(INF) DeInstallOption $(!STF_LANGUAGE) $(OptionToRemove)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString5)
+            set Reinit = NO
+            goto driver_install
+        else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString5)
+            set ReInit = NO
+            goto driver_install
+        endif
+        set NewInstalledList     = {}
+        set NewInstalledTextList = {}
+        ForListDo $(InstalledList)
+            ifstr(i) $($) != $(OptionToRemove)
+                set NewInstalledList     = >($(NewInstalledList), $($))
+                set NewInstalledTextList = >($(NewInstalledTextList), *($(InstalledTextList), $(#)))
+            endif
+        EndForListDo
+        set InstalledList     = $(NewInstalledList)
+        set InstalledTextList = $(NewInstalledTextList)
+        set CurrentInstalledOptionText = ""
+        set !Reboot = YES
+        set ReInit = YES
+        goto driver_install
+    else
+        ui pop 1
+        goto finish_DoDriverInstall
+    endif
+adddriver =+
+    read-syms SelectDriverDlg$(!STF_LANGUAGE)
+    ui start "SelectDriver"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        Ifcontains(i) $(NewOption) in $(InstalledList)
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString2)
+            set ReInit = "NO"
+            goto adddriver
+        endif
+        shell "hardware.inf" GetOptionFile $(NewOption) $(OemINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set INF    = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+            set SrcDir = $(DisketteSrc)
+            goto do_driver_install
+        endif
+        shell "hardware.inf" GetOptionFile $(NewOption) $(OurINFOptions)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            set INF    = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+            set SrcDir = $(!STF_SRCDIR)
+            goto do_driver_install
+        endif
+do_driver_install = +
+        shell $(INF) InstallOption $(!STF_LANGUAGE) $(NewOption) $(SrcDir) "YES" "YES" "YES"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "Shelling installOption "$(NewOption)" in INF "$(INF)" failed"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString4)
+            goto skip_driver_install
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "InstallOption "$(NewOption)" in INF "$(INF)" failed"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(OptionString4)
+            goto skip_driver_install
+        endif
+        set !Reboot = YES
+        set InstalledList     = >($(InstalledList), $(NewOption))
+        set InstalledTextList = >($(InstalledTextList), *($(OptionTextList), ~($(OptionList), $(NewOption))))
+        set CurrentInstalledOptionText = ""
+skip_driver_install = +
+        ui pop 1
+        set ReInit = YES
+        goto driver_install
+    else-ifstr(i) $(DLGEVENT) == "NOTIFY"
+        set ReInit = YES
+        ifstr(i) $(Combo1Out) != $(Other)
+            set NewOption = *($(OptionList), ~($(Combo1List), $(Combo1Out)))
+            set ReInit = NO
+        else
+            shell "other.inf" GetNewOEMOption $(!STF_LANGUAGE) $(OemINFOptions) $(OptionType) $(DisketteSrc)
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                set OemINFOptions  = $($R1)
+                set NewOption      = $($R2)
+                set DisketteSrc    = $($R4)
+                shell "hardware.inf" MergeOptions $(OurINFOptions) $(OemINFOptions)
+                ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    set MergedOptions = {$($R1), $($R2)}
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String4)
+                    ui pop 1
+                    goto finish_system
+                endif
+                shell "hardware.inf" InitListBoxVars $(!STF_LANGUAGE) $(MergedOptions) {} $(Other)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set OptionList     = $($R1)
+                    set OptionTextList = $($R2)
+                else
+                    shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(String2)
+                    ui pop 1
+                    goto  finish_system
+                endif
+            else-ifstr(i) $($R0) == "STATUS_USERCANCEL"
+                set ReInit = YES
+                goto adddriver
+            else
+                shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+                set ReInit = YES
+                goto adddriver
+            endif
+        endif
+        goto adddriver
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        ui pop 1
+        set  ReInit = NO
+        goto driver_install
+    else
+        ui pop 1
+        set ReInit = NO
+        goto driver_install
+    endif
+finish_DoDriverInstall =+
+    StartWait
+    Return $(Status)
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[LanguageID]
+   ENG
+[LanguageTextENG]
+   "English (American)"
+[OemOptionDiskettesENG]
+    VideoDisketteSrc  = "A:\"
+    PointerDisketteSrc    = "A:\"
+    KeyboardDisketteSrc = "A:\"
+[StringsENG]
+    Other   = "Other (Requires a disk from a hardware manufacturer)"
+    String1 = "Failed to initialize hardware options."
+    String2 = "Failed to initialize hardware variables."
+    String3 = "Failed to obtain new options.  Ignoring the error."
+    String4 = "Internal Setup error: failed to merge Microsoft options with the OEM options."
+    String5 = "Setup cannot install on the current processor."$(!LF)$(!LF)"Cannot proceed with install."
+    String6 = "The changes you have made will not take effect until the computer is restarted."
+    String7  = "You do not have permission to carry out this operation."
+    String8  = "Setup needs to initialize its hardware configuration entries. "+
+               "Please log on as a member of the Administrators group and run Setup again."
+    String9  = "No driver selected for removal."
+    String10 = "The driver selected is already installed."
+    String11 = "Are you sure you want to remove the selected driver?"
+    String12 = "Failed to install selected driver."
+    String13 = "Failed to remove selected driver."
+    String14 = "The SETUP.INF file does not match your computer."
+    String15 = "Please wait while Setup determines your hardware configuration..."
+[MaintDlgENG]
+    Caption      = "Windows NT Setup"
+    DlgType      = Maintenance
+    DlgTemplate  = DLG_MAINTAIN
+    HelpContext  = $(!IDH_DB_MAINTAIN_INS)
+    VideoText  = *($(VideoOptionTextList), ~($(VideoOptionList), $(VideoOption)))
+    PointerText    = *($(PointerOptionTextList), ~($(PointerOptionList), $(PointerOption)))
+    KeyboardText = *($(KeyboardOptionTextList), ~($(KeyboardOptionList), $(KeyboardOption)))
+    TextFields   = {$(VideoText), $(PointerText), $(KeyboardText)}
+[SystemDlgENG]
+    Caption     = "Change System Settings"
+    Continue    = "Close"
+    Cancel      = "Cancel"
+    Help        = "&Help"
+    Combo1Label = "&Display:"
+    Combo2Label = "&Mouse:"
+    Combo3Label = "&Keyboard:"
+    DlgType     = "MultiCombo"
+    DlgTemplate = "M_SYSTEM"
+    HelpContext = $(!IDH_DB_MSYSTEM_INS)
+    Combo1List  = $(VideoOptionTextList)
+    Combo1Out   = *($(Combo1List), ~($(VideoOptionList), $(VideoNewOption)))
+    Combo2List  = $(PointerOptionTextList)
+    Combo2Out   = *($(Combo2List), ~($(PointerOptionList), $(PointerNewOption)))
+    Combo3List  = $(KeyboardOptionTextList)
+    Combo3Out   = *($(Combo3List), ~($(KeyboardOptionList), $(KeyboardNewOption)))
+    ComboListItemsIn  = { Combo1List, Combo2List, Combo3List }
+    ComboListItemsOut = { Combo1Out,  Combo2Out,  Combo3Out  }
+    NotifyFields      = { YES, YES, YES }
+[ProfileStringsENG]
+    String1  = "this machine"
+    String2  = "No user profiles were found on this machine."
+    String3  = "No user profile selected for deletion."
+    String4  = "Setup is unable to delete the user profile indicated.  "+
+               "You do not have permission to carry out this operation."
+    String5  = "Setup couldn't delete the user profile indicated.  The profile "+
+               "may be currently being used by Windows NT."
+    String6  = "Setup couldn't delete the user profile indicated."
+    String7  = "Setup cannot delete the currently active profile."
+[ProfileDlgENG]
+    Caption      = "Delete User Profiles"
+    DlgText      = "User &Profiles on "$(!STF_COMPUTERNAME)":"
+    Continue     = "Close"
+    Cancel       = "Cancel"
+    Delete       = "&Delete"
+    Help         = "&Help"
+    Exit         = "&Exit"
+    DlgType      = "List"
+    DlgTemplate  = "PROFILE"
+    HelpContext  = $(!IDH_DB_MPROFILE_INS)
+    ListItemsIn  = $(UserProfileList)
+    ListItemsOut = $(UserProfile)
+[SCSIStringsENG]
+    OptionString1  = "No SCSI Adapter selected for removal."
+    OptionString2  = "The SCSI Adapter selected is already installed."
+    OptionString3  = "Removing SCSI Adapters may prevent Windows NT "+
+                     "from starting correctly. Before restarting your computer, "+
+                     "check the Read Me item in the Main program group for "+
+                     "information about reconfiguring SCSI Adapters."$(!LF)$(!LF)+
+                     "If Windows NT fails to start, you can recover by using the "+
+                     "Last Known Good Configuration. See your System Guide for "+
+                     "more information."$(!LF)$(!LF)+
+                     "Are you sure you want to remove the selected SCSI Adapter?"
+    OptionString4  = "Failed to install selected SCSI Adapter."
+    OptionString5  = "Failed to remove selected SCSI Adapter."
+    OptionString6  = "SCSI Adapter Setup"
+    OptionString7  = "SCSI A&dapters installed on "$(!STF_COMPUTERNAME)":"
+    OptionString8  = "Select SCSI Adapter Option"
+    OptionString9  = "Choose a SCSI Adapter from the following list:"
+    OptionString10 = "A&dapter:"
+    OptionString50 = "Adding SCSI Adapters may prevent Windows NT "+
+                     "from starting correctly. Before restarting your computer, "+
+                     "check the Read Me item in the Main program group for "+
+                     "information about reconfiguring SCSI Adapters."$(!LF)$(!LF)+
+                     "If Windows NT fails to start, you can recover by using the "+
+                     "Last Known Good Configuration. See your System Guide for "+
+                     "more information."$(!LF)$(!LF)+
+                     "Are you sure you want to add a SCSI Adapter?"
+    !HelpID1       = $(!IDH_DB_SCSI_DRIVER_INS)
+    !HelpID2       = $(!IDH_DB_SCSI_SELECTDRIVER_INS)
+[TapeStringsENG]
+    OptionString1  = "No Tape Device selected for removal."
+    OptionString2  = "The Tape Device selected is already installed."
+    OptionString3  = "Are you sure you want to remove the selected Tape Device?"
+    OptionString4  = "Failed to install selected tape device."
+    OptionString5  = "Failed to remove selected tape device."
+    OptionString6  = "Tape Device Setup"
+    OptionString7  = "Tape &Devices installed on "$(!STF_COMPUTERNAME)":"
+    OptionString8  = "Select Tape Device Option"
+    OptionString9  = "Choose a Tape Device from the following list:"
+    OptionString10 = "&Device:"
+    !HelpID1       = $(!IDH_DB_TAPE_DRIVER_INS)
+    !HelpID2       = $(!IDH_DB_TAPE_SELECTDRIVER_INS)
+[DriverInstallENG]
+    Caption      = $(OptionString6)
+    Continue     = "Close"
+    Add          = "&Add..."
+    Remove       = "&Remove"
+    Help         = "&Help"
+    DlgType      = "List"
+    DlgTemplate  = "DRIVERINSTALL"
+    DlgText      = $(OptionString7)
+    HelpContext  = $(!HelpID1)
+    ListItemsIn  = $(InstalledTextList)
+    ListItemsOut = $(CurrentInstalledOptionText)
+[SelectDriverDlgENG]
+    Continue    = "&Install"
+    Cancel      = "Cancel"
+    Help        = "&Help"
+    DlgType     = "MultiCombo"
+    DlgTemplate = "SELECTDRIVER"
+    Caption     = $(OptionString8)
+    DlgText     = $(OptionString9)
+    HelpContext = $(!HelpID2)
+    Combo1Label = $(OptionString10)
+    Combo1List  = $(OptionTextList)
+    Combo1Out   = *($(Combo1List), ~($(OptionList), $(NewOption)))
+    ComboListItemsIn  = { Combo1List }
+    ComboListItemsOut = { Combo1Out  }
+    NotifyFields      = { YES }
+
+
+

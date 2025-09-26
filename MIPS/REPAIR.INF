@@ -1,0 +1,44 @@
+[RepairVars]
+    DisketteList   = {} ? $(!LIBHANDLE) GetFloppyDriveLetters
+[CreateRepairDiskette]
+    set Status = STATUS_FAILED
+    read-syms  Strings$(!STF_LANGUAGE)
+    detect     RepairVars
+    ifstr(i) $(DisketteList) == {}
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) NONFATAL $(String1)
+        goto finish_CreateRepairDiskette
+    endif
+    set RepairDiskette = *($(DisketteList),1)
+    install GenerateRepairDiskette
+    ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_SUCCESS"
+        StartWait
+        shell "subroutn.inf" PushBillboard STATUSDLG $(String2)
+        install SaveRegistryHives
+        shell "subroutn.inf" PopBillboard
+        EndWait
+    endif
+    ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_SUCCESS"
+        set Status = STATUS_SUCCESS
+    else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+        set Status = STATUS_USERQUIT
+    else
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) NONFATAL $(String3)
+        set Status = STATUS_FAILED
+    endif
+finish_CreateRepairDiskette = +
+    Return $(Status)
+[GenerateRepairDiskette]
+    GenerateRepair $(RepairDiskette)
+    exit
+[SaveRegistryHives]
+    SaveRegistryHives $(RepairDiskette)
+    exit
+[StringsENG]
+String1 = "No floppy disk drive was found in your computer. "+
+          "Setup cannot create an Emergency Repair Disk."
+String2 = "Setup is saving default configuration information "+
+          "onto the Emergency Repair Disk.  Please wait..."
+String3 = "Setup was unable to create the Emergency Repair Disk."
+
+
+
