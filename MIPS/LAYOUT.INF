@@ -1,0 +1,266 @@
+[Identification]
+    OptionType = LAYOUT
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 0)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Status   = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_InstallOption
+    endif
+    read-syms Strings$($0)
+    set OptionList = ^(Options, 0)
+    ifcontains $(Option) in $(OptionList)
+    else
+        goto finish_InstallOption
+    endif
+    set OptionList = ""
+    set OptionFile = #(Options, $(Option), 1)
+installtheoption = +
+    ifstr(i) $(AddCopy) == "YES"
+        install Install-AddCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) != "STF_SUCCESS"
+            Debug-Output "Adding video files to copy list failed"
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+        read-syms ProgressCopy$($0)
+        install Install-DoCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_FAILURE"
+            Debug-Output "Copying files failed"
+            goto finish_InstallOption
+        else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+            set Status = STATUS_USERCANCEL
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+        shell "registry.inf"  MakeLayoutEntry $(Option) $(OptionFile)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "Couldn't execute MakeLayoutEntry in registry.inf"
+            shell "subroutn.inf" SetupMessage $($0) "FATAL" $(String2)
+            goto finish_InstallOption
+        endif
+        ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Debug-Output "MakeLayoutEntry failed"
+            shell "subroutn.inf" SetupMessage $($0) "FATAL" $(String2)
+            goto finish_InstallOption
+        endif
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_InstallOption = +
+    Return $(Status)
+[Install-AddCopyOption]
+    set STF_VITAL = VITAL
+    AddSectionKeyFileToCopyList   Files-Layout               +
+                                  $(Option)                  +
+                                  $(SrcDir)                  +
+                                  $(!STF_WINDOWSSYSPATH)
+    exit
+[Install-DoCopyOption]
+    CopyFilesInCopyList
+    exit
+[ExternalInstallOption]
+    Set !G:DebugOutputControl = 0
+    set Exit_Code = $(!SETUP_ERROR_GENERAL)
+    set DrivesToFree = {}
+    install LoadSetupLibrary
+    ifstr(i)      $(STF_LANGUAGE)  == ""
+        goto end
+    else-ifstr(i) $(OPTION)        == ""
+        goto end
+    else-ifstr(i) $(ADDCOPY)       == ""
+        goto end
+    else-ifstr(i) $(DOCOPY)        == ""
+        goto end
+    else-ifstr(i) $(DOCONFIG)      == ""
+        goto end
+    endif
+    read-syms UiVars
+    detect    UiVars
+    set STF_SRCDIR = A:\
+    shell "registry.inf" GetNTSource
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+    else
+        set STF_SRCDIR = $($R1)
+    endif
+    shell "subroutn.inf" DoAskSource $(STF_SRCDIR)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "shelling DoAskSource failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set STF_SRCDIR = $($R1)
+        ifstr(i) $($R2) != ""
+            set DrivesToFree = >($(DrivesToFree), $($R2))
+        endif
+    else
+        goto end
+    endif
+    shell "" InstallOption $(STF_LANGUAGE) $(OPTION) $(STF_SRCDIR) $(ADDCOPY) $(DOCOPY) $(DOCONFIG)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Execing Configuring hardware options failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Exit_Code = $(!SETUP_ERROR_USERCANCEL)
+    endif
+end =+
+    ForListDo $(DrivesToFree)
+        LibraryProcedure STATUS,$(!LIBHANDLE), DeleteNetConnection $($) "TRUE"
+    EndForListDo
+    install   FreeSetupLibrary
+    exit
+[LoadSetupLibrary]
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    exit
+[FreeSetupLibrary]
+    FreeLibrary $(!LIBHANDLE)
+    exit
+[UiVars]
+    STF_CONTROLSET     = CurrentControlSet
+    STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[Files-Layout]
+00000405 = 2,KBDCZ.DLL , SIZE=11264
+00000406 = 2,KBDDA.DLL , SIZE=11776
+00000407 = 2,KBDGR.DLL , SIZE=11776
+00000408 = 2,KBDHE.DLL , SIZE=11776
+00000409 = 2,KBDUS.DLL , SIZE=11264
+0000040A = 2,KBDSP.DLL , SIZE=11776
+0000040B = 2,KBDFI.DLL , SIZE=11776
+0000040C = 2,KBDFR.DLL , SIZE=11776
+0000040E = 2,KBDHU.DLL , SIZE=11264
+0000040F = 2,KBDIC.DLL , SIZE=11776
+00000410 = 2,KBDIT.DLL , SIZE=11264
+00000413 = 2,KBDNE.DLL , SIZE=11776
+00000414 = 2,KBDNO.DLL , SIZE=11776
+00000415 = 2,KBDPL1.DLL , SIZE=11264
+00000419 = 2,KBDRU.DLL , SIZE=11264
+0000041D = 2,KBDSW.DLL , SIZE=11776
+00000807 = 2,KBDSG.DLL , SIZE=12288
+00000809 = 2,KBDUK.DLL , SIZE=11264
+0000080A = 2,KBDLA.DLL , SIZE=11776
+0000080C = 2,KBDBE.DLL , SIZE=11776
+00000813 = 2,KBDBE.DLL , SIZE=11776
+00000816 = 2,KBDPO.DLL , SIZE=11776
+00000C0C = 2,KBDFC.DLL , SIZE=12288
+00001009 = 2,KBDCA.DLL , SIZE=11776
+0000100C = 2,KBDSF.DLL , SIZE=11776
+00010409 = 2,KBDDV.DLL , SIZE=11264
+0001040A = 2,KBDES.DLL , SIZE=11776
+00010C0C = 2,KBDCA.DLL , SIZE=11776
+00020409 = 2,KBDUSX.DLL , SIZE=11776
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    00000813 = "Belgian Dutch"
+    0000080C = "Belgian French"
+    00000809 = "British"
+    00001009 = "Canadian English (Multilingual)"
+    00000C0C = "Canadian French"
+    00010C0C = "Canadian French (Multilingual)"
+    00000405 = "Czech"
+    00000406 = "Danish"
+    00000413 = "Dutch"
+    0000040B = "Finnish"
+    0000040C = "French"
+    00000407 = "German"
+    00000408 = "Greek"
+    0000040E = "Hungarian"
+    0000040F = "Icelandic"
+    00000410 = "Italian"
+    0000080A = "Latin American"
+    00000414 = "Norwegian"
+    00000415 = "Polish (Programmers)"
+    00000816 = "Portuguese"
+    00000419 = "Russian"
+    0000040A = "Spanish"
+    0001040A = "Spanish variation"
+    0000041D = "Swedish"
+    0000100C = "Swiss French"
+    00000807 = "Swiss German"
+    00000409 = "US"
+    00010409 = "US-Dvorak"
+    00020409 = "US-International"
+[Options]
+    00000813 = kbdbe.dll   
+    0000080C = kbdbe.dll   
+    00000809 = kbduk.dll   
+    00001009 = kbdca.dll   
+    00000C0C = kbdfc.dll   
+    00010C0C = kbdca.dll   
+    00000405 = kbdcz.dll   
+    00000406 = kbdda.dll   
+    00000413 = kbdne.dll   
+    0000040B = kbdfi.dll   
+    0000040C = kbdfr.dll   
+    00000407 = kbdgr.dll   
+    00000408 = kbdhe.dll   
+    0000040E = kbdhu.dll   
+    0000040F = kbdic.dll   
+    00000410 = kbdit.dll   
+    0000080A = kbdla.dll   
+    00000414 = kbdno.dll   
+    00000415 = kbdpl1.dll  
+    00000816 = kbdpo.dll   
+    00000419 = kbdru.dll   
+    0000040A = kbdsp.dll   
+    0001040A = kbdes.dll   
+    0000041D = kbdsw.dll   
+    0000100C = kbdsf.dll   
+    00000807 = kbdsg.dll   
+    00000409 = kbdus.dll   
+    00010409 = kbddv.dll   
+    00020409 = kbdusx.dll  
+[StringsENG]
+    String2 = "Setup was unable to install the selected keyboard layout."
+[ProgressCopyENG]
+    ProCaption   = "Windows NT Setup"
+    ProCancel    = "Cancel"
+    ProCancelMsg = "Windows NT is not correcly installed.  Are you sure you want "+
+                   "to cancel copying files?"
+    ProCancelCap = "Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+
+
+

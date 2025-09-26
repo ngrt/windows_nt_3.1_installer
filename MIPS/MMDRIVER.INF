@@ -1,0 +1,55 @@
+
+;***********************************************************************
+; SOURCE MEDIA DESCRIPTION			
+; ------------------------
+;***********************************************************************
+
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+
+[Installable.Drivers]
+cdaudio = 2:MCICDA.DLL, "CDAudio", "(MCI) CD Audio",,
+mciavi = 2:MCIAVI32.DLL, "AVIVideo", "(MCI) Microsoft Video for Windows",,,msvidc
+midimapper = 2:MIDIMAP.DLL, "MidiMapper", "MIDI Mapper",,
+mmdrv = 2:MMDRV.DLL, "Wave,MIDI,Aux", "Low level Wave, MIDI and AUX support"
+msvidc = 2:MSVIDC32.DLL, "VIDC.MSVC", "Microsoft Video 1",,,
+mvaudio = 2:MVAUDIO.DLL, "KERNEL","Media Vision ProAudio Spectrum 16",,,mvopl3
+mvopl3 = 2:MVOPL3.DLL, "MIDI","Media Vision OPL3 FM Synthesizer",,,
+sequencer = 2:MCISEQ.DLL, "Sequencer", "(MCI) Midi Sequencer",,
+soundblaster = 2:SNDBLST.DLL, "KERNEL", "Creative Labs Sound Blaster 1.X",,, synth
+soundsys = 2:SNDSYS32.DLL, "KERNEL", "Windows Sound System" , , ,synth
+synth = 2:SYNTH.DLL, "MIDI", "MIDI Synthesizer" , , ,
+thunder = 2:SNDBLST.DLL, "KERNEL", "Media Vision Thunder Board" ,,, synth
+wave = 2:MCIWAVE.DLL, "WaveAudio", "(MCI) Sound",, "4"
+wavemapper = 2:MSACM32.DRV, "WaveMapper", "Microsoft Audio Compression Manager",,
+Acer = 2:JAZZSND.SYS, "KERNEL", "Acer ARC1 sound" , , ,
+MIPS = 2:MIPSSND.SYS, "KERNEL", "MIPS ARCSystem 100/150 sound" , , ,
+olivetti = 2:JAZZSND.SYS, "KERNEL", "Olivetti PWS 4000 sound" , , ,
+
+[mciavi]
+2:MSVFW32.DLL
+
+[midimapper]
+2:MIDIMAP.CFG
+
+[mvaudio]
+2:MVAUDIO.SYS
+
+[mvopl3]
+2:MVOPL3.PAT
+2:MVOPL3.SYS
+
+[soundblaster]
+2:SNDBLST.SYS
+
+[soundsys]
+2:SNDSYS.SYS
+
+[synth]
+2:SYNTH.PAT
+2:SYNTH.SYS
+
+[thunder]
+2:SNDBLST.SYS
+
