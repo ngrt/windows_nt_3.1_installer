@@ -1,0 +1,1094 @@
+[Identification]
+    OptionType = NetTransport
+[Options]
+    NWLINK
+[FileConstants]
+Manufacturer            = "Microsoft"
+ProductMajorVersion     = "1"
+ProductMinorVersion     = "0"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+NWLINKEventDLL   = "%SystemRoot%\System32\nwlnkmsg.dll"
+NWLINKSPXEventDLL   = "%SystemRoot%\System32\nwlnkmsg.dll"
+NWNBLINKEventDLL    = "%SystemRoot%\System32\nwnblink.dll"
+ProductNWLINKWshDllPath  = "%SystemRoot%\System32\wshnwlnk.dll"
+ProductNWLINKName        = "NWLINKIPX"
+ProductNWLINKImagePath   = "%SystemRoot%\System32\nwlnksvc.exe"
+ProductNWLINKSvcType     = "serviceshare"
+NetRuleNWLINKType        = "nwlinkipx nwlinkipxTransport streamsStack"
+NetRuleNWLINKUse         = $(SoftwareType)" yes yes"
+NetRuleNWLINKBindForm    = """NWLINKIPX"" yes yes container"
+NetRuleNWLINKClass       = "nwlinkipxTransport basic yes"
+ProductNWLINKSYSName     = "NWLINKsys"
+ProductNWLINKSYSImagePath= "\SystemRoot\System32\drivers\nwlink.sys"
+ProductNWLINKSYSSvcType  = "kernel"
+ProductNWNBLINKName         = "NWNBLINK"
+ProductNWNBLINKImagePath    = "%SystemRoot%\System32\nwnblink.exe"
+ProductNWNBLINKSvcType      = "serviceshare"
+NetRuleNWNBLINKType         = "nwnblink nwnblinkNbTransport streamsStack"
+NetRuleNWNBLINKUse          = $(SoftwareType)
+NetRuleNWNBLINKBindForm     = """NWNBLINK"" yes yes container"
+NetRuleNWNBLINKClassList    = {"nwnblinkNbTransport netBiosTransport yes"}
+ProductNWNBLINKSYSName      = "NWNBLINKsys"
+ProductNWNBLINKSYSImagePath = "\SystemRoot\System32\drivers\nwnblink.sys"
+ProductNWNBLINKSYSSvcType   = "kernel"
+ProductNWLINKSPXName        = "NWLINKSPX"
+ProductNWLINKSPXImagePath   = "%SystemRoot%\System32\nwlnksvc.exe"
+ProductNWLINKSPXSvcType     = "adapter"
+CompetitorServiceName = "IPXSPXII"
+CompetitorKeyName  = $(!NTN_ServiceBase)"\"$(CompetitorServiceName)
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+LinkageKeyName  = $(!NTN_ServiceBase)"\NWLINKIPX\Linkage"
+ServiceNWLINKKeyName = $(!NTN_ServiceBase)"\NWLINKIPX"
+ServiceNWLINKSPXKeyName = $(!NTN_ServiceBase)"\NWLINKSPX"
+ServiceKeyName  = $(!NTN_ServiceBase)
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+SoftwareType     = "transport"
+Exit_Code        = 0
+BillboardVisible = 0
+from             = ""
+to               = ""
+ExitCodeOk       = 0
+ExitCodeCancel   = 1
+ExitCodeFatal    = 2
+KeyNull          = ""
+MAXIMUM_ALLOWED    = 33554432
+RegistryErrorIndex = NO_ERROR
+KeyProduct    = ""
+KeyParameters = ""
+TRUE          = 1
+FALSE         = 0
+NoTitle       = 0
+ExitState     = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath   = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    Debug-Output "NWLINK.INF: At InstallOption"
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "NWLINK.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "NWLINK.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+        set OEM_ABANDON_OPTIONS = {+
+            $(ProductNWLINKSYSName),+
+            $(ProductNWLINKSPXName),+
+            $(ProductNWNBLINKSYSName)}
+        set OEM_ABANDON_SOFTWARE = {+
+            $(ProductNWLINKName),+
+            $(ProductNWNBLINKName),+
+            Streams}
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = configureadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = bindingadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_SOFTWARE = {}
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set from = $(fatal)
+    set to   = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    Debug-Output "NWLINK.INF: At installadapter"
+    OpenRegKey $(!REG_H_LOCAL) "" $(CompetitorKeyName) $(!REG_KEY_READ) BadKey
+    Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+        Debug-Output "OEMNXPIP.INF:  Service "$(CompetitorServiceName)" exists.  CANNOT INSTALL!"
+        GetRegValue $(BadKey) "DisplayName" DisplayList
+        Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            Set CompetitorDisplayName = *($(DisplayList),4)
+        Endif
+        CloseRegKey $(BadKey)
+        read-syms FatalError1$(!STF_LANGUAGE)
+        Goto fatal
+    Endif
+    Ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+            Debug-Output "NWLINK.INF: Calling DoAskSource 1"
+            Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                  goto ShellCodeError
+               endif
+               set Error = $($R0)
+               Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto successful
+            Endif
+            Set SrcDir = $($R1)
+        Endif
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                goto ShellCodeError
+            endif
+            set Error = $($R0)
+            goto fatal
+        endif
+    endif
+    Debug-Output "NWLINK.INF: Opening key for the product"
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Debug-Output "NWLINK.INF: Back from opening key for the product"
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    Debug-Output "NWLINK.INF: Put up box that we are installing"
+    set OEM_ABANDON_ON  = TRUE
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    Set BillboardVisible = 1
+    Set DoNWLINK      = FALSE
+    Set DoNWLINKsys   = FALSE
+    Set DoNWLINKSPX   = FALSE
+    Set DoNWNBLINK       = FALSE
+    Set DoNWNBLINKsys    = FALSE
+    Set DoAFD        = FALSE
+    Set DoStreams    = FALSE
+    Ifstr(i) $(Option) == NWLINK
+        Set DoNWLINK      = TRUE
+        Set DoNWLINKSPX   = TRUE
+        Set DoNWLINKsys   = TRUE
+        Set DoNWNBLINK       = TRUE
+        Set DoNWNBLINKsys    = TRUE
+        Set DoAFD        = TRUE
+        Set DoStreams    = TRUE
+    Else-ifstr(i) $(Option) == NWNBLINK
+        Set DoNWNBLINK       = TRUE
+        Set DoNWNBLINKSPX    = TRUE
+        Set DoNWNBLINKsys    = TRUE
+    Else
+        Debug-Output "NWLINK.INF: Unrecognized option"
+    Endif
+    Debug-Output "NWLINK.INF: Start the install"
+    StartWait
+    ifstr(i) $(DoNWLINK) == TRUE
+        Set ThisOption = NWLINK
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "NWLINK.INF: installing NWLINK."
+        Shell $(UtilityInf), AddSoftwareComponent,+
+            $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "TDI",+
+            {"NWLINKsys"},+
+            ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error, add software component"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NWLINKVersKeyHandle  = $($R1)
+        Set NWLINKRulesKeyHandle = $($R2)
+        Set NWLINKSvcKeyHandle   = $($R3)
+        Set NWLINKParmKeyHandle  = $($R4)
+        Set NWLINKLinkageHandle  = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {Review,$(NoTitle),$(!REG_VT_DWORD),1},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NWLINKVersKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error, add value list"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            CloseRegKey $(NWLINKVersKeyHandle)
+            CloseRegKey $(NWLINKRulesKeyHandle)
+            CloseRegKey $(NWLINKSvcKeyHandle)
+            CloseRegKey $(NWLINKParmKeyHandle)
+            CloseRegkey $(NWLINKLinkageHandle)
+            goto fatalregistry
+        Endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Class)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)} }
+        Shell  $(UtilityInf), AddValueList, $(NWLINKRulesKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(NWLINKVersKeyHandle)
+            CloseRegKey $(NWLINKRulesKeyHandle)
+            CloseRegKey $(NWLINKParmKeyHandle)
+            CloseRegKey $(NWLINKLinkageHandle)
+            CloseRegKey $(NWLINKSvcKeyHandle)
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddValueList, $(NWLINKParmKeyHandle),+
+            {{"WindowSize", $(NoTitle), $(!REG_VT_DWORD), 4} +
+             {"KeepaliveTimeout", $(NoTitle), $(!REG_VT_DWORD), 12} +
+             {"KeepaliveCount",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"ConnectionTimeout",$(NoTitle), $(!REG_VT_DWORD), 2} +
+             {"ConnectionCount",  $(NoTitle), $(!REG_VT_DWORD), 10} +
+             {"RipTimeout",       $(NoTitle), $(!REG_VT_DWORD), 1} +
+             {"RipCount",         $(NoTitle), $(!REG_VT_DWORD), 5}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(NWLINKVersKeyHandle)
+        CloseRegKey $(NWLINKRulesKeyHandle)
+        CloseRegKey $(NWLINKParmKeyHandle)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(NWLINKLinkageHandle)
+            CloseRegKey $(NWLINKSvcKeyHandle)
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Set NewValueList = {{OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),{"NWLINKsys"}}}
+        Shell  $(UtilityInf), AddValueList, $(NWLINKLinkageHandle), $(NewValueList)
+        CloseRegKey $(NWLINKLinkageHandle)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(NWLINKSvcKeyHandle)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        CreateRegKey $(NWLINKSvcKeyHandle) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseIPXPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectIPXPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenIPXPerformanceData"},+
+                }
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "NWLINK.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+        endif
+        Shell "" CreateNWLINKConfiguration $(NWLINKSvcKeyHandle)
+        CloseRegKey $(NWLINKSvcKeyHandle)
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: Create NWLINK configuration."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddRpcProtocol "ncacn_nb_ipx" "rpcltc5.dll" "rpclts5.dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error adding RPC procotol for IPX"
+            goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPIP.INF: ERROR adding RPC protocol data"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf) AddRpcProtocol "ncacn_spx" "rpcltc6.dll" "rpclts6.dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error adding RPC procotol for SPX"
+            goto ShellCodeError
+        endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPIP.INF: ERROR adding RPC protocol data (2)"
+            EndWait
+            goto fatalregistry
+        Endif
+    Endif
+    Ifstr(i) $(DoNWLINKsys) == TRUE
+        Set ThisOption = NWLINKSYS
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "NWLINK.INF: installing NWLINKSYS..."
+        Shell $(UtilityInf), CreateService,+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType) "",+
+            {"Streams"}, "", $(NWLINKEventDLL), ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Set NWLINKSysSvcKeyHandle = $($R1)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWLINKSysSvcKeyHandle)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            Debug-Output "NWLINK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        CloseRegKey $(NWLINKSysSvcKeyHandle)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            goto fatalRegistry
+        Endif
+    Endif
+    ifstr(i) $(DoNWLINKSPX) == TRUE
+        Set ThisOption = NWLINKSPX
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "NWLINK.INF: installing NWLINKSPX."
+        Shell $(UtilityInf), CreateService,+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType) "",+
+            {}, "", $(NWLINKEventDLL), ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error, add software component"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            goto fatalregistry
+        endif
+        Set NWLINKSPXSvcKeyHandle   = $($R1)
+        CloseRegKey $($R2)
+        Set NWLINKSPXLinkageHandle   = $($R3)
+        Set NewValueList = {{Export,$(NoTitle),$(!REG_VT_MULTI_SZ),{"\Device\Streams\NWLINKSPX"}}}
+        Shell  $(UtilityInf), AddValueList, $(NWLINKSPXLinkageHandle), $(NewValueList)
+        CloseRegKey $(NWLINKSPXLinkageHandle)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(NWLINKSPXSvcKeyHandle)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        CreateRegKey $(NWLINKSPXSvcKeyHandle) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseSPXPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectSPXPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenSPXPerformanceData"},+
+                }
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "NWLINK.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+        endif
+        CloseRegKey $(NWLINKSPXSvcKeyHandle)
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: Create NWLINK configuration."
+            goto fatalregistry
+        endif
+    Endif
+    Ifstr(i) $(DoNWNBLINK) == TRUE
+        Set ThisOption = NWNBLINK
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "NWLINK.INF: installing NWNBLINK..."
+        Shell $(UtilityInf), AddSoftwareComponent,+
+            $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "TDI",+
+            {},+
+            ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NWNBLINKProductKey      = $($R1)
+        Set NWNBLINKNetRuleKey      = $($R2)
+        Set NWNBLINKServiceKey      = $($R3)
+        Set NWNBLINKParameterKey    = $($R4)
+        Set NWNBLINKLinkageKey      = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NWNBLINKProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            CloseRegKey $(NWNBLINKProductKey)
+            CloseRegKey $(NWNBLINKNetRuleKey)
+            CloseRegKey $(NWNBLINKServiceKey)
+            CloseRegKey $(NWNBLINKParameterKey)
+            CloseRegKey $(NWNBLINKLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),{"NWLINKIPX","NWNBLINKsys"}}}
+        Shell  $(UtilityInf), AddValueList, $(NWNBLINKLinkageKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            CloseRegKey $(NWNBLINKProductKey)
+            CloseRegKey $(NWNBLINKNetRuleKey)
+            CloseRegKey $(NWNBLINKServiceKey)
+            CloseRegKey $(NWNBLINKParameterKey)
+            CloseRegKey $(NWNBLINKLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)ClassList)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)} }
+        Shell  $(UtilityInf), AddValueList, $(NWNBLINKNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            CloseRegKey $(NWNBLINKProductKey)
+            CloseRegKey $(NWNBLINKNetRuleKey)
+            CloseRegKey $(NWNBLINKServiceKey)
+            CloseRegKey $(NWNBLINKParameterKey)
+            CloseRegKey $(NWNBLINKLinkageKey)
+            goto fatalregistry
+        endif
+        Set NewValueList = {{NbProvider,$(NoTitle),$(!REG_VT_SZ),"_ipx"},+
+                {EndPoint,$(NoTitle),$(!REG_VT_DWORD),1}}
+        Shell  $(UtilityInf), AddValueList, $(NWNBLINKParameterKey), $(NewValueList)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        Endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWNBLINKProductKey)
+            CloseRegKey $(NWNBLINKNetRuleKey)
+            CloseRegKey $(NWNBLINKServiceKey)
+            CloseRegKey $(NWNBLINKParameterKey)
+            CloseRegKey $(NWNBLINKLinkageKey)
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf) AddValueList, $(NWNBLINKParameterKey),+
+            {{"KeepaliveTimeout", $(NoTitle), $(!REG_VT_DWORD), 60} +
+             {"KeepaliveCount",   $(NoTitle), $(!REG_VT_DWORD), 8} +
+             {"ConnectionTimeout",$(NoTitle), $(!REG_VT_DWORD), 2} +
+             {"ConnectionCount",  $(NoTitle), $(!REG_VT_DWORD), 5} +
+             {"BroadcastTimeout", $(NoTitle), $(!REG_VT_DWORD), 1} +
+             {"BroadcastCount",   $(NoTitle), $(!REG_VT_DWORD), 3} +
+             {"Internet",         $(NoTitle), $(!REG_VT_DWORD), 1}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(NWNBLINKProductKey)
+            CloseRegKey $(NWNBLINKNetRuleKey)
+            CloseRegKey $(NWNBLINKServiceKey)
+            CloseRegKey $(NWNBLINKParameterKey)
+            CloseRegKey $(NWNBLINKLinkageKey)
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        CreateRegKey $(NWNBLINKServiceKey) {"Performance",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyPerformance
+        ifstr(i) $(KeyPerformance) != ""
+            Set NewValueList = {+
+                {Close,$(NoTitle),$(!REG_VT_SZ),"CloseNWNBPerformanceData"},+
+                {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectNWNBPerformanceData"},+
+                {Library,$(NoTitle),$(!REG_VT_SZ),"perfctrs.dll"},+
+                {Open,$(NoTitle),$(!REG_VT_SZ),"OpenNWNBPerformanceData"},+
+                }
+            Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+            CloseRegKey $(KeyPerformance)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "NWLINK.INF: ShellCode error."
+                goto ShellCodeError
+            endif
+            set RegistryErrorIndex = $($R0)
+        endif
+        CloseRegKey $(NWNBLINKProductKey)
+        CloseRegKey $(NWNBLINKNetRuleKey)
+        CloseRegKey $(NWNBLINKServiceKey)
+        CloseRegKey $(NWNBLINKParameterKey)
+        CloseRegKey $(NWNBLINKLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+    Endif
+    Ifstr(i) $(DoNWNBLINKsys) == TRUE
+        Set ThisOption = NWNBLINKSYS
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "NWLINK.INF: installing NWNBLINKSYS..."
+        Shell $(UtilityInf), CreateService,+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "", {"Streams"}, "",+
+            $(NWNBLINKEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NWLINK.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "NWLINK.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+    Endif
+    Ifstr(i) $(DoAFD) == TRUE
+        Shell $(UtilityInf) AddAFD
+    Endif
+    EndWait
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    ifstr(i) $(DoStreams) == TRUE
+        Set ThisOption = STREAMS
+        Debug-Output "NWLINK.INF: installing STREAMS..."
+        Set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+        Shell $(UtilityInf) AddStreams
+        Set !STF_SRCDIR_OVERRIDE = ""
+        set RegistryErrorIndex = $($R0)
+        ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            goto fatalregistry
+        endif
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), Streams)
+    endif
+    goto successful
+configureadapter = +
+    Debug-Output "NWLINK.INF: At ConfigureAdapter"
+    ifstr(i) $(Option) == "NWLINK"
+        Set BindList = {}
+        Set DisabledList = {}
+        OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+        ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            GetRegValue $(LinkageKey) "Bind" BindList
+            ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+               set BindList = *($(BindList),4)
+            else
+               Set BindList = {}
+            endif
+            OpenRegKey $(LinkageKey) "" Disabled $(MAXIMUM_ALLOWED) DisabledKey
+            ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                GetRegValue $(DisabledKey) "Bind" DisabledList
+                ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+                   Set DisabledList = *($(DisabledList),4)
+                else
+                   Set DisabledList = {}
+                endif
+                CloseRegKey $(DisabledKey)
+            endif
+            CloseRegKey $(LinkageKey)
+        endif
+        ForListDo $(DisabledList)
+            Set BindList = >($(BindList),$($))
+        EndForListDo
+        ifstr(i) $(BindList) == {}
+            debug-output "NWLINK.INF: no binding info; warning user"
+            read-syms InfoDlgCantConfigure
+            goto infomsg
+        endif
+        Debug-Output "NWLINK.INF: configureadapter, BindList = "$(BindList)
+        set OldVersionExisted = $(TRUE)
+        set CardList = ""
+        ForListDo $(BindList)
+            Split-String $($), "\", BindInfo
+            QueryListSize BindElem $(BindInfo)
+            Set BindName = *($(BindInfo),$(BindElem))
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"$(BindName) $(MAXIMUM_ALLOWED) CardServiceKey
+            ifstr(i) $(CardServiceKey) != ""
+                CloseRegKey $(CardServiceKey)
+                Set CardList = $(CardList)"@"$(BindName)
+            endif
+        EndForListDo
+        ifstr(i) $(CardList) != ""
+            Debug-Output "NWLINK.INF: configureadapter, CardList = "$(CardList)
+            set FLibraryErrCtl = 1
+            LoadLibrary "x", $(!STF_WINDOWSSYSPATH)\nwlnkcfg.dll NWLINKLIB_HANDLE
+            LibraryProcedure ResultList, $(NWLINKLIB_HANDLE), nwlink_setup_dialog, $(!STF_HWND), +
+                            $(CardList), $(!STF_COMPUTERNAME), $(!STF_WINDOWSSYSPATH)\nwlnkcfg.dll
+            FreeLibrary $(NWLINKLIB_HANDLE)
+            set FLibraryErrCtl = 0
+            Debug-Output "NWLINK.INF: configureadapter, ResultList = "$(ResultList)
+            Set Result = *($(ResultList),1)
+            Set AdapterChosen = *($(ResultList),2)
+            Ifint $(Result) == 0
+                set CommonStatus = STATUS_NO_EFFECT
+            Else
+                set CommonStatus = STATUS_REBOOT
+                Ifstr(i) $(AdapterChosen) != ""
+                     Set BindingChosen = ""
+                     ForListDo $(BindList)
+                         Split-String $($), "\", BindInfo
+                         QueryListSize BindElem $(BindInfo)
+                         Set AdapterName = *($(BindInfo),$(BindElem))
+                         Ifstr(i) $(AdapterName) == $(AdapterChosen)
+                             Set BindingChosen = $($)
+                         Endif
+                     EndForListDo
+                     Ifstr(i) $(BindingChosen) != ""
+                         Debug-Output "NWLINK.INF: configureadapter, BindingChosen = "$(BindingChosen)
+                         set FLibraryErrCtl = 1
+                         LibraryProcedure ResultList $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), +
+                               ACTIVBIND, $(ProductNWLINKName) {$(BindingChosen)}
+                         Set Result = *($(ResultList),1)
+                         set FLibraryErrCtl = 0
+                         Debug-Output "NWLINK.INF: configureadapter, ACTIVBIND returned error: "$(Result)
+                     Else
+                         Debug-Output "NWLINK.INF: configureadapter, ERROR: AdapterChosen not found in bindings list!"
+                     Endif
+                Endif
+            Endif
+        else
+            set CommonStatus = STATUS_USERCANCEL
+        endif
+    else
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPIP.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        set CommonStatus = STATUS_NO_EFFECT
+        goto nonfatal
+    endif
+    goto end
+bindingadapter =+
+    set FLibraryErrCtl = 1
+    LibraryProcedure ResultList, $(!NCPA_HANDLE), CPlSetup, $(!STF_HWND), MCSCFGCHK "NWLINKIPX"
+    set FLibraryErrCtl = 0
+    Set Result = *($(ResultList),1)
+    ifint $(Result) == 0
+        Debug-Output "OEMNXPIP.INF:  reconfiguration not required"
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    else
+        Debug-Output "OEMNXPIP.INF:  reconfiguration required"
+    endif
+    goto configureadapter
+removeadapter = +
+    Debug-Output "NWLINK.INF: At removeadapter"
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_ipx"
+    Ifstr(i) $($0) != NO_ERROR
+        Debug-Output "OEMNXPIP.INF: ERROR deleting IPX RPC protocol data"
+    Endif
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_spx"
+    Ifstr(i) $($0) != NO_ERROR
+        Debug-Output "OEMNXPIP.INF: ERROR deleting SPX RPC protocol data"
+    Endif
+    ForListDo $(OEM_ABANDON_SOFTWARE)
+        DEBUG-OUTPUT "Remove component: "$($)
+        ifstr(i) $($) == "Streams"
+            Shell $(UtilityInf), RemoveStreams
+        else
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+        endif
+    EndForListDo
+    ForListDo  $(OEM_ABANDON_OPTIONS)
+        DEBUG-OUTPUT "Remove component: "$($)
+        ifstr(i) $($) != $(ProductNWLINKSPXName)
+            Set UseSvcctrl = "YES"
+        else
+            Set UseSvcctrl = "NO"
+        endif
+        Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    Debug-Output "NWLINK.INF: At UpgradeSoftware"
+    ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) != $(KeyNull)
+            GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+            set Version = *($(VersionInfo), 4)
+            Split-String $(!NTN_Infname), "\", FilenameList
+            QueryListSize ListSize $(FilenameList)
+            set !UG_Filename = *($(FilenameList), $(ListSize))
+            install "Install-Update"
+            ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                goto fatal
+            endif
+            SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+            SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+            ifint $(Version) != $(ProductVersion)
+            endif
+            CloseRegKey $(KeyProduct)
+        else
+            goto fatalregistry
+        endif
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[CreateNWLINKConfiguration]
+    read-syms GeneralConstants
+    Set NWLINKSvcKeyHandle = $($0)
+    Debug-Output "NWLINK.INF: installing NWLINK configuration:"
+    CreateRegKey $(NWLINKSvcKeyHandle) {"NetConfig",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyNetConfig
+    CreateRegKey $(KeyNetConfig) {"Driver01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyDriver
+    Shell $(UtilityInf) AddValueList, $(KeyDriver),+
+        {{"AdapterName",      $(NoTitle), $(!REG_VT_SZ),    ""} +
+         {"NetworkNumber",    $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"PktType",          $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"BindSap",          $(NoTitle), $(!REG_VT_DWORD), 33079} +
+         {"SourceRouting",    $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"SourceRouteDef",   $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteBcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteMcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"EnableFuncaddr",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"MaxPktSize",       $(NoTitle), $(!REG_VT_DWORD), 0}}
+    CloseRegKey $(KeyDriver)
+    CreateRegKey $(KeyNetConfig) {"Driver02",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyDriver
+    Shell $(UtilityInf) AddValueList, $(KeyDriver),+
+        {{"AdapterName",      $(NoTitle), $(!REG_VT_SZ),    ""} +
+         {"NetworkNumber",    $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"PktType",          $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"BindSap",          $(NoTitle), $(!REG_VT_DWORD), 33079} +
+         {"SourceRouting",    $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"SourceRouteDef",   $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteBcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteMcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"EnableFuncaddr",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"MaxPktSize",       $(NoTitle), $(!REG_VT_DWORD), 0}}
+    CloseRegKey $(KeyDriver)
+    CreateRegKey $(KeyNetConfig) {"Driver03",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyDriver
+    Shell $(UtilityInf) AddValueList, $(KeyDriver),+
+        {{"AdapterName",      $(NoTitle), $(!REG_VT_SZ),    ""} +
+         {"NetworkNumber",    $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"PktType",          $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"BindSap",          $(NoTitle), $(!REG_VT_DWORD), 33079} +
+         {"SourceRouting",    $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"SourceRouteDef",   $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteBcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteMcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"EnableFuncaddr",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"MaxPktSize",       $(NoTitle), $(!REG_VT_DWORD), 0}}
+    CloseRegKey $(KeyDriver)
+    CreateRegKey $(KeyNetConfig) {"Driver04",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyDriver
+    Shell $(UtilityInf) AddValueList, $(KeyDriver),+
+        {{"AdapterName",      $(NoTitle), $(!REG_VT_SZ),    ""} +
+         {"NetworkNumber",    $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"PktType",          $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"BindSap",          $(NoTitle), $(!REG_VT_DWORD), 33079} +
+         {"SourceRouting",    $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"SourceRouteDef",   $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteBcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteMcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"EnableFuncaddr",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"MaxPktSize",    $(NoTitle), $(!REG_VT_DWORD), 0}}
+    CloseRegKey $(KeyDriver)
+    CreateRegKey $(KeyNetConfig) {"Driver05",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyDriver
+    Shell $(UtilityInf) AddValueList, $(KeyDriver),+
+        {{"AdapterName",      $(NoTitle), $(!REG_VT_SZ),    ""} +
+         {"NetworkNumber",    $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"PktType",          $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"BindSap",          $(NoTitle), $(!REG_VT_DWORD), 33079} +
+         {"SourceRouting",    $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"SourceRouteDef",   $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteBcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"SourceRouteMcast", $(NoTitle), $(!REG_VT_DWORD), 0} +
+         {"EnableFuncaddr",   $(NoTitle), $(!REG_VT_DWORD), 1} +
+         {"MaxPktSize",       $(NoTitle), $(!REG_VT_DWORD), 0}}
+    CloseRegKey $(KeyDriver)
+    CloseRegKey $(KeyNetConfig)
+CreateNWLINKConfigDone = +
+    Debug-Output "NWLINK.INF: installing NWLINK.....done."
+    Return NO_ERROR
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(!AddCopy) == "YES"
+        Debug-Output "NWLINK.INF: Adding files to copy list"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        AddSectionFilesToCopyList Files-NWLINKEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       Debug-Output "NWLINK.INF: Copying Files"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-NWLINKEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-Inf $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   set !STF_NCPA_FLUSH_COPYLIST = TRUE
+   CopyFilesInCopyList
+   Exit
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-NWLINK]
+2,NWLINK.SYS , SIZE=91648
+2,NWNBLINK.SYS , SIZE=75776
+[Files-NWLINKEXE]
+2,NWLNKCFG.DLL , SIZE=23552
+2,NWLNKMSG.DLL , SIZE=9216
+2,NWNBLINK.DLL , SIZE=9216
+2,WSHNWLNK.DLL , SIZE=18432
+2,IPXROUTE.EXE , SIZE=16896
+2,NWLNKSVC.EXE , SIZE=53760
+2,NWNBLINK.EXE , SIZE=31232
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    NWLINK     = "NWLink IPX/SPX Compatible Transport"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+FunctionTitle            = "NWLink Setup"
+ProductNWLINKDescription  = "NWLink Transport Driver"
+ProductNWNBLINKDescription   = "NWLink NetBIOS Driver"
+ProductNWLINKDisplayName = "NWLink"
+ProductNWLINKTitle       = "NWLink Transport"
+ProductNWLINKSYSDisplayName = "NWLinksys"
+ProductNWLINKSYSTitle    = "NWLINK Transport Driver"
+ProductNWNBLINKDisplayName  = "NWNBLink"
+ProductNWNBLINKTitle        = "NWLink NetBIOS"
+ProductNWNBLINKSYSDisplayName = "NWNBLinksys"
+ProductNWNBLINKSYSTitle     = "NWLINK NetBIOS Driver"
+CompetitorDisplayName = "Novell IPX/SPX II Transport"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText      = "Shell Code Error."
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "C&ontinue"
+Cancel      = "C&ancel"
+[FileDependentDlgENG]
+[InfoDlg]
+STF_MB_TITLE = "Information Message"
+DlgType      = "MessageBox"
+STF_MB_TEXT  = $(InfoMsgText)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[InfoDlgCantConfigure]
+InfoMsgText = "The NWLINK service is not currently configured to use any adapters."+
+    "  If you have just installed it, return to the Networks dialog and "+
+    "click  OK.  You will then have the opportunity to configure the adapters."
+[Billboard1ENG]
+Status = "Installing NWLINK and related services..."
+[FatalError1ENG]
+Error = "Another IPX/SPX protocol driver is currently installed in this machine, "+
+        "and the network interface cannot operate properly with both drivers installed. "+
+        "If you still wish to install the NWLINK protocol driver, you must first "+
+        "remove the "$(CompetitorDisplayName)" component."
+
+
+

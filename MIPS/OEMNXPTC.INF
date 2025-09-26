@@ -1,0 +1,1243 @@
+[Identification]
+    OptionType = NetTransport
+[Options]
+    TCPIP
+[FileConstants]
+Manufacturer    = "Microsoft"
+ProductMajorVersion     = "3"
+ProductMinorVersion     = "1"
+ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+NetEventDLL     = "%SystemRoot%\System32\netevent.dll"
+IoLogMsgDLL     = "%SystemRoot%\System32\IoLogMsg.dll"
+ProductTCPIPName        = "Tcpip"
+ProductTCPIPImagePath   = "%SystemRoot%\System32\lmsvcs.exe"
+ProductTCPIPSvcType     = "serviceshare"
+ProductTCPIPWshDllPath  = "%SystemRoot%\System32\wshtcpip.dll"
+Sockmaxlength           = 16
+Sockminlength           = 16
+NetRuleTCPIPType        = "tcpip tcpipTransport streamsStack"
+NetRuleTCPIPUse         = $(SoftwareType)" yes yes"
+NetRuleTCPIPBindForm    = """Tcpip"" yes yes container"
+NetRuleTCPIPClass       = "tcpipTransport basic yes"
+ProductTCPIPSYSName     = "Tcpipsys"
+ProductTCPIPSYSImagePath= "\SystemRoot\System32\drivers\tcpip.sys"
+ProductTCPIPSYSSvcType  = "kernel"
+ProductNBTName          = "Nbt"
+ProductNBTImagePath     = "%SystemRoot%\System32\lmsvcs.exe"
+ProductNBTSvcType       = "serviceshare"
+NetRuleNBTType          = "nbt nbtNbTransport streamsStack"
+NetRuleNBTUse           = $(SoftwareType)
+NetRuleNBTBindForm      = """NBT"" yes yes container"
+NetRuleNBTClassList     = {"nbtNbTransport netBiosTransport yes"}
+ProductNBTSYSName       = "Nbtsys"
+ProductNBTSYSImagePath  = "\SystemRoot\System32\drivers\nbt.sys"
+ProductNBTSYSSvcType    = "kernel"
+ProductTELNETName       = "Telnet"
+ProductTELNETImagePath  = "%SystemRoot%\System32\lmsvcs.exe"
+ProductTELNETSvcType    = "serviceshare"
+ProductTELNETSYSName      = "Telnetsys"
+ProductTELNETSYSImagePath = "\SystemRoot\System32\drivers\telnet.sys"
+ProductTELNETSYSSvcType   = "kernel"
+ProductLOOPName         = "Loop"
+ProductLOOPImagePath    = " "
+ProductLOOPSvcType      = "adapter"
+ProductLMHOSTSName      = "LmHosts"
+ProductLMHOSTSImagePath  = "%SystemRoot%\System32\lmsvcs.exe"
+ProductKeyName  = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(Product$(Option)Name)"\CurrentVersion"
+LinkageKeyName  = $(!NTN_ServiceBase)"\Tcpip\Linkage"
+ServiceTCPIPKeyName = $(!NTN_ServiceBase)"\Tcpip"
+ServiceKeyName  = $(!NTN_ServiceBase)
+DosDevices      = "SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices"
+[GeneralConstants]
+UtilityInf       = "UTILITY.INF"
+subroutineinf    = "SUBROUTN.INF"
+IPINFOINF        = "ipinfo.inf"
+SoftwareType     = "transport"
+Exit_Code        = 0
+BillboardVisible = 0
+from      = ""
+to        = ""
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+KeyNull         = ""
+MAXIMUM_ALLOWED   = 33554432
+SERVICE_NO_CHANGE = 4294967295
+RegistryErrorIndex = NO_ERROR
+KeyProduct      = ""
+KeyParameters   = ""
+TRUE            = 1
+FALSE           = 0
+NoTitle         = 0
+ExitState   = "Active"
+OldVersionExisted = $(FALSE)
+DriverPath      = $(!STF_NTPATH)\drivers
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    Debug-Output "OEMNXPTC.INF: STF_CWDIR is: "$(!STF_CWDIR)
+    Debug-Output "OEMNXPTC.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    set-subst LF = "\n"
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    ifstr(i) $(!NTN_Origination) == "NCPA"
+        set Continue = $(OK)
+    endif
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    EndWait
+Begin = +
+    Ifstr(i) $(!NTN_InstallMode) == deinstall
+        set StartLabel = removeadapter
+        set OEM_ABANDON_OPTIONS = {+
+            $(ProductTCPIPSYSName),+
+            $(ProductNBTSYSName),+
+            $(ProductTELNETName),+
+            $(ProductLMHOSTSName),+
+            $(ProductTELNETSYSName),+
+            $(ProductLOOPName)}
+        set OEM_ABANDON_SOFTWARE = {+
+            $(ProductTCPIPName),+
+            $(ProductNBTName),+
+            "Streams"}
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeSoftware
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set IPAddressList  = {}
+        set SubnetMaskList = {}
+        set StartLabel = configureadapter
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        Shell $(IPINFOINF), GetIPInfo 
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Else
+            set DefaultGateway = $($R0)
+            set IPAddressList  = $($R1)
+            set SubnetMaskList = $($R2)
+        Endif
+        set StartLabel = bindingadapter
+    else
+        set StartLabel = installadapter
+        set OEM_ABANDON_SOFTWARE = {}
+        set OEM_ABANDON_OPTIONS = {}
+    endif
+    set from = $(fatal)
+    set to = $(fatal)
+    goto $(StartLabel)
+installadapter = +
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SrcDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               Goto fatal
+           Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto successful
+           Endif
+           Set SrcDir = $($R1)
+        Endif
+        Set !LMHOST_SRCDIR = $(SrcDir)
+        Debug-Output "OEMNXPTC.INF: installadapter: installing [Install-Option]"
+        install "Install-Option"
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+           Shell $(UtilityInf) RegistryErrorString "UNABLE_COPY_FILE"
+           ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+           endif
+           set Error = $($R0)
+           goto fatal
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        Shell $(UtilityInf), VerExistedDlg, $(Product$(Option)Title),+
+            $(ProductVersion)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        goto end
+    endif
+    set OEM_ABANDON_ON  = TRUE
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    Set BillboardVisible = 1
+    Set DoTcp       = FALSE
+    Set DoTcpipSys  = FALSE
+    Set DoLMHOSTS   = FALSE
+    Set DoNbt       = FALSE
+    Set DoNbtSys    = FALSE
+    Set DoAFD       = FALSE
+    Set DoTelnet    = FALSE
+    Set DoLoop      = FALSE
+    Set DoStreams   = FALSE
+    Set DoTelNetSys = FALSE
+    Ifstr(i) $(Option) == TCPIP
+        Set DoTcp      = TRUE
+        Set DoTcpipSys = TRUE
+        Set DoLMHOSTS  = TRUE
+        Set DoNbt      = TRUE
+        Set DoNbtSys   = TRUE
+        Set DoAFD      = TRUE
+        Set DoTelnet   = TRUE
+        Set DoLoop     = TRUE
+        Set DoStreams  = TRUE
+        Set DoTelNetSys  = TRUE
+        Set DoTcpipSvc = TRUE
+    Else-ifstr(i) $(Option) == NBT
+        Set DoNbt = TRUE
+    Else-ifstr(i) $(Option) == TELNET
+        Set DoTelnet    = TRUE
+    Else
+        Debug-Output "OEMNXPTC.INF: Unrecognized option"
+    Endif
+    StartWait
+    ifstr(i) $(DoTcp) == TRUE
+        Set ThisOption = TCPIP
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing TCP/IP."
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName), $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType),+
+            "", {"Tcpipsys"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error, add software component"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set TcpVersKeyHandle  = $($R1)
+        Set TcpRulesKeyHandle = $($R2)
+        Set TcpSvcKeyHandle   = $($R3)
+        Set TcpParmKeyHandle  = $($R4)
+        Set TcpLinkageHandle  = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {Review,$(NoTitle),$(!REG_VT_DWORD),1},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(TcpVersKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error, add value list"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(TcpVersKeyHandle)
+            CloseRegKey $(TcpRulesKeyHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            CloseRegKey $(TcpParmKeyHandle)
+            CloseRegkey $(TcpLinkageHandle)
+            goto fatalregistry
+        Endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Class)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}}
+        Shell  $(UtilityInf), AddValueList, $(TcpRulesKeyHandle), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(TcpVersKeyHandle)
+        CloseRegKey $(TcpRulesKeyHandle)
+        set NewValueList = {{DNSLookupOrder,$(NoTitle),$(!REG_VT_DWORD),4},+
+                            {DataBasePath,$(NoTitle),$(!REG_VT_EXPAND_SZ),"%SystemRoot%\System32\drivers\etc"}}
+        Shell  $(UtilityInf), AddValueList, $(TcpParmKeyHandle), $(NewValueList)
+        CloseRegKey $(TcpParmKeyHandle)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            CloseRegKey $(TcpLinkageHandle)
+            CloseRegKey $(TcpSvcKeyHandle)
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Set NewValueList = {{OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),{"Tcpipsys"}}}
+        Shell  $(UtilityInf), AddValueList, $(TcpLinkageHandle), $(NewValueList)
+        CloseRegKey $(TcpLinkageHandle)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(TcpSvcKeyHandle)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        Shell "" CreateTcpipConfiguration $(TcpSvcKeyHandle)
+        CloseRegKey $(TcpSvcKeyHandle)
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: Create TCPIP configuration."
+            goto fatalregistry
+        endif
+        Shell "" CreateEventLog, "TcpipSvc", $(NetEventDLL), 7
+        Shell $(UtilityInf) AddRpcProtocol "ncacn_ip_tcp" "rpcltc3.dll" "rpclts3.dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error adding RPC procotol"
+            goto ShellCodeError
+        Endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf) AddRpcProtocol "ncacn_nb_tcp" "rpcltc5.dll" "rpclts5.dll"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error adding RPC procotol (2)"
+            goto ShellCodeError
+        endif
+        Set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "OEMNXPTC.INF: ERROR adding RPC protocol data (2)"
+            EndWait
+            goto fatalregistry
+        Endif
+        Shell $(UtilityInf), AddWinsockInfo, +
+             $(Product$(ThisOption)Name), +
+             $(Product$(ThisOption)WshDllPath), +
+             $(Sockmaxlength),$(Sockminlength)
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            Debug-Output "OEMNXPTC.INF: Registry error: Add Winsock Info."
+        Endif
+    Endif
+    Ifstr(i) $(DoLMHOSTS) == TRUE
+        Debug-Output "OEMNXPTC.INF: Install LmHosts registry"
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(ProductLMHOSTSName))
+        Shell $(UtilityInf), CreateService, $(ProductLMHOSTSName), +
+            $(ProductLMHOSTSDisplayName), $(ProductLMHOSTSImagePath), +
+            "autoserviceshare", "", {"+NetworkProvider"}, "LocalSystem",+
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        ForListDo {"Browser","NetLogon"}
+            OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($) $(MAXIMUM_ALLOWED) ServicesKey
+            ifstr(i) $(ServicesKey) != ""
+                GetRegValue $(ServicesKey) "DependOnService" ServicesList
+                debug-output "DependOnService:"$(ServicesList)
+                set ServiceValues = *($(ServicesList),4)
+                debug-output "DependOnService:"$(ServiceValues)
+                ifstr(i) $(ServiceValues) == {}
+                    Set ServiceValues = {"LmHosts"}
+                    LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                else-ifstr(i) $(ServiceValues) == ""
+                    Set ServiceValues = {"LmHosts"}
+                    LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                else-ifcontains(i) "LMHOSTS" in $(ServiceValues)
+                else
+                    Set ServiceValues = >($(ServiceValues), "LmHosts")
+                    LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(ServiceValues), "", "", ""
+                endif
+                CloseRegKey $(ServicesKey)
+            endif
+        EndForListDo
+    endif
+    Ifstr(i) $(DoTcpipSys) == TRUE
+        Set ThisOption = TCPIPSYS
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing TCPIPSVC..."
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType) "",+
+            {"Streams"}, "", $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Set TcpipSysSvcKeyHandle = $($R1)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            CloseRegKey $(TcpipSysSvcKeyHandle)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        CreateRegKey $(TcpipSysSvcKeyHandle) {"Performance",$(NoTitle),GenericClass} "" +
+                $(MAXIMUM_ALLOWED) "" KeyPerformance
+        set NewValueList = {{Library,$(NoTitle),$(!REG_VT_SZ),"Perfctrs.dll"},+
+                           {Open,$(NoTitle),$(!REG_VT_SZ),"OpenTcpIpPerformanceData"},+
+                           {Collect,$(NoTitle),$(!REG_VT_SZ),"CollectTcpIpPerformanceData"},+
+                           {Close,$(NoTitle),$(!REG_VT_SZ),"CloseTcpIpPerformanceData"}}
+        Shell  $(UtilityInf), AddValueList, $(KeyPerformance), $(NewValueList)
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(TcpipSysSvcKeyHandle)
+        CloseRegKey $(KeyPerformance)
+        Ifstr $(RegistryErrorIndex) != NO_ERROR
+            goto fatalRegistry
+        Endif
+    Endif
+    Ifstr(i) $(DoLoop) == TRUE
+        Set ThisOption = LOOP
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing Loop..."
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: Create Service components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            goto fatalregistry
+        endif
+        Set LoopServiceKey = $($R1)
+        Set LoopParameterKey = $($R2)
+        Set LoopLinkageKey = $($R3)
+        CreateRegKey $(LoopParameterKey) {"TCPIP",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyLoopTCPIP
+        Shell $(UtilityInf) AddValueList, $(KeyLoopTCPIP),+
+            {{"AdapterType", $(NoTitle), $(!REG_VT_SZ), "loop"},+
+            {"IPAddress", $(NoTitle), $(!REG_VT_SZ), "127.0.0.1"}}
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(LoopServiceKey)
+        CloseRegKey $(LoopParameterKey)
+        CloseRegKey $(LoopLinkageKey)
+        CloseRegKey $(KeyLoopTCPIP)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+    endif
+    Ifstr(i) $(DoNbt) == TRUE
+        Set ThisOption = NBT
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing NBT..."
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName), $(STF_CONTEXTINFNAME),+
+            $(Product$(ThisOption)ImagePath), $(Product$(ThisOption)SvcType), "TDI", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set NBTProductKey       = $($R1)
+        Set NBTNetRuleKey       = $($R2)
+        Set NBTServiceKey       = $($R3)
+        Set NBTParameterKey     = $($R4)
+        Set NBTLinkageKey       = $($R5)
+        set NewValueList = {{SoftwareType,$(NoTitle),$(!REG_VT_SZ),$(SoftwareType)},+
+                           {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+                           {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+                           {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+                           {Description,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Description)},+
+                           {ServiceName,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Name)},+
+                           {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell  $(UtilityInf), AddValueList, $(NBTProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{OtherDependencies,$(NoTitle),$(!REG_VT_MULTI_SZ),{"Tcpip","Nbtsys"}}}
+        Shell  $(UtilityInf), AddValueList, $(NBTLinkageKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        set NewValueList = {{type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+                            {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)},+
+                            {bindform,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)BindForm)},+
+                            {class,$(NoTitle),$(!REG_VT_MULTI_SZ),$(NetRule$(ThisOption)ClassList)},+
+                            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}}
+        Shell  $(UtilityInf), AddValueList, $(NBTNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            CloseRegKey $(NBTProductKey)
+            CloseRegKey $(NBTNetRuleKey)
+            CloseRegKey $(NBTServiceKey)
+            CloseRegKey $(NBTParameterKey)
+            CloseRegKey $(NBTLinkageKey)
+            goto fatalregistry
+        endif
+        Set NewValueList = {{NbProvider,$(NoTitle),$(!REG_VT_SZ),"_tcp"},+
+                {EndPoint,$(NoTitle),$(!REG_VT_DWORD),1}}
+        Shell  $(UtilityInf), AddValueList, $(NBTParameterKey), $(NewValueList)
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error."
+            goto ShellCodeError
+        Endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(NBTProductKey)
+        CloseRegKey $(NBTNetRuleKey)
+        CloseRegKey $(NBTServiceKey)
+        CloseRegKey $(NBTParameterKey)
+        CloseRegKey $(NBTLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add value list."
+            goto fatalregistry
+        endif
+        Shell "" CreateEventLog, "NbtSvc", $(NetEventDLL), 7
+    Endif
+    Ifstr(i) $(DoNbtSys) == TRUE
+        Set ThisOption = NBTSYS
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing NBTSYS..."
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "", {"Streams"}, "",+
+            $(NetEventDLL)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+    Endif
+    Ifstr(i) $(DoAFD) == TRUE
+        Shell $(UtilityInf) AddAFD
+    Endif
+    Ifstr(i) $(DoTelnet) == TRUE
+        Set ThisOption = TELNET
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing TELNET..."
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "",+
+            {"Tcpip","Telnetsys","Afd"}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            vDebug-Output "OEMNXPTC.INF: Registry error creating TELNET service"
+            goto fatalregistry
+        endif
+        Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            Set AclIndex = 4
+        Else
+            Set AclIndex = 3
+        Endif
+        LibraryProcedure DontCare $(!NCPA_HANDLE), CPlSetup $(!STF_HWND),+
+              SECURESVC, $(Product$(ThisOption)Name), $(AclIndex)
+        OpenRegKey $(!REG_H_LOCAL) "" $(DosDevices) $(MAXIMUM_ALLOWED) DosDevicesKey
+        ifstr(i) $(DosDevicesKey) != $(KeyNull)
+            Shell $(UtilityInf) AddValueList, $(DosDevicesKey),+
+                {{"TELNET", $(NoTitle), $(!REG_VT_SZ), "\Device\Telnet"}}
+            CloseRegKey $(DosDevicesKey)
+        endif
+    Endif
+    Ifstr(i) $(DoTelNetSys) == TRUE
+        Set ThisOption = TELNETSYS
+        Set OEM_ABANDON_OPTIONS = >($(OEM_ABANDON_OPTIONS), $(Product$(ThisOption)Name))
+        Debug-Output "OEMNXPTC.INF: installing TelNetSys..."
+        Shell $(UtilityInf), CreateService, $(Product$(ThisOption)Name),+
+            $(Product$(ThisOption)DisplayName),+
+            $(Product$(ThisOption)ImagePath),+
+            $(Product$(ThisOption)SvcType), "", {}, ""
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $($R1)
+        CloseRegKey $($R2)
+        CloseRegKey $($R3)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "OEMNXPTC.INF: Registry error: add software components"
+            goto fatalregistry
+        endif
+        Shell "" CreateEventLog, "TelnetService", $(NetEventDLL), 7
+    Endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    EndWait
+    Ifstr(i) $(DoStreams) == TRUE
+        Set ThisOption = STREAMS
+        Set OEM_ABANDON_SOFTWARE = >($(OEM_ABANDON_SOFTWARE), "Streams")
+        Debug-Output "OEMNXPTC.INF: installing STREAMS..."
+        Set !STF_SRCDIR_OVERRIDE = $(SrcDir)
+        Shell $(UtilityInf) AddStreams
+        Set !STF_SRCDIR_OVERRIDE = ""
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            goto fatalregistry
+        endif
+    Endif
+    goto successful
+configureadapter = +
+    ifstr(i) $(Option) == "TCPIP"
+        OpenRegKey $(!REG_H_LOCAL) "" $(LinkageKeyName) $(MAXIMUM_ALLOWED) LinkageKey
+        GetRegValue $(LinkageKey) "Bind" BindList
+        ifstr(i) $(BindList) == {}
+           Set BindList = ""
+        endif
+        ifstr(i) $(BindList) == ""
+            debug-output "OEMNXPTC.INF: no binding info; warning user"
+            read-syms InfoDlgCantConfigure
+            goto infomsg
+        endif
+        set OldVersionExisted = $(TRUE )
+        set CardList = ""
+        set CardCount = 0
+        ForListDo *($(BindList),4)
+            Split-String $($), "\", BindInfo
+            set CardName = *($(BindInfo),6)
+            OpenRegKey $(!REG_H_LOCAL) "" $(!NTN_ServiceBase)"\"*($(BindInfo),6) $(MAXIMUM_ALLOWED) CardServiceKey
+            ifstr(i) $(CardServiceKey) != ""
+                CloseRegKey $(CardServiceKey)
+                set-add CardCount = $(CardCount),1
+                ifstr $(CardList) == ""
+                    set CardList = $(CardName)
+                else
+                    set CardList = $(CardList)"@"$(CardName)
+                endif
+                set DefaultIPAddress = *($(IPAddressList),$(CardCount))
+                set DefaultSubnetMask = *($(SubnetMaskList),$(CardCount))
+                ifstr(i) $(DefaultIPAddress) == ""
+                    ifstr(i) $(DefaultSubnetMask) == ""
+                        goto SkipSetDefault
+                    endif
+                endif
+                OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$(CardName)"\Parameters" $(MAXIMUM_ALLOWED) ServiceParamKey
+                ifstr(i) $(ServiceParamKey) != ""
+                    OpenRegKey $(ServiceParamKey) "" "TCPIP" $(MAXIMUM_ALLOWED) TCPIPKey
+                    ifstr(i) $(TCPIPKey) == ""
+                        CreateRegKey $(ServiceParamKey) {"TCPIP",$(NoTitle),GenericClass} "" +
+                        $(MAXIMUM_ALLOWED) "" TCPIPKey
+                    endif
+                    ifstr(i) $(TCPIPKey) != ""
+                        ifstr(i) $(DefaultIPAddress) != ""
+                            set IPAddressInfo = {}
+                            GetRegValue $(TCPIPKey) "IPAddress" IPAddressInfo
+                            set IPAddress = *($(IPAddressInfo), 4)
+                            ifstr(i) $(IPAddress) == ""
+                                set NewValueList = {{IPAddress,$(NoTitle),$(!REG_VT_SZ),$(DefaultIPAddress)}}
+                                Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                    Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                    goto ShellCodeError
+                                endif
+                            endif
+                        endif
+                        ifstr(i) $(DefaultSubnetMask) != ""
+                            set SubnetMasInfo = {}
+                            GetRegValue $(TCPIPKey) "SubnetMask" SubnetMaskInfo
+                            set SubnetMask = *($(SubnetMaskInfo), 4)
+                            ifstr(i) $(SubnetMask) == ""
+                                set NewValueList = {{SubnetMask,$(NoTitle),$(!REG_VT_SZ),$(DefaultSubnetMask)}}
+                                Shell  $(UtilityInf), AddValueList, $(TCPIPKey), $(NewValueList)
+                                ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                                    Debug-Output "OEMNXPTC.INF: ShellCode error: cannot write default subnet mask error."
+                                    goto ShellCodeError
+                                endif
+                            endif
+                        endif
+                    endif
+                    CloseRegKey $(TCPIPKey)
+                endif
+            endif
+SkipSetDefault = +
+        EndForListDo
+        set FLibraryErrCtl = 1
+        ifstr(i) $(CardList) != ""
+            LibraryProcedure ResultList, $(!NCPA_HANDLE), CPlTcpip, $(!STF_HWND), $(CardList), $(!STF_COMPUTERNAME), ""
+            set FLibraryErrCtl = 0
+            Set Result = *($(ResultList),1)
+            ifint $(Result) == 2
+                set CommonStatus = STATUS_REBOOT
+            else
+                set CommonStatus = STATUS_USERCANCEL
+            endif
+        else
+            set CommonStatus = STATUS_USERCANCEL
+        endif
+    else
+        Shell $(UtilityInf),RegistryErrorString,CANNOT_CONFIGURE_SOFTWARE
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "OEMNXPTC.INF: ShellCode error: cannot get an error string."
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+        set from = end
+        set to = end
+        goto nonfatalinfo
+    endif
+    goto end
+bindingadapter =+
+    set FLibraryErrCtl = 1
+    LibraryProcedure ResultList, $(!NCPA_HANDLE), CPlSetup, $(!STF_HWND), TCPCFGCHK
+    set FLibraryErrCtl = 0
+    Set Result = *($(ResultList),1)
+    ifint $(Result) == 0
+        Debug-Output "OEMNXPTC.INF:  reconfiguration not required"
+        set CommonStatus = STATUS_USERCANCEL
+        goto successful
+    else
+        Debug-Output "OEMNXPTC.INF:  reconfiguration required"
+    endif
+    ifstr(i) $(DefaultGateway) != ""
+        OpenRegKey $(!REG_H_LOCAL) "" $(ServiceTCPIPKeyName)"\Parameters" $(MAXIMUM_ALLOWED) KeyTCPIPParameters
+        ifstr(i) $(KeyTCPIPParameters) != ""
+            GetRegValue $(KeyTCPIPParameters) "DefaultGateway" DefaultGatewayList
+            set DefaultGatewayValue = *($(DefaultGatewayList),4)
+            ifstr(i) $(DefaultGatewayValue) != ""
+                set NewValueList = {{DefaultGateway,$(NoTitle),$(!REG_VT_SZ),$(DefaultGateway)}}
+                Shell  $(UtilityInf), AddValueList, $(KeyTCPIPParameters), $(NewValueList)
+            endif
+            CloseRegKey $(KeyTCPIPParameters)
+        endif
+    endif
+    goto configureadapter
+removeadapter = +
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_ip_tcp"
+    Ifstr(i) $($0) != NO_ERROR
+        Debug-Output "OEMNXPTC.INF: ERROR deleting RPC protocol data"
+    Endif
+    Shell $(UtilityInf) RemoveRpcProtocol "ncacn_nb_tcp"
+    Ifstr(i) $($0) != NO_ERROR
+        Debug-Output "OEMNXPTC.INF: ERROR deleting RPC protocol data (2)"
+    Endif
+    ForListDo  $(OEM_ABANDON_SOFTWARE)
+        debug-output "Remove component: "$($)
+        ifstr(i) $($) == "Streams"
+            Shell $(UtilityInf), RemoveStreams
+        else
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+        endif
+        ifstr(i) $($) == "Tcpip"
+            Shell $(UtilityInf), RemoveWinsockInfo, $(ProductTCPIPName)
+            set RegistryErrorIndex = $($R0)
+            Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+                Debug-Output "OEMNXPTC.INF: Registry error: remove Winsock Info."
+            Endif
+        endif
+    EndForListDo
+    ForListDo  $(OEM_ABANDON_OPTIONS)
+        debug-output "Remove component: "$($)
+        Ifstr(i) $($) == $(ProductLOOPName)
+            Set UseSvcctrl = "NO"
+        Else
+            Set UseSvcctrl = "YES"
+        Endif
+        ifstr(i) $($) == $(ProductLMHOSTSName)
+            debug-output "Remove "$($)"'s LMHOSTS dependency"
+            ForListDo {"Browser","NetLogon"}
+                OpenRegKey $(!REG_H_LOCAL) "" "System\CurrentControlSet\Services\"$($) $(MAXIMUM_ALLOWED) ServicesKey
+                ifstr(i) $(ServicesKey) != ""
+                    GetRegValue $(ServicesKey) "DependOnService" ServicesList
+                    debug-output "DependOnService List:"$(ServicesList)
+                    set ServiceValues = *($(ServicesList),4)
+                    debug-output "ServiceValues: "$(ServiceValues)
+                    ifcontains(i) "LMHOSTS" in $(ServiceValues)
+                        set NewServiceValues = {}
+                        ForListDo $(ServiceValues)
+                            ifstr(i) $($) != "LmHosts"
+                                set NewServiceValues = >($(NewServiceValues), $($))
+                            endif
+                        EndForListDo
+                        debug-output "Final dependency list for "$($)": "$(NewServiceValues)
+                        LibraryProcedure Result, $(!LIBHANDLE), SetupChangeServiceConfig, $($), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), $(SERVICE_NO_CHANGE), "", "", $(NewServiceValues), "", "", ""
+                    else
+                    endif
+                    CloseRegKey $(ServicesKey)
+                endif
+            EndForListDo
+        endif
+        Shell $(UtilityInf), RemoveService, $($), $(UseSvcctrl)
+    EndForListDo
+    goto end
+UpgradeSoftware = +
+    ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) != $(KeyNull)
+            GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+            set Version = *($(VersionInfo), 4)
+            Shell $(UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error"
+                goto ShellCodeError
+            endif
+            set !UG_Filename = $($R0)
+            ifstr(i) $(!UG_Filename) != ""
+                install "Install-Update"
+                ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    goto fatal
+                endif
+            endif
+            SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+            SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+            ifint $(Version) != $(ProductVersion)
+            endif
+            CloseRegKey $(KeyProduct)
+        else
+            goto fatalregistry
+        endif
+    endif
+    goto end
+successful = +
+    goto end
+infomsg =+
+   read-syms InfoDlg
+   ui start "Warning"
+   set CommonStatus = STATUS_USERCANCEL
+   goto end
+warning = +
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+        goto $(from)
+    else
+        goto "end"
+    endif
+nonfatalinfo = +
+    Set CommonStatus = STATUS_USERCANCEL
+    Set Severity = STATUS
+    goto nonfatalmsg
+nonfatal = +
+    Set Severity = NONFATAL
+    goto nonfatalmsg
+nonfatalmsg = +
+    ifstr(i) $(Error) == ""
+        Set Severity = NONFATAL
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), $(Severity), $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+    set Error = $($R0)
+    goto fatal
+fatal = +
+    ifstr(i) $(Error) == ""
+        Shell $(UtilityInf) RegistryErrorString "SETUP_FAIL"
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto ShellCodeError
+        endif
+        set Error = $($R0)
+    endif
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Shell $(subroutineinf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        goto ShellCodeError
+    endif
+   goto setfailed
+ShellCodeError = +
+    set DlgType      = "MessageBox"
+    set STF_MB_TITLE = $(ShellCodeErrorTitle)
+    set STF_MB_TEXT  = $(ShellCodeErrorText)
+    set STF_MB_TYPE  = 1
+    set STF_MB_ICON  = 3
+    set STF_MB_DEF   = 1
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(OEM_ABANDON_ON) == TRUE
+        set OEM_ABANDON_ON = FALSE
+        goto removeadapter
+    endif
+    goto end
+end = +
+    goto term
+term = +
+    Return $(CommonStatus)
+[CreateTcpipConfiguration]
+    read-syms GeneralConstants
+    Set TcpSvcKeyHandle = $($0)
+    Debug-Output "OEMNXPTC.INF: installing TCP/IP configuration:"
+    CreateRegKey $(TcpSvcKeyHandle) {"AdapterTypes",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyAdapterTypes
+    CreateRegKey $(KeyAdapterTypes) {"Loop",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    CreateRegKey $(KeyTypes) {"Stream01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+    Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+        {{"Upper", $(NoTitle), $(!REG_VT_SZ), "ip"}, +
+         {"Lower", $(NoTitle), $(!REG_VT_SZ), "loop"}}
+    CloseRegKey $(KeyTypesSubkey)
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyAdapterTypes) {"Default",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    CreateRegKey $(KeyTypes) {"Stream01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+    Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+        {{"Upper", $(NoTitle), $(!REG_VT_SZ), "ip"}, +
+         {"Lower", $(NoTitle), $(!REG_VT_SZ), "arp:#"}}
+    CloseRegKey $(KeyTypesSubkey)
+    CreateRegKey $(KeyTypes) {"Stream02",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypesSubkey
+    Shell $(UtilityInf) AddValueList, $(KeyTypesSubkey), +
+        {{"Upper", $(NoTitle), $(!REG_VT_SZ), "arp:#"}, +
+         {"Lower", $(NoTitle), $(!REG_VT_SZ), "dndis"}}
+    CloseRegKey $(KeyTypesSubkey)
+    CloseRegKey $(KeyTypes)
+    Debug-Output "OEMNXPTC.INF: installing TCP/IP..."
+    CloseRegKey $(KeyAdapterTypes)
+    Debug-Output "OEMNXPTC.INF: installing TCP/IP...."
+    CreateRegKey $(TcpSvcKeyHandle) {"NetConfig",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyNetConfig
+    CreateRegKey $(KeyNetConfig) {"Module01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "arp"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "udp"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver02",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "tcp"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver03",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "ip"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver04",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "sndis"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver05",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "loop"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Driver06",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"SName", $(NoTitle), $(!REG_VT_SZ), "dndis"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Stream01",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"Upper", $(NoTitle), $(!REG_VT_SZ), "udp"}, +
+         {"Lower", $(NoTitle), $(!REG_VT_SZ), "ip"}}
+    CloseRegKey $(KeyTypes)
+    CreateRegKey $(KeyNetConfig) {"Stream02",$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyTypes
+    Shell $(UtilityInf) AddValueList, $(KeyTypes), +
+        {{"Upper", $(NoTitle), $(!REG_VT_SZ), "tcp"}, +
+         {"Lower", $(NoTitle), $(!REG_VT_SZ), "ip"}}
+    CloseRegKey $(KeyTypes)
+    CloseRegKey $(KeyNetConfig)
+CreateTcpipConfigDone = +
+    Debug-Output "OEMNXPTC.INF: installing TCP/IP.....done."
+    Return NO_ERROR
+[CreateEventLog]
+    read-syms GeneralConstants
+    set NameOfService = $($0)
+    set EventFile     = $($1)
+    set TypeSupported = $($2)
+    OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\EventLog\System" $(MAXIMUM_ALLOWED) KeyEventLog
+    Ifstr $(KeyEventLog) != ""
+        OpenRegKey $(KeyEventLog) "" $(NameOfService) $(MAXIMUM_ALLOWED) KeyService
+           ifstr(i) $(KeyService) == ""
+               CreateRegKey $(KeyEventLog) {$(NameOfService),$(NoTitle),GenericClass} "" $(MAXIMUM_ALLOWED) "" KeyService
+           endif
+           Ifstr $(KeyService) != ""
+               SetRegValue $(KeyService) {EventMessageFile,$(NoTitle),$(!REG_VT_EXPAND_SZ),$(EventFile)}
+               SetRegValue $(KeyService) {TypesSupported,$(NoTitle),$(!REG_VT_DWORD),$(TypeSupported)}
+           endif
+        Endif
+    endif
+CreateEventLogEnd = +
+    return NO_ERROR
+[Install-Option]
+    set STF_VITAL = ""
+    ifstr(i) $(AddCopy) == "YES"
+        AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+        AddSectionFilesToCopyList Files-TCPIPEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+        AddSectionFilesToCopyList Files-ETC $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers\etc
+        AddSectionFilesToCopyList Files-LMHOST $(!LMHOST_SRCDIR) $(!STF_WINDOWSSYSPATH)\drivers\etc
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+       set !STF_NCPA_FLUSH_COPYLIST = TRUE
+       Debug-Output "OEMNXPTC.INF: *** CopyFilesInCopyList [2]"
+       CopyFilesInCopyList
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+    endif
+    Exit
+[Install-Update]
+   set STF_VITAL        = ""
+   set STF_OVERWRITE    = "VERIFYSOURCEOLDER"
+   AddSectionFilesToCopyList Files-$(Option) $(SrcDir) $(!STF_WINDOWSSYSPATH)\drivers
+   AddSectionFilesToCopyList Files-TCPIPEXE $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-Inf $(SrcDir) $(!STF_WINDOWSSYSPATH)
+   AddSectionFilesToCopyList Files-LMHOST $(!LMHOST_SRCDIR) $(!STF_WINDOWSSYSPATH)\drivers\etc
+   set !STF_NCPA_FLUSH_COPYLIST = TRUE
+   Debug-Output "OEMNXPTC.INF: *** CopyFilesInCopyList [3]"
+   CopyFilesInCopyList
+   Exit
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[Files-ETC]
+2,NETWORKS , SIZE=512
+2,PROTOCOL , SIZE=1024
+2,SERVICES , SIZE=6144
+2,HOSTS , SIZE=1024
+2,TELNET.TRM , SIZE=4096
+[Files-LMHOST]
+2,LMHOSTS , SIZE=3072
+[Files-TCPIP]
+2,NBT.SYS , SIZE=171008
+2,TCPIP.SYS , SIZE=181248
+2,TELNET.SYS , SIZE=30208
+[Files-TCPIPEXE]
+2, MIB.BIN, SIZE=10240
+2,ICMP.DLL , SIZE=11264
+2,LMHSVC.DLL , SIZE=13824
+2,MGMTAPI.DLL , SIZE=50688
+2,NBTSVC.DLL , SIZE=30720
+2,TCPIPSVC.DLL , SIZE=39936
+2,TELNET.DLL , SIZE=33792
+2,WSHTCPIP.DLL , SIZE=13312
+2,ARP.EXE , SIZE=19456
+2,FINGER.EXE , SIZE=15872
+2,FTP.EXE , SIZE=62464
+2,HOSTNAME.EXE , SIZE=14848
+2,NBTSTAT.EXE , SIZE=20992
+2,NETSTAT.EXE , SIZE=34304
+2,PING.EXE , SIZE=28672
+2,RCP.EXE , SIZE=29184
+2,REXEC.EXE , SIZE=20992
+2,ROUTE.EXE , SIZE=17920
+2,RSH.EXE , SIZE=21504
+2,SNMPTRAP.EXE , SIZE=11264
+2,TELNET.EXE , SIZE=40960
+2,TFTP.EXE , SIZE=28160
+2,IPINFO.INF , SIZE=3584
+[Files-TELNET]
+2,TELNET.SYS , SIZE=30208
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    TCPIP     = "TCP/IP Protocol"
+[FileConstantsENG]
+ProCaption   = "Windows NT Setup"
+ProCancel    = "Cancel"
+ProCancelMsg = "Windows NT Networking is not correctly installed.  "+
+               "Are you sure you want to cancel copying files?"
+ProCancelCap = "Network Setup Message"
+ProText1     = "Copying:"
+ProText2     = "To:"
+FunctionTitle   = "TCP/IP Setup"
+ProductTCPIPDescription         = "TCP/IP System Driver"
+ProductNBTDescription           = "NBT System Driver"
+ProductTCPIPDisplayName = "TCP/IP Protocol"
+ProductTCPIPTitle       = "TCP/IP Protocol"
+ProductTCPIPSYSDisplayName = "Tcpipsys"
+ProductTCPIPSYSTitle    = "TCP/IP Network Transport Driver"
+ProductNBTDisplayName   = "TCP/IP NetBIOS"
+ProductNBTTitle         = "TCP/IP NetBIOS"
+ProductNBTSYSDisplayName = "Nbtsys"
+ProductNBTSYSTitle      = "RFC NetBIOS Driver"
+ProductTELNETDisplayName = "Telnet"
+ProductTELNETTitle      = "Telnet Networking Support Environment"
+ProductTELNETSYSDisplayName = "Telnetsys"
+ProductTELNETSYSTitle     = "Telnet Driver"
+ProductLOOPDisplayName  = "Loop"
+ProductLOOPTitle        = "Loop Support Environment"
+ProductLMHOSTSDisplayName = "TCP/IP NetBIOS Helper"
+ProductLMHOSTSTitle     = "TCP/IP NetBIOS Helper"
+ShellCodeErrorTitle     = "Error: "$(FunctionTitle)
+ShellCodeErrorText      = "Shell Code Error."
+[DialogConstantsENG]
+Help        = "&Help"
+Exit        = "Cancel"
+OK          = "OK"
+HelpContext = ""
+Continue    = "Continue"
+Cancel      = "Cancel"
+[FileDependentDlgENG]
+[InfoDlg]
+STF_MB_TITLE = "Information Message"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(InfoMsgText)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[InfoDlgCantConfigure]
+InfoMsgText = "The TCP/IP service is not currently configured to use any adapters."+
+    "  If you have just installed it, return to the Networks dialog and "+
+    "click  OK.  You will then have the opportunity to configure the adapters."
+[WarningDlgENG]
+STF_MB_TITLE = "TCP/IP Setup Warning"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(Error)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[Billboard1ENG]
+Status = "Installing TCP/IP and related services..."
+[LMHOSTDlgENG]
+Caption = "Import LMHOSTS File"
+Import = "&Import"
+DlgText = "If you want to import an existing LMHOSTS file, enter the directory path where the file is located and choose Import. Otherwise, choose Continue."
+DlgType = "Edit"
+DlgTemplate = "LMHOST"
+EditTextIn = ""
+HelpContext = $(!IDH_DB_LMHOST_INS)
+[LMHOSTAskSourceStringsENG]
+String1 = "Error processing path entered.  Please reenter the path."
+String2 = "Setup requires a full path of the Windows NT distribution files.  "+
+          "Please reenter the path."
+String3 = "Setup failed to find a free drive to use to connect to the "+
+          "server specified.  Please free up some drives and try again."
+String4 = "Setup failed to connect to the server specified.  Please reenter "+
+          "the path."
+String5 = "You just typed in a new LMHOSTS file path. Are you sure that you want to use the default LMHOSTS file?"
+
+
+

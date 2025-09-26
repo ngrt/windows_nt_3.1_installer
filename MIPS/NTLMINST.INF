@@ -1,0 +1,1367 @@
+[Identification]
+    OptionType = NetWork
+[Options]
+    LANMAN
+[GeneralConstants]
+Exit_Code = 0
+BillboardVisible = 0
+ExitCodeOk     = 0
+ExitCodeCancel = 1
+ExitCodeFatal  = 2
+retaddr   = ""
+callresult = 0
+from      = ""
+to        = ""
+NetworkCardKeyName = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+KeyNull            = ""
+MAXIMUM_ALLOWED    = 33554432
+SERVICE_NO_CHANGE  = 4294967295
+KeyInfo            = {}
+NoTitle            = 0
+UtilityInf         = "UTILITY.INF"
+NcParamInf         = "NCPARAM.INF"
+RasAutoInstall     = 0
+!STF_DOMAIN_ROLE  = STANDALONE
+!STF_DOMAIN       = ""
+!STF_SRCDIR_WINNT = ""
+[DialogConstants]
+Help        = "&Help"
+Exit        = "Cancel"
+HelpContext = ""
+Continue    = "Continue"
+ExitState   = "Active"
+Cancel      = "Cancel"
+Radio1  = "1"
+Radio2  = "2"
+Radio3  = "3"
+Radio4  = "4"
+Radio5  = "5"
+Radio6  = "6"
+Radio7  = "7"
+Radio8  = "8"
+Radio9  = "9"
+Chosen    = "ON"
+NotChosen = "OFF"
+NullFileName = "NOSUCH.FIL"
+[ErrorConstants]
+RegistryErrorList = ^(RegistryErrors$(!STF_LANGUAGE),1)
+RegistryErrorIndex = 1
+[UiVars]
+DummyUnsedUiVar = ""
+[DestNetPathNames]
+DEST_NET_DRIVER   = $(!STF_NTPATH)\drivers
+DEST_NET_PROTOCOL = $(!STF_NTPATH)\drivers
+DEST_NET_EXE      = $(!STF_WINDOWSSYSPATH)
+DEST_NET_INF      = $(!STF_WINDOWSSYSPATH)
+DEST_NET_DLL      = $(!STF_WINDOWSSYSPATH)
+[NetworkVars]
+!STF_SRCDIR_KEYED     = ""       
+!STF_SRCDIR_USED      = ""       
+!STF_SRCDIR_OVERRIDE  = ""       
+!NTN_RegBase          = ""
+!NTN_ServiceBase      = "SYSTEM\CurrentControlSet\SERVICES"
+!NTN_SoftwareBase     = "SOFTWARE"
+!NTN_InstallMode      = "install"
+!NTN_Origination      = "install"
+!NTN_InstallPhase     = "primary"
+ServiceInfList     = ^(ServiceData, 1)
+ServiceOptionList  = ^(ServiceData, 2)
+ServiceBbList      = ^(ServiceData,3)
+ServiceNameList    = ^(ServiceData,4)
+ProtoInfList       = ^(ProtoData, 1)
+ProtoOptionList    = ^(ProtoData, 2)
+ProtoBbList        = ^(ProtoData, 3)
+ProtoNameList      = ^(ProtoData, 4)
+[ProtoData]
+ProtoData_1        = "OEMNXPNB.INF","NBF",4,Nbf
+[ServiceData]
+ServiceData_1      = "OEMNSVSV.INF","SRV",3,LanmanServer
+ServiceData_2      = "OEMNSVWK.INF","WKSTA",2,LanmanWorkstation
+ServiceData_3      = "OEMNSVNB.INF","NETBIOS",5,NetBIOS
+ServiceData_4      = "OEMNSVRP.INF","RPCLOCATE",11,RPCLOCATOR
+[RasServiceData]
+RAS_InfName    = "OEMNSVRA.INF"
+RAS_Option     = "RAS"
+RAS_Billboard  = 12
+RAS_Service    = "RAS"
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+   set Option   = $($1)
+   set SrcDir   = $($2)
+   set AddCopy  = $($3)
+   set DoCopy   = $($4)
+   set DoConfig = $($5)
+   Set NetInstallStatus = STATUS_SUCCESSFUL
+   set-title "Windows NT Network Installation"
+   Set Exit_Code = $(!SETUP_ERROR_GENERAL)
+   Set-subst LF = "\n"
+   StartWait
+   read-syms GeneralConstants
+   Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        read-syms ProductTitleLanmanNt$(!STF_LANGUAGE)
+   Else
+        read-syms ProductTitleWinNt$(!STF_LANGUAGE)
+   Endif
+   Debug-Output "NTLANMAN.INF: Product title is: "$(!NetProductTitle)
+   set-title $(!NetProductTitle)" Network Installation"
+   read-syms UiVars
+   read-syms DestNetPathNames
+   read-syms DialogConstants
+   read-syms NetworkVars
+   read-syms ProgressCopy$(!STF_LANGUAGE)
+   Debug-Output "NTLMINST.INF: Base variables loaded"
+   EndWait
+   Shell "" VerifyLanmanNotInstalled
+   Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+       read-syms ExitAndRemoveLmDlg$(!STF_LANGUAGE)
+       ui start "MessageBox"
+       Set NetInstallStatus = STATUS_FAILED
+       Goto setupnotdone
+   Endif
+   Ifstr(i) $(!STF_IDW) != "TRUE"
+       Debug-Output "NTLMINST.INF: Get source path"
+       Shell "NTLANMAN.INF" InstallLmNetFiles
+       Ifstr(i) $($R0) == STATUS_USERCANCEL
+          exit
+       Endif
+   Endif
+   Shell $(NcParamInf) Param_SetGlobals
+   Set !STF_NCDETECT = YES
+   Shell "" InstallOemHook
+   Debug-Output "NTLANMAN.INF: Establish netcard option"
+   set retaddr = nphase$runinfs
+   goto netgetdriver
+nphase$runinfs = +
+   Debug-Output "NTLANMAN.INF: Run subordinate INFs"
+   Set retaddr = nphase$installfiles
+   Goto netruninfs
+nphase$installfiles = +
+   Set retaddr = nphase$ncpacmdline
+   Ifstr(i) $(!STF_IDW) != "TRUE"
+       Goto netinstallfiles
+   Endif
+nphase$ncpacmdline = +
+   Set retaddr = nphase$runncpa
+   Goto netncpacmdline
+nphase$runncpa = +
+   Set KeyComputerName = $(KeyNull)
+   OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName" $(MAXIMUM_ALLOWED) KeyComputerName
+   Ifstr(i) $(KeyComputerName) != $(KeyNull)
+       GetRegValue $(KeyComputerName) "ComputerName" ValueActiveComputerName
+       Set ActiveComputerName = *($(ValueActiveComputerName),4)
+       Debug-Output "NTLANMAN.INF: *************************************"
+       Debug-Output "NTLANMAN.INF: ActiveComputerName key exists: "$(ActiveComputerName)
+       SetRegValue $(KeyComputerName) {ComputerName,$(NoTitle),$(!REG_VT_SZ),$(!STF_COMPUTERNAME)}
+       Debug-Output "NTLANMAN.INF: ActiveComputerName was set to: "$(!STF_COMPUTERNAME)
+       Debug-Output "NTLANMAN.INF: *************************************"
+       CloseRegKey $(KeyComputerName)
+   Else
+       Debug-Output "NTLANMAN.INF: ActiveComputerName key does not exist."
+   Endif
+   Debug-Output "NTLANMAN.INF: Run NCPA to configure the network"
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   set retaddr = nphase$startnet
+   goto netrunncpa
+nphase$startnet = +
+   Debug-Output "NTLANMAN.INF: Run NCPA to start the network"
+   read-syms Billboard6$(!STF_LANGUAGE)
+   Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+   Set BillboardVisible = 1
+   Set retaddr = nphase$domainrole
+   Goto netstartnetwork
+nphase$domainrole = +
+   Debug-Output "NTLANMAN.INF: Run NCPA to establish domain"
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   set retaddr = nphase$connectshare
+   goto netdomain
+nphase$connectshare = +
+   Debug-Output "NTLANMAN.INF: Domain Role = "$(!STF_DOMAIN_ROLE)
+   Set retaddr = nphase$done
+   Debug-Output "NTLANMAN.INF: NOT connecting to remote sharepoint"
+   Goto $(retaddr)
+nphase$done = +
+   Debug-Output "NTLANMAN.INF: Done ************************"
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   Set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+   read-syms SetupDoneDlg$(!STF_LANGUAGE)
+   ui start "SetupDone"
+   ui pop 1
+   goto rebootend
+setupnotdone =+
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    read-syms SetupNotDoneDlg$(!STF_LANGUAGE)
+    ui start "SetupNotDone"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        ui pop 1
+        goto rebootend
+    else
+        ui pop 1
+        goto end
+    endif
+rebootend =+
+    LibraryProcedure DontCare, $(!LIBHANDLE), SetupChangeServiceConfig, Parallel,+
+          $(SERVICE_NO_CHANGE), 2, $(SERVICE_NO_CHANGE), "", "", "", "", "", ""
+    Debug-Output "NTLANMAN.INF: Enable PARALLEL driver; result was "$(DontCare)
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    set Reboot = YES
+    install   Install-Shutdown
+    Ifint $(BillboardVisible) != 0
+        Shell "subroutn.inf" PopBillboard
+        Set BillboardVisible = 0
+    Endif
+    Goto end
+netinstallfiles = +
+   Debug-Output "NTLANMAN.INF: Installing all files in copy list"
+   Install Install-All-Files-Now
+   goto $(retaddr)
+netncpacmdline = +
+   Set NCPA_CMD_LINE = " /t STF_PRODUCT = "$(!STF_PRODUCT)
+   Set NCPA_CMD_LINE = " /t STF_COMPUTERNAME = """$(!STF_COMPUTERNAME)""""$(NCPA_CMD_LINE)
+   Set NCPA_CMD_LINE = " /t STF_USERNAME = """$(!STF_USERNAME)""""$(NCPA_CMD_LINE)
+   Set NCPA_CMD_LINE = " /t STF_INSTALL_MODE = "$(!STF_INSTALL_MODE)$(NCPA_CMD_LINE)
+   Set NCPA_CMD_LINE = " /t STF_SRCDIR = "$(!STF_SRCDIR)$(NCPA_CMD_LINE)
+   Ifstr(i) $(!STF_IDW) == TRUE
+       Set NCPA_CMD_LINE = " /t STF_IDW = "$(!STF_IDW)$(NCPA_CMD_LINE)
+   Endif
+   goto $(retaddr)
+netrunncpa = +
+   Set NCPA_FUNC = NCPA
+   goto netcallncpa
+netstartservice = +
+   Debug-Output "NTLANMAN.INF: calling NCPA.CPL to start service "$(NCPA_SERVICE)
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, $(NCPA_SERVICE)
+   Goto netreturnncpa
+netcallncpa = +
+   Debug-Output "NTLANMAN.INF: calling NCPA.CPL, function "$(NCPA_FUNC)
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE),CPlSetup $(!STF_HWND), $(NCPA_FUNC), $(NCPA_CMD_LINE)
+netreturnncpa = +
+   Set NCPA_STATUS = *($(NCPA_RESULT),1)
+   Debug-Output "NTLANMAN.INF: NCPA Status was: "$(NCPA_STATUS)
+   goto $(retaddr)
+netstartnetwork = +
+   Debug-Output "NTLANMAN.INF: Starting workstation..."
+   StartWait
+   Set WaitStarted = 1
+   Set FLibraryErrCtl = 1
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, LanmanWorkstation
+   Set NCPA_STATUS = *($(NCPA_RESULT),1)
+   Debug-Output "NTLANMAN.INF: Start workstation; result was: "$(NCPA_STATUS)
+   Ifint $(NCPA_STATUS) != 0
+       EndWait
+       Set WaitStarted = 0
+       LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), ERRORMSG, $(NCPA_STATUS)
+       Set NCPA_ERROR_MESSAGE = *($(NCPA_RESULT),2)
+       Debug-Output "NTLANMAN.INF: Error "$(NCPA_STATUS)" translated to: "$(NCPA_ERROR_MESSAGE)
+       Read-syms WarningNoNet$(!STF_LANGUAGE)
+       Set Error = $(NCPA_ERROR_MESSAGE)$(ErrorSuffix)
+       read-syms WarningDlg$(!STF_LANGUAGE)
+       ui start SetupMessage
+       goto netstartnetdone
+   Endif
+   Debug-Output "NTLANMAN.INF: Starting LMHOSTS service..."
+   OpenRegKey $(!REG_H_LOCAL) "" "SYSTEM\CurrentControlSet\Services\LmHosts" $(MAXIMUM_ALLOWED) KeyLmHosts
+   ifstr(i) $(KeyLmHosts) != ""
+       EndWait
+       Set WaitStarted = 0
+       LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, LmHosts
+       Set NCPA_STATUS = *($(NCPA_RESULT),1)
+       Debug-Output "NTLANMAN.INF: Start Lmhosts; result was: "$(NCPA_STATUS)
+       Ifint $(NCPA_STATUS) != 0
+           LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), ERRORMSG, $(NCPA_STATUS)
+           Set NCPA_ERROR_MESSAGE = *($(NCPA_RESULT),2)
+           Debug-Output "NTLANMAN.INF: Error "$(NCPA_STATUS)" translated to: "$(NCPA_ERROR_MESSAGE)
+           Read-syms WarningNoLmHosts$(!STF_LANGUAGE)
+           Set Error = $(NCPA_ERROR_MESSAGE)$(ErrorSuffix)
+           read-syms WarningDlg$(!STF_LANGUAGE)
+           ui start SetupMessage
+           goto netstartnotdone
+       Endif
+   Endif
+netstartnetdone =+
+   Set FLibraryErrCtl = 0
+   Ifint $(WaitStarted) == 1
+       EndWait
+   Endif
+   Goto $(retaddr)
+netdomain = +
+   Debug-Output "NTLANMAN.INF: Running Domain Settings dialog..."
+   Set FLibraryErrCtl = 1
+   LibraryProcedure NCPA_RESULT $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), DOMAIN, $(NCPA_CMD_LINE)
+   Set FLibraryErrCtl = 0
+   Set NCPA_STATUS = *($(NCPA_RESULT),1)
+   Debug-Output "NTLANMAN.INF: Domain Settings result was: "$(NCPA_STATUS)
+   Ifint $(NCPA_STATUS) != 0
+       Ifint $(NCPA_STATUS) == 13074
+           Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+               Debug-Output "NTLANMAN.INF: Aborting LanmanNT installation; user cancellation."
+               Set NetInstallStatus = STATUS_USERCANCEL
+               Goto setupnotdone
+           Endif
+       Endif
+   Endif
+   Set TEMP_COMPUTERNAME  =  *($(NCPA_RESULT),2)
+   Set TEMP_DOMAINNAME    =  *($(NCPA_RESULT),3)
+   Set TEMP_COMPUTERROLE  =  *($(NCPA_RESULT),5)
+   Ifstr(i) $(TEMP_COMPUTERNAME) != ""
+        Ifstr(i) $(TEMP_COMPUTERNAME) != $(!STF_COMPUTERNAME)
+            Set !STF_COMPUTERNAME = $(TEMP_COMPUTERNAME)
+            Debug-Output "NTLANMAN.INF: Computername changed to "$(!STF_COMPUTERNAME)
+        Endif
+   Endif
+   Ifstr(i) $(TEMP_DOMAINNAME) != ""
+        Set !STF_DOMAIN = $(TEMP_DOMAINNAME)
+        Debug-Output "NTLANMAN.INF: Domain name is "$(!STF_DOMAIN)
+   Endif
+   Ifstr(i) $(TEMP_COMPUTERROLE) != ""
+        Set !STF_DOMAIN_ROLE = $(TEMP_COMPUTERROLE)
+        Debug-Output "NTLANMAN.INF: Domain role is "$(!STF_DOMAIN_ROLE)
+   Endif
+   Ifstr(i) $(TEMP_COMPUTERROLE) == STANDALONE
+        Debug-Output "NTLANMAN.INF: Prevent NETLOGON service from autostarting"
+        LibraryProcedure DontCare, $(!LIBHANDLE), SetupChangeServiceConfig, NetLogon,+
+               $(SERVICE_NO_CHANGE), 3, $(SERVICE_NO_CHANGE), "", "", "", "", "", ""
+   Endif
+   goto $(retaddr)
+netgetdriver = +
+    Debug-Output "NTLANMAN.INF: Label: netgetdriver"
+    Shell "" InitialAdapterInstall
+    Set NetInstallStatus = $($R0)
+    Ifstr(i) $(NetInstallStatus) == STATUS_WANTRAS
+        Set NetInstallStatus = STATUS_SUCCESSFUL
+        Set RasAutoInstall = 1
+        Debug-Output "NTLANMAN.INF: RAS auto-installation chosen"
+    Endif
+    Debug-Output "NTLANMAN.INF: netgetdriver; returning: "$(NetInstallStatus)
+netcheckquit = +
+    Debug-Output "NTLANMAN.INF: netcheckquit original status: "$(NetInstallStatus)
+    Set UserChoiceList = {"STATUS_SUCCESSFUL",+   
+                          "STATUS_USERCANCEL",+   
+                          "STATUS_EXITNET",+      
+                          "STATUS_FAILED"}        
+    Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        Set InfReturnList  = {"STATUS_SUCCESSFUL",+   
+                              "STATUS_USERCANCEL",+   
+                              "STATUS_SUCCESSFUL",+   
+                              "STATUS_FAILED"}        
+        Set LabelList = {$(retaddr),setupnotdone,setupnotdone,setupnotdone}
+    Else
+        Set InfReturnList  = {"STATUS_SUCCESSFUL",+   
+                              "STATUS_USERCANCEL",+   
+                              "STATUS_USERCANCEL",+   
+                              "STATUS_FAILED"}        
+        Set LabelList = {$(retaddr),setupnotdone,nphase$done,setupnotdone}
+    Endif
+    Set LabelList = {$(retaddr),end,setupnotdone,setupnotdone}
+    Set UserChoice = ~($(UserChoiceList),$(NetInstallStatus))
+    Ifint $(UserChoice) == 0
+        Debug-Output "NTLANMAN.INF: netcheckquit defaulting status to STATUS_FAILED"
+        Set UserChoice = 4
+    Endif
+    Set NetInstallStatus = *($(InfReturnList),$(UserChoice))
+    Set UserRetAddr = *($(LabelList),$(UserChoice))
+    Debug-Output "NTLANMAN.INF: netcheckquit status: "$(NetInstallStatus)", label: "$(UserRetAddr)
+    Goto $(UserRetAddr)
+netruninfs = +
+   Debug-Output "NTLANMAN.INF: Label: netruninfs"
+   Set InfsToBeRun      = {}
+   Set OptionsToInstall = {}
+   Set BbToBeShown      = {}
+   Set SvcNameList      = {}
+   Set AdapterSrcDir    = $(!STF_SRCDIR)
+   ForListDo $(ProtoInfList)
+        Set InfsToBeRun = >($(InfsToBeRun),$($))
+        Set OptionsToInstall = >($(OptionsToInstall),*($(ProtoOptionList),$(#)))
+        Set BbToBeShown = >($(BbToBeShown),*($(ProtoBbList),$(#)))
+   EndForListDo
+   ForListDo $(ServiceInfList)
+        Set InfsToBeRun = >($(InfsToBeRun),$($))
+        Set OptionsToInstall = >($(OptionsToInstall),*($(ServiceOptionList),$(#)))
+        Set BbToBeShown = >($(BbToBeShown),*($(ServiceBbList),$(#)))
+   EndForListDo
+    Ifint $(RasAutoInstall) == 1
+        Debug-Output "NTLANMAN.INF: Preparing RAS for installation"
+        read-syms RasServiceData
+        Set InfsToBeRun = >($(InfsToBeRun),$(RAS_InfName))
+        Set OptionsToInstall = >($(OptionsToInstall),$(RAS_Option))
+        Set BbToBeShown  = >($(BbToBeShown),$(RAS_Billboard))
+    Endif
+   Debug-Output "NTLANMAN.INF: INFs to be run: "$(InfsToBeRun)
+   Debug-Output "NTLANMAN.INF: Options to install: "$(OptionsToInstall)
+   Debug-Output "NTLANMAN.INF: Billboards to be shown: "$(BbToBeShown)
+   Set FailedInfFile = ""
+   ForListDo $(InfsToBeRun)
+        Set ThisInfName = $($)
+        Set BbIndex = *($(BbToBeShown),$(#))
+        Debug-Output "NTLANMAN.INF: Installing "$(ThisInfName)
+        Ifint $(BbIndex) != 0
+            read-syms Billboard$(BbIndex)$(!STF_LANGUAGE)
+            Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+            Set BillboardVisible = 1
+        Else-ifint $(BillboardVisible) != 0
+            Shell "subroutn.inf" PopBillboard
+            Set BillboardVisible = 0
+        Endif
+        Set FailedInfFile = $(ThisInfName)
+        Set InfOption = *($(OptionsToInstall),$(#))
+        Shell $(ThisInfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(AdapterSrcDir) "YES" "NO" "NO"
+        Set-title $(!NetProductTitle)" Network Installation"
+        Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "NTLANMAN.INF: INF "$(ThisInfName)" SHELL ERROR!"
+            Goto netruninfescape
+        Endif
+        Set NetInstallStatus = $($R0)
+        Ifstr(i) $(NetInstallStatus) != STATUS_SUCCESSFUL
+            Ifstr(i) $(NetInstallStatus) != STATUS_USERCANCEL
+                Debug-Output "NTLANMAN.INF: INF "$(ThisInfName)" returned "$(NetInstallStatus)
+                Goto netruninfescape
+            Endif
+        Endif
+        Set FailedInfFile = ""
+   EndForListDo
+netruninfescape = +
+   Ifint $(BillboardVisible) != 0
+       Shell "subroutn.inf" PopBillboard
+       Set BillboardVisible = 0
+   Endif
+   Ifstr(i) $(FailedInfFile) != ""
+        Read-syms FatalError14$(!STF_LANGUAGE)
+        read-syms FatalDlg$(!STF_LANGUAGE)
+        ui start "FatalError"
+        Set NetInstallStatus = STATUS_FAILED
+   Endif
+   Goto netcheckquit
+infomsg = +
+   read-syms InfoDlg
+   ui start "Warning"
+   goto $(from)
+nonfatal = +
+   read-syms NonfatalDlg$(!STF_LANGUAGE)
+   ui start "NonFatalError"
+   ifstr(i) $(DLGEVENT) == "OK"
+       goto $(from)
+   else
+       goto end
+   endif
+bogusexit = +
+   Debug-Output "NTLANMAN.INF: BOGUS EXIT from "$(from)" Return addr: "$(retaddr)
+   read-syms FatalError999$(!STF_LANGUAGE)
+   goto fatal
+fatal = +
+   read-syms FatalDlg$(!STF_LANGUAGE)
+   ui start "FatalError"
+   goto term
+end = +
+    goto term
+term =+
+   Ifstr(i) $(!LIBHANDLE) != ""
+       LibraryProcedure DontCare, $(!LIBHANDLE), DeleteAllConnections
+   Endif
+    exit
+[AdapterVars]
+    AdapterHardwareDetected      = ""
+    AdapterSystemSet             = ""
+    AdapterDefault               = ""
+    AdapterOurINFOptions         = {}
+    AdapterOemINFOptions         = {}
+    AdapterMergedOptions         = {}
+    AdapterSpecialOption         = {}
+    AdapterCurrentOption         = {}
+    AdapterOptionList            = {}
+    AdapterOptionTextList        = {}
+    AdapterOption                = {}
+    AdapterINF                   = ""
+    AdapterInstall               = "NO"
+    AdapterSrcDir                = ""
+    AdapterDstDir                = ""
+    NcParamInf                   = "NCPARAM.INF"
+[InitialAdapterInstall]
+    StartWait
+    Shell "" StartDetection
+    set Status = STATUS_FAILED
+    read-syms OemOptionDiskette$(!STF_LANGUAGE)
+    read-syms Strings$(!STF_LANGUAGE)
+    read-syms ProgressCopy$(!STF_LANGUAGE)
+    Shell "subroutn.inf" ReadSetupHelpIds
+    SetHelpFile "setupnt.hlp" $(!MinimumID) $(!MaximumID)
+    read-syms AdapterVars
+    Set !NtLmDoCopy   = "YES"
+    Set !NtLmAddCopy  = "YES"
+    Set !NtLmDoConfig = "NO"
+    Ifstr(i) $(!NTN_Origination) == "ncpa"
+        Ifstr(i) $(!STF_IDW) == "TRUE"
+            Set !NtLmAddCopy  = "NO"
+            Set !NtLmDoCopy   = "NO"
+        Endif
+    Else
+        Set !NtLmDoCopy   = "NO"
+        Ifstr(i) $(!STF_IDW) == "TRUE"
+            Set !NtLmAddCopy  = "NO"
+        Endif
+    Endif
+    EndWait
+    read-syms Billboard1$(!STF_LANGUAGE)
+    Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+    StartWait
+    shell "" InitOptionVars $(!STF_LANGUAGE) NetAdapter +
+        $(AdapterHardwareDetected) $(AdapterSystemSet) $(AdapterDefault)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set AdapterOurINFOptions = $($R1)
+        set AdapterOemINFOptions = $($R2)
+        set AdapterMergedOptions = $($R3)
+        set AdapterSpecialOption = $($R4)
+        set AdapterCurrentOption = $($R5)
+        set AdapterOption        = *($($R5), 1)
+    else
+        EndWait
+        Shell "subroutn.inf" PopBillboard
+        shell "SUBROUTN.INF" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error1)
+        Set Status = STATUS_FAILED
+        goto finish_adapter
+    endif
+    EndWait
+    Shell "subroutn.inf" PopBillboard
+    StartWait
+    Ifstr(i) $(!NTN_Origination) != "NCPA"
+        Set NoneOption = $(None)
+    Else
+        Set NoneOption = ""
+    Endif
+    Shell "" InitListBoxVars $(!STF_LANGUAGE) $(AdapterMergedOptions) $(AdapterSpecialOption) $(Other) $(NoneOption)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set AdapterOptionList     = $($R1)
+        set AdapterOptionTextList = $($R2)
+    else
+        EndWait
+        shell "SUBROUTN.INF" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error2)
+        goto  finish_adapter
+    endif
+    read-syms DialogConstants
+    EndWait
+    Set DtOption = ""
+    Set DtIndex = 0
+    Set DtInfIndex = 0
+    Set DtAnyFound = NO
+    Set !STF_NCOPTION = $(DtOption)
+    Set !STF_NCDETCARD = $(DtIndex)
+    Set !STF_NCDETINFO = {}
+    Debug-Output "NTLANMAN.INF: calling DTSTART wrapper, mode = "$(!STF_INSTALL_MODE)
+    Shell $(NcParamInf) Param_ControlDetection DTSTART
+    Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+          Debug-Output "NTLANMAN.INF: shell error (NCPARAM.INF:Param_ControlDetection) : "$($ShellCode)
+          Goto adapter_shell_error
+    Endif
+    Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+        Debug-Output "NTLANMAN.INF: DTSTART wrapper FAILED"
+        Goto detectbypass
+    Endif
+    Ifstr(i) $(!STF_NCDETECT) == NO
+        Goto detectbypass
+    Endif
+    Ifstr(i) $(!STF_INSTALL_MODE) == CUSTOM
+        Shell "" WarnDetectStart
+        Ifstr(i) $($R0) != STATUS_SUCCESSFUL
+            Goto detectbypass
+        Endif
+    Endif
+detectcycle = +
+    Debug-Output "NTLANMAN.INF: calling DTCARD wrapper"
+    StartWait
+    Shell $(NcParamInf) Param_DetectCard
+    Set StartResult = $($R0)
+    Set StartStatus = *($(StartResult),1)
+    Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+          Debug-Output "NTLANMAN.INF: shell error (NCPARAM.INF:Param_DetectCard) : "$($ShellCode)
+          Goto adapter_shell_error
+    Endif
+    EndWait
+    Ifint $(StartStatus) == 0
+        Set DtOption  = *($(StartResult),2)
+        Set DtIndex   = *($(StartResult),3)
+        Set DtType    = *($(StartResult),4)
+        Set DtConf    = *($(StartResult),5)
+        Set DtBusType = *($(StartResult),6)
+        Set DtBusNum  = *($(StartResult),7)
+        Set DtInfo    = {$(DtOption),$(DtIndex),$(DtType),$(DtConf),$(DtBusType),$(DtBusNum)}
+        Debug-Output "NTLANMAN.INF: card found is type "$(DtOption)", index "$(DtIndex)
+        Set DtInfIndex = ~($(AdapterOptionList),$(DtOption))
+        Ifint $(DtInfIndex) == 0
+            Debug-Output "NTLANMAN.INF: Detect: no INF file for option: "$(DtOption)
+            Set DtOption = ""
+            Goto detectcycle
+        Endif
+    Else
+        Set DtOption = ""
+        Set DtIndex = 0
+        Set DtInfIndex = 0
+        Goto detectnotfound
+    Endif
+    Set DtAnyFound = YES
+    Set DtInfOptionName = *($(AdapterOptionTextList),$(DtInfIndex))
+    Ifstr(i) $(!STF_INSTALL_MODE) == EXPRESS
+        Goto detectend
+    Endif
+    Shell "" WarnDetectAccept $(DtInfOptionName)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Goto detectend   
+    Endif
+    Set DtInfOption = 0
+    Set DtOption = ""
+    Set DtInfIndex = 0
+    Ifstr(i) $($R0) != STATUS_TRY_AGAIN
+        Goto detectend   
+    Endif
+    Goto detectcycle
+detectnotfound = +
+    Shell "" WarnDetectFail $(DtAnyFound)
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Goto detectend
+    Endif
+    Debug-Output "NTLANMAN.INF: calling DTRESET wrapper"
+    Shell $(NcParamInf) Param_ControlDetection DTRESET
+    Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+          Debug-Output "NTLANMAN.INF: shell error (NCPARAM.INF:Param_ControlDetection) : "$($ShellCode)
+          Goto adapter_shell_error
+    Endif
+    Goto detectcycle
+detectend = +
+    Set !STF_NCOPTION  = $(DtOption)
+    Set !STF_NCDETCARD = $(DtIndex)
+    Set !STF_NCDETINFO = $(DtInfo)
+detectbypass = +
+    Ifstr(i) $(!STF_NCOPTION) != ""
+        Set AdapterOption = $(!STF_NCOPTION)
+        Goto install_adapter
+    Endif
+    Ifstr(i) $(!NTN_Origination) != "ncpa"
+        Shell "" WarnCheckRas
+        Ifstr(i) $($R0) == STATUS_WANTRAS
+            Set Status = STATUS_WANTRAS
+            Goto finish_adapter
+        Endif
+    Endif
+adapter = +
+    read-syms QueryAdapter$(!STF_LANGUAGE)
+    Ifstr(i) $(!NTN_Origination) == "ncpa"
+        Set DlgText = $(DlgText2)
+    Else-Ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        Set DlgText = $(DlgTextLm)
+        Set Cancel = $(ExitSetup)
+    Else
+        Set Cancel = $(ExitNoNet)
+    Endif
+    ui start "System"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        Debug-Output "NTLANMAN.INF: CONTINUE message from adapter dialog"
+        ifstr(i) $(Combo1Out) == $(None)
+            Shell "" QueryNoNic $(!STF_LANGUAGE)
+            Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "NTLANMAN.INF: SHELL ERROR: "$($ShellCode)
+            Endif
+            Ifstr(i) $($R0) == "OK"
+                set AdapterOption = NONE
+                ui pop 1
+                goto install_adapter
+            Endif
+            set ReInit = NO
+            goto adapter
+        else-ifstr(i) $(Combo1Out) != $(Other)
+            set AdapterOption = *($(AdapterOptionList), ~($(Combo1List), $(Combo1Out)))
+            ui pop 1
+            goto install_adapter
+        else
+            Debug-Output "NTLANMAN.INF: Chose OTHER; calling GetNewOEMOption..."
+            shell "OTHER.INF" GetNewOEMMultiOption $(!STF_LANGUAGE) +
+                $(AdapterOemINFOptions) NetAdapter +
+                $(AdapterDisketteSrc)
+            set ReInit = YES
+            ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                Debug-Output "NTLANMAN.INF: GetNewOEMOption successful"
+                set AdapterOemINFOptions  = $($R1)
+                set AdapterOption         = $($R2)
+                set AdapterDisketteSrc    = $($R4)
+                shell "" MergeOptions $(AdapterOurINFOptions) $(AdapterOemINFOptions)
+                ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    set AdapterMergedOptions = {$($R1), $($R2)}
+                else
+                    shell "SUBROUTN.INF" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error4)
+                    ui pop 1
+                    goto finish_adapter
+                endif
+                shell "" InitListBoxVars $(!STF_LANGUAGE) $(AdapterMergedOptions) $(AdapterSpecialOption) $(Other) $(None)
+                ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+                    set AdapterOptionList     = $($R1)
+                    set AdapterOptionTextList = $($R2)
+                else
+                    shell "SUBROUTN.INF" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Error2)
+                    ui pop 1
+                    goto  finish_adapter
+                endif
+                ui pop 1
+                goto install_adapter
+            else-ifstr(i) $($R0) == "STATUS_USERCANCEL"
+                Debug-Output "NTLANMAN.INF: GetNewOEMOption user cancelled"
+                goto adapter
+            else
+                Debug-Output "NTLANMAN.INF: GetNewOEMOption other error"
+                shell "SUBROUTN.INF" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Error3)
+                goto adapter
+            endif
+        endif
+        set ReInit = NO
+        goto adapter
+    else-ifstr(i) $(DLGEVENT) == "BACK"
+        set ExitChoice = "OK"
+        ifstr(i) $(!NTN_Origination) != "NCPA"
+            Debug-Output "NTLANMAN.INF: EXIT button: see if user wants to quit"
+            Shell "" QueryUserQuit $(!STF_LANGUAGE)
+            Ifstr(i) $($ShellCode) != $(!SHELL_CODE_OK)
+               Debug-Output "NTLANMAN.INF: SHELL ERROR: "$($ShellCode)
+            Endif
+            Set Status = $($R0)
+            Debug-Output "NTLANMAN.INF: QueryUserQuit returned "$(Status)
+        Else
+            Set Status = STATUS_USERCANCEL
+        endif
+        ifstr(i) $(Status) != STATUS_SUCCESSFUL
+            Debug-Output "NTLANMAN.INF: Quitting [InitialAdapterInstall]"
+            ui pop 1
+            goto finish_adapter
+        else
+            set  ReInit = NO
+            goto adapter
+        endif
+    else
+        ui pop 1
+        goto finish_adapter
+    endif
+install_adapter = +
+    Debug-Output "NTLANMAN.INF: Adapter option is "$(AdapterOption)
+    Ifstr(i) $(AdapterOption) == NONE
+        Set Status = STATUS_SUCCESSFUL
+        goto skip_setinstall
+    Endif
+    set Changed = YES
+    ifstr(i) $(AdapterOption) == *($(AdapterCurrentOption), 1)
+        set Changed = NO
+    endif
+    set AdapterInstall = YES
+    ifstr(i) $(AdapterSpecialOption) != {}
+        ifstr(i) $(AdapterOption) == *($(AdapterSpecialOption), 1)
+            goto skip_setinstall
+        endif
+    endif
+    set AdapterSrcDir = $(AdapterDisketteSrc)
+    shell "" GetOptionFile $(AdapterOption) $(AdapterOemINFOptions)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set AdapterINF = $(!STF_WINDOWSSYSPATH)"\"$($R1)
+        set AdapterSrcDir = $(AdapterDisketteSrc)
+        Set !STF_SRCDIR_OVERRIDE = $(AdapterSrcDir)
+        Set !NtLmDoCopy = "YES"
+        Set !NtLmAddCopy = "YES"
+        goto skip_setinstall
+    endif
+    shell "" GetOptionFile $(AdapterOption) $(AdapterOurINFOptions)
+    ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+        set AdapterINF = $($R1)
+        set AdapterSrcDir = $(!STF_SRCDIR)
+    endif
+skip_setinstall = +
+    ifstr(i) $(AdapterInstall) == YES
+        ifstr(i)  $(AdapterINF) != ""
+            read-syms Billboard8$(!STF_LANGUAGE)
+            Shell "subroutn.inf" PushBillboard NETSTATUSDLG $(Status)
+            shell $(AdapterINF) InstallOption $(!STF_LANGUAGE) $(AdapterOption) $(AdapterSrcDir) +
+                  $(!NtLmAddCopy) $(!NtLmDoCopy) $(!NtLmDoConfig)
+            Set Status = $($R0)
+            Set !STF_SRCDIR_OVERRIDE = ""
+            Shell "subroutn.inf" PopBillboard
+            Ifstr(i) $(Status) == STATUS_USERCANCEL
+                Goto adapter
+            Endif
+        endif
+    endif
+    goto finish_adapter
+adapter_shell_error = +
+    set Status = STATUS_FAILED
+finish_adapter = +
+    Ifstr(i)  $(AdapterSrcDir) != ""
+        Ifstr(i)  $(AdapterSrcDir) != $(!STF_SRCDIR)
+            Set !STF_SRCDIR_OVERRIDE = $(AdapterSrcDir)
+        Endif
+    Endif
+    Return $(Status)
+[GenMergeLists]
+    ForListDo $($1)
+        Set $0 = >($($0),$($))
+    EndForListDo
+    Return $($0)
+[InitOptionVars]
+    Debug-Output "NTLANMAN.INF: InitOptionVars called"
+    set Status           = STATUS_FAILED
+    set OurINFOptions    = {}
+    set OemINFOptions    = {}
+    set MergedINFOptions = {}
+    set SpecialOption    = {}
+    set CurrentOption    = {}
+    Set IovTypeList      = $($1)
+    ForListDo $(IovTypeList)
+        Debug-Output "NTLANMAN.INF: Get options for type "$($)
+        shell "OTHER.INF" ReturnOemOptions $($0) $($)
+        ifstr(i) $($R0) == "STATUS_SUCCESSFUL"
+            Debug-Output "NTLANMAN.INF: Other OEM options found for type "$($)
+            shell "" GenMergeLists $(OurINFOptions) $($R1)
+            set OurINFOptions = $($R0)
+        endif
+    EndForListDo
+    shell "" MergeOptions $(OurINFOptions) $(OemINFOptions)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set MergedINFOptionList     = $($R1)
+        set MergedINFOptionTextList = $($R2)
+        set MergedINFOptions        = {$($R1), $($R2)}
+    else
+        Debug-Output "NTLANMAN.INF: InitOptionVars: MergeOptions failed"
+        goto finish_InitOptionVars
+    endif
+    set Option = ""
+    ifstr(i) $($3) != ""
+        set Option = $($3)
+    else
+        ifstr(i) $($2) != ""
+            set Option = $($2)
+        else-ifstr(i) $($4) == ""
+            set Option = ""
+        else
+            set Option = $($4)
+        endif
+    endif
+    ifstr(i) $(Option) == ""
+        set OptionText = ""
+    else-ifcontains(i) $(Option) in $(MergedINFOptionList)
+        set OptionText = *($(MergedINFOptionTextList), ~($(MergedINFOptionList), $(Option)))
+    else
+        set OptionText    = $(Option)
+        set Option        = "OEMINSTALLEDOPTION"
+        set SpecialOption = {$(Option), $(OptionText)}
+    endif
+    set CurrentOption = {$(Option), $(OptionText)}
+    set Status = STATUS_SUCCESSFUL
+finish_InitOptionVars = +
+    Debug-Output "NTLANMAN.INF::InitOptionVars complete "
+    Return $(Status) $(OurINFOptions) $(OemINFOptions) $(MergedINFOptions) $(SpecialOption) $(CurrentOption)
+[InitListBoxVars]
+    Debug-Output "NTLANMAN.INF::InitListBoxVars invoked"
+    set Status         = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    Set OptOther       = $($3)
+    Set OptNone        = $($4)
+    Set UtilityInf     = "UTILITY.INF"
+    ifstr(i) $($1) != {}
+        set OptionList     = *($($1), 1)
+        set OptionTextList = *($($1), 2)
+    endif
+    ifstr(i) $($2) != {}
+        set OptionList     = >($(OptionList),     *($($2), 1))
+        set OptionTextList = >($(OptionTextList), *($($2), 2))
+    endif
+    Shell $(UtilityInf) SortListIndex $(OptionTextList) TRUE FALSE
+    Set IndexList = $($R0)
+    Shell $(UtilityInf) SortByIndex $(OptionTextList) $(IndexList)
+    Set OptionTextList = $($R0)
+    Shell $(UtilityInf) SortByIndex $(OptionList) $(IndexList)
+    Set OptionList = $($R0)
+    Ifstr(i) $(OptOther) != ""
+        set OptionTextList = >($(OptionTextList), $(OptOther))
+    Endif
+    Ifstr(i) $(OptNone) != ""
+        set OptionTextList = >($(OptionTextList), $(OptNone))
+    Endif
+    set Status = STATUS_SUCCESSFUL
+    Return $(Status) $(OptionList) $(OptionTextList)
+[MergeOptions]
+    Debug-Output "NTLANMAN.INF: MergeOptions called"
+    set Status               = STATUS_FAILED
+    set MergedOptionList     = {}
+    set MergedOptionTextList = {}
+    ForListDo $($0)
+        set OptionList     = *($($), 2)
+        set OptionTextList = *($($), 3)
+        ForListDo $(OptionList)
+            Ifcontains $($) in $(MergedOptionList)
+            else
+                set MergedOptionList     = >($(MergedOptionList), $($))
+                set MergedOptionTextList = >($(MergedOptionTextList), *($(OptionTextList), $(#)))
+            endif
+        EndForListDo
+    EndForListDo
+    ForListDo $($1)
+        set OptionList     = *($($), 2)
+        set OptionTextList = *($($), 3)
+        ForListDo $(OptionList)
+            Ifcontains $($) in $(MergedOptionList)
+            else
+                set MergedOptionList     = >($(MergedOptionList), $($))
+                set MergedOptionTextList = >($(MergedOptionTextList), *($(OptionTextList), $(#)))
+            endif
+        EndForListDo
+    EndForListDo
+    set Status = STATUS_SUCCESSFUL
+    Return $(Status) $(MergedOptionList) $(MergedOptionTextList)
+[GetOptionFile]
+    Debug-Output "NTLANMAN.INF: GetOptionFile called"
+    set Status      = STATUS_FILENOTFOUND
+    set FileName = ""
+    ForListDo $($1)
+        set OptionFile = *($($), 1)
+        set OptionList = *($($), 2)
+        ForListDo $(OptionList)
+            ifstr(i) $($) == $($0)
+                set Status = STATUS_SUCCESSFUL
+                set FileName = $(OptionFile)
+            endif
+        EndForListDo
+    EndForListDo
+finish_GetOptionFile = +
+    Debug-Output "NTLANMAN.INF: GetOptionFile status "$(Status)"; file: "$(FileName)
+    Return $(Status) $(FileName)
+[QueryUserQuit]
+    Set Status = STATUS_SUCCESSFUL
+    Set StatusOK = STATUS_USERCANCEL
+    read-syms ExitNwkWarningDlg$($0)
+    ui start "MessageBox"
+    Ifstr(i) $(DLGEVENT) == "OK"
+        Set Status = $(StatusOK)
+    Endif
+fin_QueryUserQuit = +
+    Return $(Status)
+[QueryNoNic]
+    read-syms NoNicWarningDlg$($0)
+    ui start "MessageBox"
+    return $(DLGEVENT)
+[InstallOemHook]
+    Set InfName = "OEMHOOK.INF"
+    Debug-Output "NTLANMAN.INF: Installing OEMHOOK.INF if present"
+    Shell $(InfName) InstallOption $(!STF_LANGUAGE) $(InfOption) $(!STF_SRCDIR) "YES" "NO" "NO"
+IHK_Exit = +
+    Return STATUS_SUCCESSFUL
+[StartDetection]
+    Set UtilityInf   = "UTILITY.INF"
+    Set ServiceName  = "NETDETECT"
+    Set ReturnStatus = STATUS_SUCCESSFUL
+    Debug-Output "NTLANMAN.INF: Starting the netcard detection service"
+    Set FLibraryErrCtl = 1
+    LibraryProcedure StartResult $(!NCPA_HANDLE), CPlSetup $(!STF_HWND), STARTSVC, $(ServiceName)
+    Set FLibraryErrCtl = 0
+    Set StartStatus = *($(StartResult),1)
+    Debug-Output "NTLANMAN.INF: NETDETECT status was: "$(StartStatus)
+    Ifint $(StartStatus) != 0
+       Ifint $(StartStatus) != 1056
+           Set ReturnStatus = STATUS_FAILED
+       Endif
+    Endif
+    Shell $(UtilityInf) UpdateDetectionDllNames
+IHK_Exit = +
+    Return $(ReturnStatus)
+[WarnDetectStart]
+    Set Result = STATUS_SUCCESSFUL
+    Read-syms WarnDetectDlg$(!STF_LANGUAGE)
+    ui start "Info"
+    Ifstr(i) $(DLGEVENT) != CONTINUE
+        Set Result = STATUS_FAILED
+    Endif
+    ui pop 1
+    Return $(Result)
+[WarnDetectAccept]
+    Set Result = STATUS_SUCCESSFUL
+    Set DlgData = $($0)
+    Read-syms WarnDetectAccept$(!STF_LANGUAGE)
+    ui start "Info"
+    Ifstr(i) $(DLGEVENT) == EXIT
+        Set Result = STATUS_FAILED
+    Else-Ifstr(i) $(DLGEVENT) == BACK
+        Set Result = STATUS_TRY_AGAIN
+    Else
+        Set Result = STATUS_SUCCESSFUL
+    Endif
+    ui pop 1
+    Return $(Result)
+[WarnDetectFail]
+    Set FoundCard = $($0)
+    Set Result = STATUS_SUCCESSFUL
+    Read-syms WarnDetectFail$(!STF_LANGUAGE)
+    Ifstr(i) $(FoundCard) != YES
+        Read-syms WarnDetectFail2$(!STF_LANGUAGE)
+    Endif
+    ui start "Info"
+    Ifstr(i) $(DLGEVENT) != CONTINUE
+        Set Result = STATUS_FAILED
+    Endif
+    ui pop 1
+    Return $(Result)
+[WarnCheckRas]
+    Set Result = STATUS_SUCCESSFUL
+    Read-syms WarnInstallRas$(!STF_LANGUAGE)
+    ui start "Info"
+    Ifstr(i) $(DLGEVENT) != CONTINUE
+        Set Result = STATUS_WANTRAS
+    Endif
+    ui pop 1
+    Return $(Result)
+[VerifyLanmanNotInstalled]
+    Read-syms GeneralConstants
+    Set Status = STATUS_FAILED
+    Set BaseKey = $(KeyNull)
+    ForListDo $(ProtoNameList)
+       Set ServiceNameList = >($(ServiceNameList),$($))
+    EndForListDo
+    Shell $(UtilityInf) BaseServiceKey
+    Set BaseKey = $($R1)
+    Set Count = 0
+    ForListDo $(ServiceNameList)
+        Set SvcName = $($)
+        OpenRegKey $(BaseKey) "" $(SvcName) $(!REG_KEY_READ) SvcKey
+        Ifint $(RegLastError) == $(!REG_ERROR_SUCCESS)
+            Debug-Output "NTLMINST: Service already installed: "$(SvcName)
+            Set-add Count = $(Count),1
+            CloseRegKey $(SvcKey)
+        Endif
+    EndForListDo
+    Ifint $(Count) == 0
+        Set Status = STATUS_SUCCESSFUL
+    Endif
+VNLI_Return = +
+    Ifstr(i) $(BaseKey) != $(KeyNull)
+        CloseRegKey $(BaseKey)
+    Endif
+    Return $(Status)
+[Install-All-Files-Now]
+    set !STF_NCPA_FLASH_COPYLIST = TRUE
+    CopyFilesInCopyList
+    exit
+[Install-Shutdown]
+    LibraryProcedure STATUS,$(!LIBHANDLE),ShutdownSystem $(Reboot)
+    exit
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[Files-Inf]
+2,	oemsetup.inf,	 SIZE=1000,	RENAME=$(!UG_Filename)
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    LANMAN      = "NT Advanced Networking Services"
+[ProductTitleWinNtENG]
+!NetProductTitle = "Windows NT"
+[ProductTitleLanmanNtENG]
+!NetProductTitle = "Windows NT Advanced Server"
+[QueryProtocolENG]
+Caption     = "Protocol Setup"
+DlgText     = "Completing this installation requires that you specify "+
+              "the network transport protocol to be used as primary."
+Combo1Label = "&Primary Protocol:"
+DlgType     = Combination
+DlgTemplate = "ADAP_PROTO_COMBO"
+EditFocus = "ALL"
+Combo1List  = $(ProtocolList)
+Combo1Out   = $(ProtocolListHolder)
+ComboListItemsIn  = {Combo1List}
+ComboListItemsOut = {Combo1Out}
+HelpContext = $(!IDH_DB_GET_PROTOCOL)
+[TimeZone]
+  TimeZoneName = "Pacific Time"
+[SetupNotDoneDlgENG]
+    Caption     = $(!NetProductTitle)" Setup"
+    DlgText     = $(!NetProductTitle)" has not been installed."$(!LF)$(!LF)+
+                  "Please remove any floppy disks from the floppy disk drives and "+
+                  "choose Restart Computer to run Setup again."
+    Reboot      = "&Restart Computer"
+    Windows     = "E&xit to "$(!NetProductTitle)
+    DlgType     = "Info"
+    DlgTemplate = "REBOOT"
+[SetupDoneDlgENG]
+    Caption     = $(!NetProductTitle)" Networking Setup"
+    DlgText     = $(!NetProductTitle)" Networking is now installed."$(!LF)$(!LF)+
+                  "Please remove any floppy disks from the floppy disk drives, "+
+                  "close any other applications and "+
+                  "choose Restart Computer to restart the system."
+    Reboot      = "&Restart Computer"
+    Windows     = "E&xit to "$(!NetProductTitle)
+    DlgType     = "Info"
+    DlgTemplate = "REBOOT"
+[InfoDlg]
+STF_MB_TITLE = "Information Message"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(InfoMsgText)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[WarningDlgENG]
+STF_MB_TITLE = "Network Setup Warning"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(Error)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[WarningNoNetENG]
+ErrorSuffix = "  This error prevented the network from starting.  As a result,"+
+              " you will be unable to join a domain at the present time."
+[WarningNoLmHostsENG]
+ErrorSuffix = "  This error prevented the LmHosts service from starting."
+[ExitNwkWarningDlgENG]
+STF_MB_TITLE = "Exit "$(!NetProductTitle)" Networking Setup"
+STF_MB_TEXT  = "Are you sure you want to discontinue network installation?"
+DlgType      = "MessageBox"
+STF_MB_TYPE  = 2
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[ExitAndRemoveLmDlgENG]
+STF_MB_TITLE = "Exit "$(!NetProductTitle)" Networking Setup"
+STF_MB_TEXT  = "Some Windows NT Networking components appear to be installed already.  "+
+               "Please use the Control Panel Networks function to remove them before "+
+               "attempting reinstallation."
+DlgType      = "MessageBox"
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 3
+STF_MB_DEF   = 1
+[Warning3ENG]
+Error = "This will abort network installation."
+[ExitWarningDlgENG]
+STF_MB_TITLE = "Exit "$(!NetProductTitle)" Networking Setup"
+STF_MB_TEXT  = "Networking support is not installed.  "+
+               "Are you sure you want to discontinue network installation?"
+DlgType      = "MessageBox"
+STF_MB_TYPE  = 2
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[NoNicWarningDlgENG]
+STF_MB_TITLE = $(!NetProductTitle)" Networking Setup"
+STF_MB_TEXT  = "This option indicates that you intend to install an alternate network "+
+               "interface later in the installation (such as for Remote Access Services)."+
+               "  If this is your intention, choose OK.  Otherwise, choose Cancel."
+DlgType      = "MessageBox"
+STF_MB_TYPE  = 2
+STF_MB_ICON  = 5
+STF_MB_DEF   = 2
+[WarnInstallRasENG]
+Caption     = "Network Adapter Card Detection"
+DlgText     =  "Setup did not detect a network card.  If your network is remote "+
+               "(such as over telephone lines), Setup can automatically install "+
+               "Microsoft Remote Access Services at this time.   Choose Continue "+
+               "to pick a network card manually.  Choose Remote to install Remote "+
+               "Access Services."
+Help        = "&Help"
+Exit        = "&Remote"
+Continue    = "Continue"
+DlgType     = Info
+DlgTemplate = "NC3BUTN"
+ExitState   = "Active"
+HelpContext = $(!IDH_DB_DETECT_CHKRAS)
+[NonfatalDlgENG]
+STF_MB_TITLE = "Setup Message"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(Error)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 5
+STF_MB_DEF   = 1
+[NonFatalError1ENG]
+Error = "Setup cannot function properly unless your enter your Name."
+[NonFatalError2ENG]
+Error = "Disk Setup not available yet."
+[NonFatalError4ENG]
+Error = $(NetcardListHolder)"  is not in  "$(NetcardNameList)
+[NonFatalError5ENG]
+Error = "Setup cannot function properly unless you enter the name requested."
+[NonFatalError6ENG]
+Error = "No network card was selected."
+[NonFatalError7ENG]
+Error = "The name entered is invalid."
+[NonFatalError8ENG]
+Error = "The computer name entered is invalid."
+[NonFatalError9ENG]
+Error = "The domain name entered is invalid."
+[NonFatalError10ENG]
+Error = "The workgroup name entered is invalid."
+[NonFatalError11ENG]
+Error = "The Domain Controller name entered is invalid"
+[NonFatalError12ENG]
+Error = "Setup failed to configure your Windows16 compatibility "+
+        "subsystem.  Ignoring the error."
+[FatalDlgENG]
+STF_MB_TITLE = "Setup Message"
+DlgType = "MessageBox"
+STF_MB_TEXT  = $(Error)
+STF_MB_TYPE  = 1
+STF_MB_ICON  = 3
+STF_MB_DEF   = 1
+[FatalError1ENG]
+Error = "Driver load failed: unable to start LanmanWorkstation."
+[FatalError4ENG]
+Error  = "Setup couldn't modify your computer name."$(!LF)$(!LF)"Cannot proceed with install."
+[FatalError9ENG]
+Error  = "Setup failed to initialize security on your computer. "+
+         "Installation is halted."
+[FatalError12ENG]
+Error = "Setup was unable to build the user's default configuration file. "+
+        "Windows NT cannot log on a user without this file."
+[FatalError13ENG]
+Error = "Setup was unable to reset the SystemSetupInProgress value to "+
+        "indicate Setup completion."
+[FatalError14ENG]
+Error = "Setup was unable to process the INF file "$(FailedInfFile)" which is required "+
+        "for network installation."
+[FatalError999ENG]
+Error = "Setup has encountered an internal error and must quit."
+[ProgressCopyENG]
+    ProCaption   = $(!NetProductTitle)" Setup"
+    ProCancel    = "Cancel"
+    ProCancelMsg = $(!NetProductTitle)" is not correctly installed.  Are you sure you want "+
+                   "to cancel copying files?"
+    ProCancelCap = "Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+    PlatformID_I386 = I386
+    PlatformID_Mips = Mips
+[Billboard1ENG]
+Status = "Setup is preparing network card choices..."
+[Billboard2ENG]
+Status = "Setup is installing the Windows NT Workstation service..."
+[Billboard3ENG]
+Status = "Setup is installing the Windows NT Server service..."
+[Billboard4ENG]
+Status = "Setup is installing the NetBEUI transport..."
+[Billboard5ENG]
+Status = "Setup is installing the NetBIOS service..."
+[Billboard6ENG]
+Status = "Setup is starting the network..."
+[Billboard7ENG]
+Status = "Setup is completing the installation of the security system..."
+[Billboard8ENG]
+Status = "Setup is installing the network card..."
+[Billboard9ENG]
+Status = "Setup is preparing network software choices..."
+[Billboard10ENG]
+Status = "Setup is starting the network card detection service..."
+[Billboard11ENG]
+Status = "Setup is installing the RPC locator services..."
+[Billboard12ENG]
+Status = "Setup is installing the Remote Access services..."
+[QueryAdapterENG]
+Caption     = "Add Network Adapter"
+DlgText     = "Setup needs to know which type of network adapter card "+
+              "is installed in your computer. If you do not want to install "+
+              "the network, or do not have a network adapter, choose No Network."+
+              "  If you have more than one network card, you can install others"+
+              " from the Network icon of the Control Panel."
+Combo1Label = "&Network Adapter Card:"
+Help        = "&Help"
+Exit        = "Cancel"
+ExitNoNet   = "N&o Network"
+ExitSetup   = "E&xit Setup"
+Continue    = "Continue"
+Cancel      = "Cancel"
+DlgType     = Combination
+DlgTemplate = "ADAP_PROTO_COMBO"
+EditFocus = "ALL"
+Combo1List  = $(AdapterOptionTextList)
+Combo1Out   = *($(Combo1List), ~($(AdapterOptionList), $(AdapterOption)))
+ComboListItemsIn  = {Combo1List}
+ComboListItemsOut = {Combo1Out}
+NotifyFields      = {NO}
+HelpContext = $(!IDH_DB_CARDSELECTION_INS)
+ExitState   = "Active"
+[OemOptionDisketteENG]
+   DO_COPY                       = "YES"
+   AdapterDisketteSrc = "A:\"
+   OemSoftDisketteSrc = "A:\"
+[StringsENG]
+    Other  = "<Other> Requires disk from manufacturer"
+    None   = "<None>  Network interface to be chosen later"
+    Error1 = "Failed to initialize adapter options."
+    Error2 = "Failed to initialize display variables."
+    Error3 = "Failed to obtain new options.  Ignoring the error."
+    Error4 = "Internal Setup error: failed to merge Microsoft options with the OEM options."
+    Error5 = ""
+[WarnDetectDlgENG]
+Caption     = "Network Adapter Card Detection"
+DlgText     = "Setup can automatically detect and install network adapter cards in your computer."+
+              $(!LF)$(!LF)"Choose Continue to have Setup attempt to detect your adapter card "+
+              "or choose Do Not Detect to manually select an adapter card."
+Help        = "&Help"
+Exit        = "Do &Not Detect"
+Continue    = "Continue"
+DlgType     = Info
+DlgTemplate = "NC3BUTN"
+ExitState   = "Active"
+HelpContext = $(!IDH_DB_DETECT_BYPASS)
+[WarnDetectAcceptENG]
+Caption     = "Network Adapter Card Detection"
+DlgText1    = "Setup has detected the following network adapter card in your computer:"
+DlgText2    = "Choose Continue to set up this adapter card, choose Find Next "+
+              "to have Setup attempt to detect a different adapter card or choose "+
+              "Do Not Detect if you want to manually select an adapter card."
+Help        = "&Help"
+Exit        = "Do &Not Detect"
+Continue    = "Continue"
+Cancel      = "&Find Next"
+DlgType     = Info
+DlgTemplate = "NCFOUND"
+HelpContext = $(!IDH_DB_DETECT_FOUND)
+[WarnDetectFailENG]
+Caption     = "Network Adapter Card Detection"
+DlgText     = "Setup did not detect any other network adapter cards in your computer."+
+              $(!LF)$(!LF)"Choose Continue to manually select an adapter card, "+
+              "or choose Detect to return to a previously detected adapter card."
+Help        = "&Help"
+Continue    = "Continue"
+Exit        = "&Detect"
+DlgType     = Info
+DlgTemplate = "NC3BUTN"
+ExitState   = "Active"
+HelpContext = $(!IDH_DB_DETECT_FAILED)
+[WarnDetectFail2ENG]
+DlgText     = "Setup did not detect any network adapter cards in your computer."+
+              $(!LF)$(!LF)"Choose Continue to manually select an adapter card, "+
+              "or choose Detect to retry the detection operation."
+
+
+

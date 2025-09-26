@@ -1,0 +1,2481 @@
+[Identification]
+    OptionType = NetService
+[Options]
+    RAS
+[GeneralConstants]
+    Chosen       = "ON"
+    NotChosen    = "OFF"
+    TRUE         = 1
+    FALSE        = 0
+    NoTitle      = 0
+    !DebugOutputControl = 0
+    FLibraryErrCtl = 1
+    OldVersionExisted = $(FALSE)
+[FileConstants]
+    HandleNull   = ""
+    RASDLGHANDLE = $(HandleNull)
+    PORTSDLGHANDLE = $(HandleNull)
+    RasServerOption = "Server"
+    RasClientOption = "Client"
+    RasAdminOption  = "Admin"
+    RasClientAndServerOption = "ClientAndServer"
+    Manufacturer    = "Microsoft"
+    ProductMajorVersion    = "3"
+    ProductMinorVersion    = "1"
+    ProductVersion  = $(ProductMajorVersion)"."$(ProductMinorVersion)
+    NetEventDLL = "%SystemRoot%\System32\netevent.dll"
+    IoLogMsgDll = "%SystemRoot%\System32\drivers\IoLogMsg.dll"
+    RasMsgDll   = "%SystemRoot%\System32\rasmsg.dll"
+    HideComponent = 1
+    HideBindings  = 16
+    ProductInfName     = "OEMNSVRA.INF"
+    ProductFullInfName = $(!STF_CWDDIR)$(ProductInfName)
+    RasDir      = $(!STF_CWDDIR)RAS
+    ProductPath = $(RasDir)"\"
+    ProductRASName        = "RAS"
+    ProductRASImagePath   = "%SystemRoot%\system32\ras"
+    ProductRASSvcType     = "system"
+    NetRuleRASClass       = "classRasService ""basic"""
+    NetRuleRASType        = "RasService classRasService"
+    NetRuleRASUse         = $(ProductRASSvcType)
+    ProductRASSVRName       = "RemoteAccess"
+    ProductRASSVRImagePath  = "%SystemRoot%\system32\rassrv.exe"
+    ProductRASSVRSvcType    = "service"
+    NetRuleRASSVRClass    = "classRasServer ""basic"""
+    NetRuleRASSVRType    = "RasServer classRasServer"
+    NetRuleRASSVRUse    = $(ProductRASSVRSvcType)
+    NetRuleRASSVRBindForm    = """RasServer"" yes yes container"
+    NetRuleRASSVRBindable    = "classRasServer netBiosTransport non non 100"
+    ProductRASMANName       = "RasMan"
+    ProductRASMANImagePath  = "%SystemRoot%\system32\rasman.exe"
+    ProductRASMANSvcType    = "service"
+    NetRuleRASMANClass      = "classRasManager ""basic"""
+    NetRuleRASMANType       = "RasManager classRasManager"
+    NetRuleRASMANUse        = $(ProductRASMANSvcType)
+    NetRuleRASMANBindForm   = """RasManager"" yes no container"
+    NetRuleRASMANBindable   = ""
+    ProductRASHUBName      = "RasHub"
+    ProductRASHUBImagePath = "\SystemRoot\system32\drivers\rashub.sys"
+    ProductRASHUBSvcType   = "kernel"
+    ProductRASHUBType      = "transport"
+    NetRuleRASHUBType      = "rasHubDrv rasHubTransport"
+    NetRuleRASHUBClass     = {"rasHubTransport basic"}
+    NetRuleRASHUBUse       = $(ProductRASHUBType)" yes yes"
+    NetRuleRASHUBBindForm  = """RasHub"" yes no container"
+    NetRuleRASHUBBindable  = {"rasHubTransport rasHubAdapterDialIn non exclusive 100",+
+                              "rasHubTransport rasHubAdapterDialOut non exclusive 100",+
+                              "rasCapableTransport rasHubTransport non exclusive 100"}
+    ProductRASASYMACName      = "AsyncMac"
+    ProductRASASYMACImagePath = "\SystemRoot\system32\drivers\asyncmac.sys"
+    ProductRASASYMACType      = "driver"
+    ProductRASASYMACSvcType   = "kernel"
+    NetRuleRASASYMACType      = "rasAsyMacDrv rasAsyMacDriver"
+    NetRuleRASASYMACClass      = {"rasAsyMacDriver basic"}
+    NetRuleRASASYMACUse      = $(ProductRASASYMACType)
+    NetRuleRASASYMACBindForm  = """RasAsyMac"" yes no container"
+    NetRuleRASASYMACBindable  = {"rasAsyMacDriver rasAsyMacAdapter non exclusive 100"}
+    ProductRASHUBDIALINName       = "RasHubDialin"
+    ProductRASHUBDIALOUTName      = "RasHubDialout"
+    NetRuleHardwareRASHUBBindForm = " yes yes container"
+    NetRuleHardwareDIALINType     = "rashubdialin rasHubAdapterDialIn"
+    NetRuleHardwareDIALINClass    = {"rasHubAdapterDialIn basic"}
+    NetRuleHardwareDIALINBlock    = {"lanmanServer rasHubAdapterDialIn",+
+                                     "lanmanWorkstation rasHubAdapterDialIn"}
+    NetRuleHardwareDIALOUTType     = "rashubdialout rasHubAdapterDialOut"
+    NetRuleHardwareDIALOUTClass    = {"rasHubAdapterDialOut basic"}
+    NetRuleHardwareDIALOUTBlock    = {}
+    NetRuleHardwareRASASYMACType     = "rasAsyMac rasAsyMacAdapter"
+    NetRuleHardwareRASASYMACBindForm = " yes yes container"
+    NetRuleHardwareRASASYMACClass     = {"rasAsyMacAdapter basic"}
+    ProductKeyBase  = $(!NTN_SoftwareBase)"\"$(Manufacturer)
+    ProductKeyName          = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductRASName)"\CurrentVersion"
+    NetworkCardKeyName      = $(!NTN_SoftwareBase)"\Microsoft\Windows NT\CurrentVersion\NetworkCards"
+    RasSvrKeyName           = $(!NTN_ServiceBase)"\"$(ProductRASSVRName)
+    RasSvrParamKeyName      = $(!NTN_ServiceBase)"\"$(ProductRASSVRName)"\Parameters"
+    RasManParamKeyName      = $(!NTN_ServiceBase)"\"$(ProductRASMANName)"\Parameters"
+    RasManLinkageKeyName    = $(!NTN_ServiceBase)"\"$(ProductRASMANName)"\Linkage"
+    WkstaLinkageKeyName     = $(!NTN_ServiceBase)"\LanmanWorkstation\Linkage"
+    RasHubParamKeyName      = $(!NTN_ServiceBase)"\"$(ProductRASHUBName)"\Parameters"
+    RasHubLinkageKeyName    = $(!NTN_ServiceBase)"\"$(ProductRASHUBName)"\Linkage"
+    RasAsyMacKeyName        = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)
+    RasAsyMacParamKeyName   = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)"\Parameters"
+    RasMacLinkageKeyName    = $(!NTN_ServiceBase)"\"$(ProductRASASYMACName)"\Linkage"
+    RasMediaIsdnKeyName     = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductRASName)"\"MEDIA"\"ISDN
+    LinkageKeyName          = $(!NTN_ServiceBase)"\"$(Product$(Option)Name)"\Linkage"
+    ProductRASHUBKeyName    = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductRASHUBName)"\CurrentVersion"
+    ProductRASASYMACKeyName = $(!NTN_SoftwareBase)"\"$(Manufacturer)"\"$(ProductRASASYMACName)"\CurrentVersion"
+    UtilityInf     = "UTILITY.INF"
+    subroutninf    = "SUBROUTN.INF"
+    RascfgDll      = "RASCFG.DLL"
+    RasresDll      = "RASRES.DLL"
+    Exit_Code      = 0
+    ShellCode      = 0
+    from      = ""
+    to        = ""
+    ExitCodeOk     = 0
+    ExitCodeCancel = 1
+    ExitCodeFatal  = 2
+    KeyNull         = ""
+    !MAXIMUM_ALLOWED   = 33554432
+    RegistryErrorIndex = NO_ERROR
+    ServerSize  = 820116
+    ClientSize  = 634260
+    AdminSize   = 513962
+    FInstallServer = $(Chosen)
+    FInstallClient = $(Chosen)
+    FInstallAdmin  = $(Chosen)
+[UiVars]
+    VolumeList      = {} ? $(!LIBHANDLE) GetHardDriveLetters
+    VolumeFreeList  = {} ? $(!LIBHANDLE) GetHardDriveFreeSpace
+    VolumeFSList    = {} ? $(!LIBHANDLE) GetHardDriveFileSystems
+    DestVolume      = ""
+    MinHelpID   = 25000
+    MaxHelpID   = 25999
+[AvailableSystemMemory]
+    SystemMemory    = "" ? $(!LIBHANDLE) GetMemorySize
+    MinSystemMemory = 2048
+[date]
+    Now = {} ? $(!LIBHANDLE) GetSystemDate
+[HelpContextIDs]
+    HC_RASOPTIONS     = 25020
+    HC_CLIENTACCESS   = 25021
+    HC_INSTALLOVER1   = 25022
+    HC_INSTALLOVER2   = 25023
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    Else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    Endif
+returnoptions = +
+    set OptionList     = ^(Options, 1)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    Debug-Output "In InstallOption section"
+    Debug-Output "Are we IDW? "$(!STF_IDW)
+    set Status   = STATUS_FAILED
+    set Option      = $($1)
+    set SourceDir   = $($2)
+    set DoCopy      = $($4)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) NOT-IN $(LanguageList)
+        Return STATUS_NOLANGUAGE
+    endif
+    StartWait
+    set-subst LF = "\n"
+    read-syms UiVars
+    detect    UiVars
+    set !STF_NTPATH = $(!STF_WINDOWSSYSPATH)
+    GetDriveInPath !STF_NTDRIVE $(!STF_WINDOWSSYSPATH)
+    read-syms GeneralConstants
+    read-syms FileConstants
+    read-syms DialogConstants$(!STF_LANGUAGE)
+    read-syms FileConstants$(!STF_LANGUAGE)
+    detect date
+    read-syms HelpContextIDs
+    SetHelpFile $(!STF_CWDDIR)rassetup.hlp $(MinHelpID) $(MaxHelpID)
+    set-title  $(FunctionTitle)
+    set to   = Begin
+    set from = Begin
+    set CommonStatus = STATUS_SUCCESSFUL
+    Debug-Output "OEMNSVRA.INF: STF_CWDDIR is: "$(!STF_CWDDIR)
+    Debug-Output "OEMNSVRA.INF: STF_LANGUAGE is: "$(!STF_LANGUAGE)
+    Debug-Output "OEMNSVRA.INF: Option is: "$(Option)
+    Debug-Output "OEMNSVRA.INF: NTN_SoftwareBase is: "$(!NTN_SoftwareBase)
+    Debug-Output "OEMNSVRA.INF: NTN_ServiceBase is: "$(!NTN_ServiceBase)
+    EndWait
+Begin = +
+    set NETCARD_LIST    = {}
+    set ServerInstalled = FALSE
+    set ClientInstalled = FALSE
+    set AdminInstalled  = FALSE
+    set DoServer     = TRUE
+    set DoClient     = TRUE
+    set DoAdmin      = TRUE
+    set DoServerOnly = FALSE
+    set DoClientOnly = FALSE
+    set DoAdminOnly  = FALSE
+    set DoRas        = FALSE
+    set DoRasSvr     = FALSE
+    set DoRasMan     = FALSE
+    set DoRasHub     = FALSE
+    set DoRasAsyMac  = FALSE
+    IfStr(i) $(!NTN_InstallMode)    ==    deinstall
+        Set StartLabel = RemoveRas
+    else-Ifstr(i) $(!NTN_InstallMode) == Update
+        set StartLabel = UpgradeRas
+    else-Ifstr(i) $(!NTN_InstallMode) == configure
+        set StartLabel = ConfigureRas
+    else-Ifstr(i) $(!NTN_InstallMode) == bind
+        set StartLabel = BindingsRas
+    else
+        set StartLabel = InstallRas
+    endif
+    set from = Begin
+    set to = end
+    goto $(StartLabel)
+InstallRas = +
+    StartWait
+    Debug-Output "In InstallRas Section"
+    Debug-Output "Origin is "$(!NTN_Origination)
+    Debug-Output "Install Mode "$(!NTN_InstallMode)
+    Debug-Output "Install phase "$(!NTN_InstallPhase)
+    Debug-Output "Copy Flag is "$(DoCopy)
+    Debug-Output "Option is "$(Option)
+    Debug-Output "SrcDir is "$(SourceDir)
+    Debug-Output "Context Inf name "$(STF_CONTEXTINFNAME)
+    set RasComponentsList = {} 
+    set NumInstalled = 0       
+    OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr $(KeyProduct) != $(KeyNull)
+        GetRegValue $(KeyProduct) "MajorVersion" VersionInfo
+        set VersionMajor = *($(VersionInfo), 4)
+        GetRegValue $(KeyProduct) "MinorVersion" VersionInfo
+        set VersionMinor = *($(VersionInfo), 4)
+        set InstalledVersion = $(VersionMajor)"."$(VersionMinor)
+        ifstr(i) $(ProductVersion) != $(InstalledVersion)
+            Shell "" QueryRasUpgrade $(ProductRASTitle) $(InstalledVersion) +
+                                     $(ProductVersion)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               goto ShellCodeError
+            endif
+            Ifstr(i) $($R1) == "OK"
+                set from = InstallRas
+                set to   = InstallRas1
+                goto RemoveRas
+            else
+                goto end
+            endif
+        endif
+        shell "" QueryComponentsInstalled $(ProductKeyName)
+        Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+            Set RasComponentsList = $($R1)
+            Set InstalledFlags = $($R2)
+            Set ServerInstalled = *($(InstalledFlags),1)
+            Set ClientInstalled = *($(InstalledFlags),2)
+            Set AdminInstalled  = *($(InstalledFlags),3)
+        Endif
+        Debug-Output "Installed List is "$(RasComponentsList)
+        Debug-Output "Installed Flags is "$(InstalledFlags)
+        QueryListSize NumInstalled $(RasComponentsList)
+        ifint $(NumInstalled) == 3
+            read-syms VerExists$(!STF_LANGUAGE)
+            set Text = $(Product$(Option)Description)$(Ver)$(ProductVersion)+
+                       $(Text1)
+            Shell $(subroutninf), SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(Text)
+            Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_FAILED
+                Goto fatal
+            Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+                Goto end
+            Endif
+            goto end
+        endif
+        CloseRegKey $(KeyProduct)
+    else
+InstallRas1 =+
+       set fRemoveRas   = TRUE
+    endif
+    goto memorycheck
+setupabort = +
+    read-syms SetupAbortDlg$(!STF_LANGUAGE)
+    ui start "SetupAbort"
+    ifstr(i) $(DLGEVENT) == "CONTINUE"
+        ui pop 1
+        Exit
+    else
+        ui pop 1
+        Exit
+    endif
+memorycheck = +
+    read-syms AvailableSystemMemory
+    detect AvailableSystemMemory
+    Debug-Output "Available Memory is "$(SystemMemory)
+    IfInt $(SystemMemory) < $(MinSystemMemory)
+        read-syms FatalErrorMem$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "FATAL" $(Fatal)
+        goto setupabort
+    Else
+        goto CopyResources
+    EndIf
+CopyResources = +
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        Ifstr(i) $(DoCopy) == "YES"
+           Shell $(UtilityInf), DoAskSource, $(!STF_CWDDIR), $(SourceDir) YES
+           Ifint $($ShellCode) != $(!SHELL_CODE_OK)
+               Goto ShellCodeError
+           Else-Ifstr(i) $($R0) == STATUS_FAILED
+               Shell $(UtilityInf) RegistryErrorString "ASK_SOURCE_FAIL"
+               ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                   goto ShellCodeError
+               endif
+               set Error = $($R0)
+               goto fatal
+           Else-Ifstr(i) $($R0) == STATUS_USERCANCEL
+               Goto end
+           Endif
+           Set !STF_SRCDIR = $($R1)
+           Set SourceDir  = $($R1)
+           Debug-Output "SrcDir "$(SourceDir)
+        Endif
+        Debug-Output "OEMNSVRA.INF: Copying files"
+        install InstallRasFiles
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto filecopycancel
+        endif
+    endif
+    LibraryProcedure FilePresent, $(!LIBHANDLE), CheckFileExistance $(!STF_CWDDIR)rasres.dll
+    ifstr(i) $(FilePresent) != "YES"
+        Debug-Output "OEMNSVRA.INF:rasres.dll not found."
+        Install InstallResources
+        ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+            goto filecopycancel
+        endif
+    endif
+    LoadLibrary "x" $(!STF_CWDDIR)rasres.dll RASDLGHANDLE
+    goto InstallNetwork
+InstallNetwork =+
+    ifstr(i) $(DoServer) == FALSE
+       ifstr(i) $(DoClient) == FALSE
+           goto InstallNetworkOver
+       endif
+    endif
+    shell "" IsNetworkConfigured
+    Debug-Output "IsNetworkConfigured returned R0 "$($R0)
+    Debug-Output "IsNetworkConfigured returned R1 "$($R1)
+    Debug-Output "IsNetworkConfigured returned R2 "$($R2)
+    Debug-Output "IsNetworkConfigured returned R3 "$($R3)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set NbfConfigured     = $($R1)
+        set NetbiosConfigured = $($R2)
+        set WkstaConfigured   = $($R3)
+    else
+        read-syms NetworkConfigError$(!STF_LANGUAGE)
+        set Text = $(Text1)
+        shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "FATAL" $(Text)
+        goto end
+    endif
+    ifstr(i) $(NbfConfigured) == TRUE
+        ifstr(i) $(NetbiosConfigured) == TRUE
+             ifstr(i) $(WkstaConfigured) == TRUE
+                 goto InstallNetworkOver
+             else
+                 goto InstallNetworkError
+             endif
+        else
+             goto InstallNetworkError
+        endif
+    else
+        goto InstallNetworkError
+    endif
+InstallNetworkError =+
+    set CommonStatus = STATUS_NO_EFFECT
+    read-syms NetworkConfigError$(!STF_LANGUAGE)
+    set Text = $(Text2)
+    shell $(subroutninf) SetupMessage $(!STF_LANGUAGE) "WARNING" $(Text)
+    goto end
+InstallNetworkOver =+
+    ifstr(i) $(DoAdminOnly) == TRUE
+        goto CommonCode
+    endif
+    goto PortsConfigure
+ConfigureRas = +
+    set OldVersionExisted = $(TRUE)
+    StartWait
+    read-syms StatusDeterminingConfig$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(ReadingConfig)
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFlags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Set ServerInstalled = $(DoServer)
+    Set ClientInstalled = $(DoClient)
+    Set AdminInstalled  = $(DoAdmin)
+    Debug-Output "DoServer "$(DoServer)
+    Debug-Output "DoClient "$(DoClient)
+    Debug-Output "DoAdmin "$(DoAdmin)
+    Debug-Output "DoServerOnly "$(DoServerOnly)
+    Debug-Output "DoClientOnly "$(DoClientOnly)
+    Debug-Output "DoAdminOnly "$(DoAdminOnly)
+    EndWait
+    shell $(subroutninf) PopBillBoard
+    ifstr(i) $(DoAdminOnly) == TRUE
+        read-syms NoConfigAdmin$(!STF_LANGUAGE)
+        shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "WARNING" $(NoConfigAdmin)
+        goto end
+    endif
+    LoadLibrary "x" $(!STF_CWDDIR)rasres.dll   RASDLGHANDLE
+    goto PortsConfigure
+PortsConfigure = +
+    LoadLibrary "x" $(!STF_CWDDIR)rascfg.dll PORTSDLGHANDLE
+    set Result = {}
+    set fNetcardInstalled = FALSE
+    shell "" IsNetcardInstalled $(NetworkCardKeyName) $(PORTSDLGHANDLE)
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set fNetcardInstalled = $($R1)
+    endif
+    Debug-Output "fNetcardInstalled Option "$(fNetcardInstalled)
+    StartWait
+    LibraryProcedure Result, $(PORTSDLGHANDLE), RasPortsConfig $(!STF_HWND) $(!NTN_InstallMode) $(fNetcardInstalled) $(ProductPath)
+    EndWait
+    set NewNumPorts   = 0
+    set NewNumDialout = 0
+    set NewNumDialin  = 0
+    set fSerialInstalled = FALSE
+    set fIsdnInstalled = FALSE
+    set NewNumPorts   = *($(Result),1)
+    set NewNumPortsList = {}
+    set NullString   = ""
+    Debug-Output "PortsConfigure returned: "$(Result)
+    Debug-Output "PortsConfigure NewNumPorts: "$(NewNumPorts)
+    ifstr(i) $(NewNumPorts) == "EXITSETUP"
+        Debug-Output "PortsConfigre User selected ExitSetup."
+        goto RemoveDiskFiles
+    else-ifstr(i) $(NewNumPorts) == "NOPORTS"
+        Debug-Output "PortsConfigre: No serial ports detected."
+        goto RemoveDiskFiles
+    else-ifstr(i) $(NewNumPorts) == "FAILURE"
+        Debug-Output "PortsConfigre: Unknown failure."
+        goto RemoveDiskFiles
+    endif
+    goto PortsConfigure1
+RemoveDiskFiles = +
+    set CommonStatus = STATUS_NO_EFFECT
+    ifstr(i) $(!NTN_InstallMode) == "install"
+        goto filecopycancel
+    endif
+    goto end
+PortsConfigure1 = +
+    set NewNumDialout = *($(Result),2)
+    Debug-Output "PortsConfigure NewNumDialout: "$(NewNumDialout)
+    set NewNumDialin  = *($(Result),3)
+    Debug-Output "PortsConfigure NewNumDialin: "$(NewNumDialin)
+    set-add NewNumTotal = $(NewNumDialin), $(NewNumDialout)
+    set fSerialInstalled = *($(Result),4)
+    Debug-Output "PortsConfigure fSerialInstalled: "$(fSerialInstalled)
+    set fIsdnInstalled = *($(Result),5)
+    Debug-Output "PortsConfigure fIsdnInstalled: "$(fIsdnInstalled)
+    set NetBiosGtwyEnabled = *($(Result),6)
+    Debug-Output "PortsConfigure NetBiosgtwyEnabled: "$(NetBiosGtwyEnabled)
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set NewNumPortsList = >($(NewNumPortsList), $(NullString)$(NewNumPorts)$(NullString))
+    endif
+    ifint $(NetBiosGtwyEnabled) == 0
+        set-add NewNumDialout  = $(NewNumDialout), $(NewNumDialin)
+        set     NewNumDialin = 0
+        Debug-Output "Mapped dialin ports to dialout ports "$(NewNumDialout)
+    endif
+    goto CommonCode
+CommonCode = +
+    ifstr(i) $(OldVersionExisted) == $(TRUE)
+        ifstr(i) $(!NTN_InstallMode) == configure
+           goto WriteParameters
+        endif
+    endif
+    QueryListSize ListCount $(RasComponentsList)
+    ifint $(ListCount) == 0
+        goto FirstTimeInstall
+    else
+        ifstr(i) $(DoServer) == TRUE
+            ifstr(i) $(ClientInstalled) == FALSE
+                ifstr(i) $(AdminInstalled) == FALSE
+                    set DoRas    = TRUE
+                endif
+                set DoRasSvr     = TRUE
+                set DoRasMan     = TRUE
+                set DoRasHub     = TRUE
+                set DoRasAsyMac  = TRUE
+            else
+                set DoRasSvr     = TRUE
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasServerOption))
+        endif
+        ifstr(i) $(DoClient) == TRUE
+            ifstr(i) $(ServerInstalled) == FALSE
+                ifstr(i) $(AdminInstalled) == FALSE
+                    set DoRas    = TRUE
+                endif
+                set DoRasMan     = TRUE
+                set DoRasHub     = TRUE
+                set DoRasAsyMac  = TRUE
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasClientOption))
+        endif
+        ifstr(i) $(DoAdmin) == TRUE
+            ifstr(i) $(ServerInstalled) == FALSE
+                ifstr(i) $(ClientInstalled) == FALSE
+                    set DoRas = TRUE
+                endif
+            endif
+            set RasComponentsList = >($(RasComponentsList), $(RasAdminOption))
+        endif
+        shell "" UpdateComponentsInstalled $(RasComponentsList) $(ProductKeyName)
+        goto FirstTimeInstall-1
+    endif
+FirstTimeInstall =+
+    ifstr(i) $(DoServer) == TRUE
+        set DoRas             = TRUE
+        set DoRasSvr          = TRUE
+        set DoRasMan          = TRUE
+        set DoRasHub          = TRUE
+        set DoRasAsyMac       = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasServerOption))
+    endif
+    ifstr(i) $(DoClient) == TRUE
+        set DoRas             = TRUE
+        set DoRasMan          = TRUE
+        set DoRasHub          = TRUE
+        set DoRasAsyMac       = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasClientOption))
+    endif
+    ifstr(i) $(DoAdmin) == TRUE
+        set DoRas             = TRUE
+        set RasComponentsList = >($(RasComponentsList), $(RasAdminOption))
+    endif
+FirstTimeInstall-1 = +
+    ifstr(i) $(DoRas) == TRUE
+        StartWait
+        read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+        shell $(subroutninf) PushBillBoard NETSTATUSDLG $(CreatingRas)
+        set ThisOption = RAS
+        Shell $(UtilityInf), InstallSoftwareProduct, $(Manufacturer),+
+              $(Product$(ThisOption)Name), $(ProductInfName)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+              Debug-Output "InstallSoftware bombed out."
+              goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            Debug-Output "REGISTRY GOODAL"
+            EndWait
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ), $(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+             {RasComponents,$(NoTitle),$(!REG_VT_MULTI_SZ),$(RasComponentsList)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)}}
+        Shell $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            CloseRegKey $(SoftProductKey)
+            CloseRegKey $(SoftNetRuleKey)
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+           EndWait
+           CloseRegKey $(SoftNetRuleKey)
+           goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            goto addrastoregistryend
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+    endif 
+    ifstr(i) $(DoRasSvr) == TRUE
+        set ThisOption = RASSVR
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(ProductInfName), $(Product$(ThisOption)ImagePath),+
+              "service", "Network", {"LanmanServer","RasMan"}, "", +
+              $(RasMsgDll)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr: AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        Set SoftParamsKey     = $($R4)
+        Set SoftLinkageKey    = $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:product: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftParamsKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:netrules: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            CloseRegKey $(SoftLinkageKey)
+            CloseRegKey $(SoftParamsKey)
+            EndWait
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            goto fatalregistry
+        endif
+        set RasDependencies = {}
+        ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+            set RasDependencies = {"Netbios","Netlogon","LanmanServer","RasMan"}
+        else
+            set RasDependencies = {"Netbios","LanmanServer","RasMan"}
+        endif
+        set NewValueList = +
+            {{OtherDependencies, $(NoTitle), $(!REG_VT_MULTI_SZ),+
+              $(RasDependencies)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftLinkageKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "DoRasSvr:Linkage: AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftLinkageKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            Debug-Output "DoRasSvr: Registry Error "$(RegistryErrorIndex)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{AuthenticateRetries, $(NoTitle), $(!REG_VT_DWORD), 2},+
+            {AuthenticateTime, $(NoTitle), $(!REG_VT_DWORD), 120},+
+            {EnableAudit, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {CallbackTime, $(NoTitle), $(!REG_VT_DWORD), 2}}
+        Shell  $(UtilityInf), AddValueList, $(SoftParamsKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+        OpenRegKey $(SoftParamsKey) "" "NetBiosGateway" $(!MAXIMUM_ALLOWED) KeyNetbiosGtwy
+        ifstr $(KeyNtbiosGtwy) == $(KeyNull)
+            CreateRegKey $(SoftParamsKey) {"NetBiosGateway",$(NoTitle),GenericClass} "" $(!MAXIMUM_ALLOWED) "" KeyNetbiosGtwy
+            OpenRegKey $(SoftParamsKey) "" "NetBiosGateway" $(!MAXIMUM_ALLOWED) KeyNetbiosGtwy
+        endif
+        set NewValueList = +
+            {{Autodisconnect, $(NoTitle), $(!REG_VT_DWORD), 1200},+
+            {EnableBroadcast, $(NoTitle), $(!REG_VT_DWORD), 0},+
+            {EnableNetbiosSessionsAuditing, $(NoTitle), $(!REG_VT_DWORD), 0},+
+            {MaxDynMem, $(NoTitle), $(!REG_VT_DWORD), 655350},+
+            {MaxNames, $(NoTitle), $(!REG_VT_DWORD), 255},+
+            {MaxSessions, $(NoTitle), $(!REG_VT_DWORD), 255},+
+            {MulticastForwardRate, $(NoTitle), $(!REG_VT_DWORD), 5},+
+            {SizWorkbuf, $(NoTitle), $(!REG_VT_DWORD), 4500},+
+            {RemoteListen, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {NameUpdateTime, $(NoTitle), $(!REG_VT_DWORD), 120},+
+            {MaxDgBufferedPerGroupName, $(NoTitle), $(!REG_VT_DWORD), 10},+
+            {RcvDgSubmittedPerGroupName, $(NoTitle), $(!REG_VT_DWORD), 3},+
+            {DisableMcastFwdWhenSessionTraffic, $(NoTitle), $(!REG_VT_DWORD), 1},+
+            {MaxBcastDgBuffered, $(NoTitle), $(!REG_VT_DWORD), 32},+
+            {NumRecvQueryIndications, $(NoTitle), $(!REG_VT_DWORD), 3}}
+        Shell  $(UtilityInf), AddValueList, $(KeyNetbiosGtwy), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyNetbiosGtwy)
+        CloseRegKey $(SoftParamsKey)
+    endif 
+    ifstr(i) $(DoRasMan) == TRUE
+        set ThisOption = RASMAN
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(ProductInfName), $(Product$(ThisOption)ImagePath), "service",+
+              "Network", {}, "", $(RasMsgDll)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        Set SoftParamsKey     = $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)SvcType)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+             {Review, $(NoTitle), $(!REG_VT_DWORD), 1}, +
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $(SoftNetRuleKey)
+            CloseRegKey $(SoftParamsKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+            {{class, $(NoTitle), $(!REG_VT_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+        set NewValueList = {{Logging, $(NoTitle), $(!REG_VT_DWORD), 0}}
+        Shell  $(UtilityInf), AddValueList, $(SoftParamsKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+             Debug-Output "AddValueList bombed out"
+             goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            goto fatalregistry
+        endif
+        CloseRegKey $(SoftParamsKey)
+    endif 
+    ifstr(i) $(DoRasHub) == TRUE
+        set ThisOption = RASHUB
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(ProductInfName), $(Product$(ThisOption)ImagePath),+
+           "kernel", "NDIS", {}, "", $(RasMsgDll)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+          $(Product$(ThisOption)Type)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+             {BindControl,$(NoTitle),$(!REG_VT_DWORD),$(HideBindings)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $(SoftNetRuleKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+        {{class, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+         {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+DoRasHubEnd = +
+    endif 
+    ifstr(i) $(DoRasAsyMac) == TRUE
+        set ThisOption = RASASYMAC
+        set RasSpecificString = $(Product$(ThisOption)Name)
+        ifstr(i) $(fSerialInstalled) == TRUE
+            set AsySoftwareType = "kernel"
+        else
+            set AsySoftwareType = "kerneldisable"
+        endif
+        Shell $(UtilityInf), AddSoftwareComponent, $(Manufacturer), +
+              $(Product$(ThisOption)Name), $(Product$(ThisOption)Name), +
+              $(Product$(ThisOption)DisplayName), +
+              $(ProductInfName), $(Product$(ThisOption)ImagePath), $(AsySoftwareType),+
+              "NDIS", {}, "", $(RasMsgDll)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddSoftware bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            CloseRegKey $($R4)
+            CloseRegKey $($R5)
+            goto fatalregistry
+        endif
+        Set SoftProductKey    = $($R1)
+        Set SoftNetRuleKey    = $($R2)
+        CloseRegKey $($R3)
+        CloseRegKey $($R4)
+        CloseRegKey $($R5)
+        set NewValueList = +
+            {{Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {SoftwareType,$(NoTitle),$(!REG_VT_SZ),+
+          $(Product$(ThisOption)Type)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {PathName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)ImagePath)},+
+             {MajorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMajorVersion)},+
+             {MinorVersion,$(NoTitle),$(!REG_VT_DWORD),$(ProductMinorVersion)},+
+             {BindControl,$(NoTitle),$(!REG_VT_DWORD),$(HideBindings)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftProductKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftProductKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            CloseRegKey $(SoftNetRuleKey)
+            goto fatalregistry
+        endif
+        set NewValueList = +
+        {{class, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NetRule$(ThisOption)Class)},+
+             {type,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Type)},+
+             {use,$(NoTitle),$(!REG_VT_SZ),$(NetRule$(ThisOption)Use)}, +
+             {bindform,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRule$(ThisOption)BindForm)}, +
+             {bindable,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(NetRule$(ThisOption)Bindable)}, +
+             {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(SoftNetRuleKey), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "AddValueList bombed out"
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        CloseRegKey $(SoftNetRuleKey)
+        Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+            EndWait
+            goto fatalregistry
+        endif
+        Shell $(UtilityInf), AddHardwareComponent, +
+              $(Product$(ThisOption)Name),$(ProductInfName),+
+              $(Product$(ThisOption)KeyName)
+        ifint $($R4) != -1
+            Set NETCARD_LIST = >($(NETCARD_LIST), +
+                                 {$(Product$(ThisOption)Name),+
+                                 $(NetworkCardKeyName)"\"$($R4)})
+        endif
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+           Debug-Output "Cannot add hardware component"
+           goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Registry error: add hardware component"
+            CloseRegKey $($R1)
+            CloseRegKey $($R2)
+            CloseRegKey $($R3)
+            goto fatalregistry
+        endif
+        set KeyNetcard    = $($R1)
+        set KeyParameters = $($R3)
+        set KeyAdapterRules = $($R2)
+        set AdapterNumber = $($R4)
+        set NewValueList = +
+            {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),+
+              "["$($R4)"] "$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Name)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        Shell  $(UtilityInf), AddValueList, $(KeyNetcard), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyNetcard)
+        set TempProdName = """"$(Product$(ThisOption)Name)$(AdapterNumber)""""
+        set TempBindForm = $(TempProdName)$(NetRuleHardware$(ThisOption)BindForm)
+        set NewValueList = +
+            {{type,$(NoTitle),$(!REG_VT_SZ),+
+              $(NetRuleHardware$(ThisOption)Type)},+
+             {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)}, +
+             {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+              $(NetRuleHardware$(ThisOption)Class)}, +
+         {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)}, +
+             {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        Shell  $(UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(KeyParameters)
+            CloseRegKey $(KeyAdapterRules)
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyAdapterRules)
+        CloseRegKey $(KeyParameters)
+    endif 
+    goto WriteParameters
+WriteParameters = +
+    ifstr(i) $(DoAdminOnly) == TRUE
+        goto WriteParametersOver
+    endif
+    StartWait
+    read-syms StatusUpdatingRegistry$(!STF_LANGUAGE)
+    shell $(subroutninf) PushBillBoard NETSTATUSDLG $(WritingRasParams)
+    Debug-Output "Writing Registry Parameters."
+    ifstr(i) $(DoServer) != TRUE
+        goto WriteRasMan
+    endif
+    set RasStartValue = 3
+    ifstr(i) $(!STF_PRODUCT) == "LANMANNT"
+        ifint $(NewNumDialin) != 0
+            set RasStartValue = 2
+        endif
+    endif
+    set KeySrv = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrKeyName) $(!MAXIMUM_ALLOWED) KeySvr
+    ifstr $(KeySvr) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open RemoteAccess key"
+    else
+        SetRegValue $(KeySvr) {Start,$(NoTitle),$(!REG_VT_DWORD),$(RasStartValue)}
+        CloseRegKey $(KeySvr)
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasSvrParamKeyName) $(!MAXIMUM_ALLOWED) KeySrvParams
+    ifstr $(KeySrvParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open RasSvr Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{NetBiosGatewayEnabled, $(NoTitle), $(!REG_VT_DWORD), $(NetBiosGtwyEnabled)}}
+    Shell  $(UtilityInf), AddValueList, $(KeySrvParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    CloseRegKey $(KeySrvParams)
+WriteRasMan = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasManLinkageKeyName) $(!MAXIMUM_ALLOWED) RasManLinkageKey
+    ifstr $(RasManLinkageKey) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open RasMan linkage key"
+        set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        goto fatalregistry
+    endif
+    set RasManDependency = {}
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set RasManDependency = {"AsyncMac", "RasHub"}
+    else
+        set RasManDependency = {"RasHub"}
+    endif
+    set NewValueList = +
+        {{OtherDependencies, $(NoTitle), $(!REG_VT_MULTI_SZ),$(RasManDependency)}}
+    Shell  $(UtilityInf), AddValueList, $(RasManLinkageKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Rasman:Linkage: AddValueList bombed out"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(RasManLinkageKey)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        Debug-Output "WriteRasMan: Registry Error "$(RegistryErrorIndex)
+        goto fatalregistry
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasManParamKeyName) $(!MAXIMUM_ALLOWED) KeyRasManParams
+    ifstr $(KeyRasManParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open RasMan Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set RasMediaIsdnKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasMediaIsdnKeyName) $(!MAXIMUM_ALLOWED) RasMediaIsdnKey
+    ifstr $(RasMediaIsdnKey) != $(KeyNull)
+       set IsdnMedia = {}
+       set IsdnMediaDll = ""
+       GetRegValue $(RasMediaIsdnKey), "MediaDll" IsdnMedia
+       set IsdnMediaDll = *($(IsdnMedia), 4)
+       CloseRegKey $(RasMediaIsdnKey)
+    endif
+    set MediaValue = {}
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set MediaValue = {"rasser"}
+    endif
+    ifstr $(IsdnMediaDll) != ""
+       set MediaValue = >($(MediaValue), $(IsdnMediaDll))
+    endif
+    Debug-Output "Adding Medias as "$(MediaValue)
+    set NewValueList = {{Medias,$(NoTitle),$(!REG_VT_MULTI_SZ),$(MediaValue)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyRasManParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    CloseRegKey $(KeyRasManParams)
+WriteRasHub = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasHubLinkageKeyName) $(!MAXIMUM_ALLOWED) RasHubLinkageKey
+    ifstr $(RasHubLinkageKey) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open RasHub linkage key"
+        set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        goto fatalregistry
+    endif
+    set RasHubDependency = {""}
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set RasHubDependency = {"AsyncMac"}
+    endif
+    set NewValueList = +
+        {{OtherDependencies, $(NoTitle), $(!REG_VT_MULTI_SZ),$(RasHubDependency)}}
+    Shell  $(UtilityInf), AddValueList, $(RasHubLinkageKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Rashub:Linkage: AddValueList bombed out"
+        goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(RasHubLinkageKey)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        Debug-Output "WriteRasMan: Registry Error "$(RegistryErrorIndex)
+        goto fatalregistry
+    endif
+    set PrevNumPorts = 0
+    set PrevNumDialin = 0
+    set PrevNumDialout = 0
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) == $(KeyNull)
+       ifstr(i) $(!NTN_InstallMode) == configure
+          Debug-Output "OEMNSVRA.INF: could not open AsyncMac Params key"
+          set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+          goto fatalregistry
+       endif
+       goto WriteRasHub1
+    endif
+    GetRegValue $(KeyMacParams), "Ports" PortsInfo
+    GetRegValue $(KeyMacParams), "Dialin" DialinInfo
+    GetRegValue $(KeyMacParams), "Dialout" DialoutInfo
+    set PrevNumPorts      = *($(PortsInfo), 4)
+    set PrevNumDialin     = *($(DialinInfo), 4)
+    set PrevNumDialout    = *($(DialoutInfo), 4)
+    Debug-Output "Ports currently configured "$(PrevNumPorts)
+    Debug-Output "Ports currently dialin "$(PrevNumDialin)
+    Debug-Output "Ports currently dialout "$(PrevNumDialout)
+    CloseRegKey $(KeyMacParams)
+WriteRasHub1 =+
+    set ThisOption = RASHUB
+    set RasSpecificString = $(Product$(ThisOption)Name)
+    ifint $(PrevNumDialin) == $(NewNumDialin)
+        ifint $(PrevNumDialout) == $(NewNumDialout)
+            set CommonStatus = STATUS_NO_EFFECT
+            goto WriteRasAsyMac
+        endif
+    endif
+    set NumAddDialin      = 0
+    set NumAddDialout     = 0
+    set NumRemoveDialin   = 0
+    set NumRemoveDialout  = 0
+    ifint $(PrevNumDialin) > $(NewNumDialin)
+        set-sub NumRemoveDialin = $(PrevNumDialin), $(NewNumDialin)
+    else
+        set-sub NumAddDialin = $(NewNumDialin), $(PrevNumDialin)
+    endif
+    ifint $(PrevNumDialout) > $(NewNumDialout)
+        set-sub NumRemoveDialout = $(PrevNumDialout), $(NewNumDialout)
+    else
+        set-sub NumAddDialout = $(NewNumDialout), $(PrevNumDialout)
+    endif
+    set-add NumAddTotal = $(NumAddDialin), $(NumAddDialout)
+    set-add NumRemoveTotal = $(NumRemoveDialin), $(NumRemoveDialout)
+AddRasHubNetCard = +
+     Debug-Output "Adding RasHub netcard NumAddDialin = "$(NumAddDialin)
+     Debug-Output "Adding RasHub netcard NumAddDialout = "$(NumAddDialout)
+     IfInt $(NumAddTotal) == 0
+         goto RemoveRasHubNetCard
+     else
+         set-sub NumAddTotal = $(NumAddTotal),1
+         Debug-Output "In the Add if loop. NumAddTotal = "$(NumAddTotal)
+         Shell $(UtilityInf), AddHardwareComponent, +
+               $(Product$(ThisOption)Name),$(ProductInfName),+
+               $(Product$(ThisOption)KeyName)
+         ifint $($R4) != -1
+             Set NETCARD_LIST = >($(NETCARD_LIST), +
+                                  {$(Product$(ThisOption)Name),+
+                                  $(NetworkCardKeyName)"\"$($R4)})
+          endif
+          ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "Cannot add hardware component"
+             goto ShellCodeError
+          endif
+          set RegistryErrorIndex = $($R0)
+          Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+              EndWait
+              Debug-Output "Registry error: add hardware component"
+              CloseRegKey $($R1)
+              CloseRegKey $($R2)
+              CloseRegKey $($R3)
+              goto fatalregistry
+          endif
+        set KeyNetcard    = $($R1)
+        set KeyParameters = $($R3)
+        set KeyAdapterRules = $($R2)
+        set AdapterNumber = $($R4)
+        set NewValueList = +
+            {{Manufacturer,$(NoTitle),$(!REG_VT_SZ),$(Manufacturer)},+
+             {Title,$(NoTitle),$(!REG_VT_SZ),+
+              "["$($R4)"] "$(Product$(ThisOption)Title)},+
+             {Description,$(NoTitle),$(!REG_VT_SZ),+
+              $(Product$(ThisOption)Description)},+
+             {ServiceName,$(NoTitle),$(!REG_VT_SZ),$($R5)},+
+             {InstallDate,$(NoTitle),$(!REG_VT_DWORD),*($(Now),1)},+
+             {Hidden,$(NoTitle),$(!REG_VT_DWORD),$(HideComponent)}}
+        ifint $(NumAddDialin) > 0
+            set NewValueList = >($(NewValueList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(Product$(ThisOption)DIALINName)})
+        else 
+            set NewValueList = >($(NewValueList), +
+                                 {ProductName,$(NoTitle),$(!REG_VT_SZ),+
+                                  $(Product$(ThisOption)DIALOUTName)})
+        endif
+        Shell  $(UtilityInf), AddValueList, $(KeyNetcard), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error"
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyNetcard)
+        set TempProdName = """"$(Product$(ThisOption)Name)$(AdapterNumber)""""
+        set TempBindForm = $(TempProdName)$(NetRuleHardware$(ThisOption)BindForm)
+        ifint $(NumAddDialin) > 0
+           set NewValueList = +
+               {{type,$(NoTitle),$(!REG_VT_SZ),+
+                 $(NetRuleHardwareDIALINType)},+
+                {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)},+
+                {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+                 $(NetRuleHardwareDIALINClass)},+
+                {block,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+                 $(NetRuleHardwareDIALINBlock)},+
+                {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)},+
+                {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        else
+           set NewValueList = +
+               {{type,$(NoTitle),$(!REG_VT_SZ),+
+                 $(NetRuleHardwareDIALOUTType)},+
+                {bindform,$(NoTitle),$(!REG_VT_SZ),$(TempBindForm)},+
+                {class,$(NoTitle),$(!REG_VT_MULTI_SZ),+
+                 $(NetRuleHardwareDIALOUTClass)},+
+            {InfOption,$(NoTitle),$(!REG_VT_SZ),$(ThisOption)},+
+                {Infname ,$(NoTitle),$(!REG_VT_SZ),$(ProductInfName)}}
+        endif
+        Shell  $(UtilityInf), AddValueList, $(KeyAdapterRules), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        set RegistryErrorIndex = $($R0)
+        Ifstr(i) $(RegistryErrorIndex) != NO_ERROR
+            EndWait
+            Debug-Output "Resgitry error: add value list."
+            CloseRegKey $(KeyParameters)
+            CloseRegKey $(KeyAdapterRules)
+            goto fatalregistry
+        endif
+        CloseRegKey $(KeyAdapterRules)
+        Debug-Output "In the Add if loop. NumAddDialin = "$(NumAddDialin)
+        Debug-Output "In the Add if loop. NumAddDialout = "$(NumAddDialout)
+        Shell $(UtilityInf), GetBusTypeNum
+        set BusTypeNum = $($R1)
+        ifint $(NumAddDialin) > 0
+            set-sub NumAddDialin = $(NumAddDialin),1
+            set NewValueList = {{EnumExportPref, $(NoTitle), $(!REG_VT_DWORD), 0}, +
+                                {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+        else
+            set-sub NumAddDialout = $(NumAddDialout),1
+            set NewValueList = {{EnumExportPref, $(NoTitle), $(!REG_VT_DWORD), 1}, +
+                                {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+        endif
+        Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+        ifint $($ShellCode) != $(!SHELL_CODE_OK)
+            Debug-Output "ShellCode error."
+            goto ShellCodeError
+        endif
+        CloseRegKey $(KeyParameters)
+        goto AddRasHubNetCard
+     endif 
+RemoveRasHubNetCard = +
+     Ifint $(NumRemoveTotal) == 0
+        goto WriteRasHubEnd
+     endif
+     Debug-Output "Removing RasHub netcard NumRemoveDialin = "$(NumRemoveDialin)
+     Debug-Output "Removing RasHub netcard NumRemoveDialout = "$(NumRemoveDialout)
+        OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+        ifstr $(KeyNetcards) == $(KeyNull)
+             Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+             set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+             goto fatalregistry
+        endif
+        EnumRegKey $(KeyNetcards) NetcardsList
+        set RemoveDialinList  = {}
+        set RemoveDialoutList = {}
+        ForListDo $(NetcardsList)
+           set KeyName = *($($),1)
+           OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+           ifstr $(Card) == $(KeyNull)
+               Debug-Output "OEMNSVRA.INF: could not open netcard key"
+               set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+               goto fatalregistry
+           endif
+           GetRegValue $(Card), "ProductName" ProductNameInfo
+           set CardProductName = *($(ProductNameInfo), 4)
+           ifstr(i) $(CardProductName) == $(ProductRASHUBDIALINName)
+              set RemoveDialinList = >($(RemoveDialinList), +
+                                      {$(ProductRASHUBName),+
+                                       $(NetworkCardKeyName)"\"$(KeyName)})
+           else-ifstr(i) $(CardProductName) == $(ProductRASHUBDIALOUTName)
+              set RemoveDialoutList = >($(RemoveDialoutList), +
+                                       {$(ProductRASHUBName),+
+                                        $(NetworkCardKeyName)"\"$(KeyName)})
+           endif
+           CloseRegKey $(Card)
+        EndForListDo
+        CloseRegKey $(KeyNetcards)
+        ForListDo  $(RemoveDialinList)
+            ifint $(NumRemoveDialin) == 0
+                goto RemoveDialout
+            endif
+            set-sub NumRemoveDialin = $(NumRemoveDialin), 1
+            debug-output "Removing hardware component: "$($)
+            Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer),+
+                  *($($),1), *($($),2)
+        EndForListDo
+RemoveDialout = +
+        ForListDo  $(RemoveDialoutList)
+            ifint $(NumRemoveDialout) == 0
+                goto WriteRasHubEnd
+            endif
+            set-sub NumRemoveDialout = $(NumRemoveDialout), 1
+            debug-output "Removing hardware component: "$($)
+            Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer),+
+                  *($($),1), *($($),2)
+        EndForListDo
+WriteRasHubEnd = +
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasHubParamKeyName) $(!MAXIMUM_ALLOWED) KeyHubParams
+    ifstr $(KeyHubParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open RasHub Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{EndPoints, $(NoTitle), $(!REG_VT_MULTI_SZ), $(NewNumPortsList)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyHubParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyHubParams)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+WriteRasAsyMac = +
+    ifstr(i) $(fSerialInstalled) == TRUE
+        set AsyStartValue = 3
+    else
+        set AsyStartValue = 4
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacKeyName) $(!MAXIMUM_ALLOWED) KeyMac
+    ifstr $(KeyMac) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac key"
+    else
+        SetRegValue $(KeyMac) {Start,$(NoTitle),$(!REG_VT_DWORD),$(AsyStartValue)}
+        CloseRegKey $(KeyMac)
+    endif
+    ifint $(PrevNumDialin) == $(NewNumDialin)
+        ifint $(PrevNumDialout) == $(NewNumDialout)
+            EndWait
+            shell $(subroutninf) PopBillBoard
+            goto WriteParametersOver
+        endif
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacParamKeyName) $(!MAXIMUM_ALLOWED) KeyMacParams
+    ifstr $(KeyMacParams) == $(KeyNull)
+       Debug-Output "OEMNSVRA.INF: could not open AsyncMac Params key"
+       set RegistryErrorIndex = UNABLE_OPEN_SERVICE_PARAMETERS
+       goto fatalregistry
+    endif
+    set NewValueList = +
+        {{Ports, $(NoTitle), $(!REG_VT_DWORD), $(NewNumPorts)},+
+         {Dialin, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialin)},+
+         {Dialout, $(NoTitle), $(!REG_VT_DWORD), $(NewNumDialout)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyMacParams), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyMacParams)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+         set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+         goto fatalregistry
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+          Debug-Output "OEMNSVRA.INF: could not open netcard key"
+          set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+          goto fatalregistry
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+       ifstr(i) $(CardProductName) == $(ProductRASASYMACName)
+           goto RasMacCardFound
+       endif
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+RasMacCardFound = +
+    Debug-Output "Shelling to find AsyncMac Service."
+    Shell $(UtilityInf) FindService, $(Card)
+    CloseRegKey $(Card)
+    ifint $($ShellCode)  != $(!SHELL_CODE_OK)
+        Debug-Output "OEMNSVRA.INF: shell Findservice failed"
+        goto ShellCodeError
+    endif
+    ifstr(i) $($R0) != NO_ERROR
+        Debug-Output "OEMNSVRA.INF: findservice failed."
+        goto fatalregistry
+    endif
+    set KeyParameters = $($R2)
+    CloseRegKey $($R1)
+    Shell $(UtilityInf), GetBusTypeNum
+    set BusTypeNum = $($R1)
+    set NewValueList = +
+        {{Ports, $(NoTitle), $(!REG_VT_DWORD), $(NewNumPorts)}, +
+         {BusType, $(NoTitle), $(!REG_VT_DWORD), $(BusTypeNum)}}
+    Shell  $(UtilityInf), AddValueList, $(KeyParameters), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+         Debug-Output "AddValueList bombed out"
+         goto ShellCodeError
+    endif
+    set RegistryErrorIndex = $($R0)
+    CloseRegKey $(KeyParameters)
+    Ifstr(i) $(RegistryErrorIndex) != "NO_ERROR"
+        goto fatalregistry
+    endif
+    EndWait
+    Ifstr(i) $(!NTN_InstallPhase) != primary
+        shell $(subroutninf) PopBillBoard
+    Endif
+WriteParametersOver = +
+    goto successful
+RemoveRas = +
+    StartWait
+    set REMOVE_SOFTWARE = {}
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFlags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Debug-Output "Installed List is "$(InstalledComps)
+    Debug-Output "Installed Flags is "$(InstalledFlags)
+    ifstr(i) $(DoAdminOnly) == TRUE
+         set REMOVE_SOFTWARE = {$(ProductRASName)}
+         goto RemoveSoftware
+    endif
+    set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASName))
+    ifstr(i) $(DoServer) == TRUE
+         set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASSVRName))
+    endif
+    set REMOVE_SOFTWARE = >($(REMOVE_SOFTWARE), $(ProductRASMANName))
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) KeyNetcards
+    ifstr $(KeyNetcards) == $(KeyNull)
+         Debug-Output "OEMNSVRA.INF: could not open Netcards key"
+         set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+         goto fatalregistry
+    endif
+    EnumRegKey $(KeyNetcards) NetcardsList
+    ForListDo $(NetcardsList)
+       set KeyName = *($($),1)
+       OpenRegKey $(KeyNetcards) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+       ifstr $(Card) == $(KeyNull)
+           Debug-Output "OEMNSVRA.INF: could not open netcard key"
+           set RegistryErrorIndex = UNABLE_OPEN_NETWORKCARD_SECTION
+           goto fatalregistry
+       endif
+       GetRegValue $(Card), "ProductName" ProductNameInfo
+       set CardProductName = *($(ProductNameInfo), 4)
+       ifstr(i) $(CardProductName) == $(ProductRASHUBDIALINName)
+          set NETCARD_LIST = >($(NETCARD_LIST), +
+                                {$(ProductRASHUBName),+
+                                 $(NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(ProductRASHUBDIALOUTName)
+          set NETCARD_LIST = >($(NETCARD_LIST), +
+                                {$(ProductRASHUBName),+
+                                 $(NetworkCardKeyName)"\"$(KeyName)})
+       else-ifstr(i) $(CardProductName) == $(ProductRASASYMACName)
+          set NETCARD_LIST = >($(NETCARD_LIST),+
+                                {$(ProductRASASYMACName),+
+                                 $(NetworkCardKeyName)"\"$(KeyName)})
+       endif
+       CloseRegKey $(Card)
+    EndForListDo
+    CloseRegKey $(KeyNetcards)
+    ForListDo  $(NETCARD_LIST)
+        debug-output "Removing hardware component: "$($)
+        Shell $(UtilityInf), RemoveHardwareComponent, $(Manufacturer),+
+              *($($),1), *($($),2)
+    EndForListDo
+RemoveSoftware = +
+    Debug-Output "Remove Software List "$(REMOVE_SOFTWARE)
+    ForListDo  $(REMOVE_SOFTWARE)
+        Debug-Output "Removing software component: "$($)
+        ifstr(i) $($) == RAS
+             OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyBase) +
+                        $(!MAXIMUM_ALLOWED) ProductKey
+             Ifstr $(ProductKey) == $(KeyNull)
+                Debug-Output "OEMNSVRA.INF: could not open Software product key"
+                set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+                goto fatalregistry
+             endif
+             DeleteRegTree $(ProductKey) $(Product$($)Name)
+             CloseRegKey $(ProductKey)
+        else
+            Shell $(UtilityInf), RemoveSoftwareComponent, $(Manufacturer), $($)
+        endif
+    EndForListDo
+    Ifstr(i) $(!STF_IDW) != TRUE
+        Install RemoveRasFiles
+    endif
+    ifstr(i) $(DoServerOnly) == FALSE
+           Install RemoveRasGroup
+    endif
+RemoveRasOver = +
+    EndWait
+    goto $(to)
+BindingsRas = +
+    Debug-Output "Review bindings is being called!!!."
+    shell "" QueryComponentsInstalled
+    Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        Set InstalledComps = $($R1)
+        Set InstalledFlags = $($R2)
+        Set DoServer      = *($(InstalledFlags),1)
+        Set DoClient      = *($(InstalledFlags),2)
+        Set DoAdmin       = *($(InstalledFlags),3)
+        Set DoServerOnly  = *($(InstalledFlags),4)
+        Set DoClientOnly  = *($(InstalledFlags),5)
+        Set DoAdminOnly   = *($(InstalledFlags),6)
+    Endif
+    Debug-Output "Installed List is "$(InstalledComps)
+    Debug-Output "Installed Flags is "$(InstalledFlags)
+    set AsyStartValue = 4
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasAsyMacKeyName) $(!MAXIMUM_ALLOWED) KeyMac
+    ifstr $(KeyMac) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open AsyncMac key"
+    else
+        GetRegValue $(KeyMac), "Start" AsyStartInfo
+        set AsyStartValue = *($(AsyStartInfo), 4)
+        Debug-Output "OEMNSVRA.INF: AsyncMac start value "$(AsyStartValue) 
+        CloseRegKey $(KeyMac)
+    endif
+    set RasHubParam = {}
+    set RasHubEndPointsLst = {}
+    ifint $(AsyStartValue) == 3
+        set RasMacLinkageKey = $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasMacLinkageKeyName) $(!MAXIMUM_ALLOWED) RasMacLinkageKey
+        ifstr $(RasMacLinkageKey) == $(KeyNull)
+            Debug-Output "OEMNSVRA.INF: could not open AsyncMac linkage key"
+            set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+            goto fatalregistry
+        endif
+        GetRegValue $(RasMacLinkageKey), "Bind" BindInfo
+        set RasHubParam = *($(BindInfo), 4)
+        CloseRegKey $(RasMacLinkageKey)
+        set RasHubParamKey = $(KeyNull)
+        OpenRegKey $(!REG_H_LOCAL) "" $(RasHubParamKeyName) $(!MAXIMUM_ALLOWED) RasHubParamKey
+        ifstr $(RasHubParamKey) == $(KeyNull)
+            Debug-Output "OEMNSVRA.INF: could not open RasHubParamKey"
+        else
+            GetRegValue $(RasHubParamKey), "EndPoints" EndPointsInfo
+            set EndPointsLst = *($(EndPointsInfo), 4)
+            set RasHubEndPointsLst = >($(RasHubEndPointsLst),*($(EndPointsLst), 1))
+            CloseRegKey $(RasHubParamKey)
+        endif
+    endif
+    set RasMediaIsdnKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasMediaIsdnKeyName) $(!MAXIMUM_ALLOWED) RasMediaIsdnKey
+    ifstr $(RasMediaIsdnKey) != $(KeyNull)
+       set IsdnDriver = {}
+       GetRegValue $(RasMediaIsdnKey), "Driver" IsdnDriver
+       Split-String *($(IsdnDriver), 4) "." IsdnDriverName
+       set IsdnDriverPartial = *($(IsdnDriverName),1)
+       ifstr $(IsdnDriverPartial) != ""
+          set IsdnMacLinkageKeyName = $(!NTN_ServiceBase)"\"$(IsdnDriverPartial)"\Linkage"
+          Debug-Output "Isdn linkage key name "$(IsdnMacLinkageKeyName)
+          set IsdnMacLinkageKey = $(KeyNull)
+          OpenRegKey $(!REG_H_LOCAL) "" $(IsdnMacLinkageKeyName) $(!MAXIMUM_ALLOWED) IsdnMacLinkageKey
+          ifstr $(IsdnMacLinkageKey) == $(KeyNull)
+              Debug-Output "OEMNSVRA.INF: could not open Isdn linkage key"
+          else
+              GetRegValue $(IsdnMacLinkageKey), "Bind" BindInfo
+              set BindInfoLst = {}
+              set BindInfoLst = *($(BindInfo),4)
+              forlistdo $(BindInfoLst)
+                 set RasHubParam = >($(RasHubParam), $($))
+                 set RasHubEndPointsLst = >($(RasHubEndPointsLst), "1")
+              endforlistdo
+              CloseRegKey $(IsdnMacLinkageKey)
+          endif
+       endif
+       CloseRegKey $(RasMediaIsdnKey)
+    else
+        Debug-Output "OEMNSVRA.INF: could not open Media/Isdn key"
+    endif
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasHubParamKeyName) $(!MAXIMUM_ALLOWED) RasHubParamKey
+    ifstr $(RasHubParamKey) == $(KeyNull)
+        Debug-Output "OEMNSVRA.INF: could not open RasHubParamKey"
+        set RegistryErrorIndex = UNABLE_ACCESS_CONFIGURE_SERVICE
+        goto fatalregistry
+    endif
+    Debug-Output "Setting RasHub param Bind to "$(RasHubParam)
+    set NewValueList = {{Bind, $(NoTitle), $(!REG_VT_MULTI_SZ), $(RasHubParam)}}
+    Shell $(UtilityInf), AddValueList, $(RasHubParamKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        CloseRegKey $(RasHubParamKey)
+        goto ShellCodeError
+    endif
+    Debug-Output "Setting RasHub param EndPoints to "$(RasHubEndPointsLst)
+    set NewValueList = {{EndPoints, $(NoTitle), $(!REG_VT_MULTI_SZ), $(RasHubEndPointsLst)}}
+    Shell $(UtilityInf), AddValueList, $(RasHubParamKey), $(NewValueList)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        CloseRegKey $(RasHubParamKey)
+        goto ShellCodeError
+    endif
+    CloseRegKey $(RasHubParamKey)
+    LoadLibrary "x" $(!STF_CWDDIR)rascfg.dll PORTSDLGHANDLE
+    LibraryProcedure Result, $(PORTSDLGHANDLE), InitRasmanSecurityDescriptor
+    Debug-Output "Result of setting Rasman security descriptor "$(Result)
+    LibraryProcedure Result, $(PORTSDLGHANDLE), InitRemoteSecurityDescriptor
+    Debug-Output "Result of setting Remote security descriptor "$(Result)
+    Debug-Output "Review bindings done."
+    goto end
+UpgradeRas = +
+    ifstr(i) $(ProductKeyName) == $(!NTN_RegBase)
+        OpenRegKey $(!REG_H_LOCAL) "" $(ProductKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+        Ifstr $(KeyProduct) != $(KeyNull)
+            GetRegValue $(KeyProduct),"MajorVersion", VersionInfo
+            set Version = *($(VersionInfo), 4)
+            Shell $(UtilityInf), GetInfFileNameFromRegistry, $(KeyProduct)
+            ifint $($ShellCode) != $(!SHELL_CODE_OK)
+                Debug-Output "ShellCode error"
+                goto ShellCodeError
+            endif
+            set !UG_Filename = $($R0)
+            ifstr(i) $(!UG_Filename) != ""
+                Debug-Output "File Name is "$(!UG_Filename)
+                shell "" QueryComponentsInstalled
+                Ifstr(i) $($R0) == STATUS_SUCCESSFUL
+                    Set InstalledComps = $($R1)
+                    Set InstalledFlags = $($R2)
+                    Set DoServer      = *($(InstalledFlags),1)
+                    Set DoClient      = *($(InstalledFlags),2)
+                    Set DoAdmin       = *($(InstalledFlags),3)
+                    Set DoServerOnly  = *($(InstalledFlags),4)
+                    Set DoClientOnly  = *($(InstalledFlags),5)
+                    Set DoAdminOnly   = *($(InstalledFlags),6)
+                Endif
+                Debug-Output "Installed List is "$(InstalledComps)
+                Debug-Output "Installed Flags is "$(InstalledFlags)
+                Set ServerInstalled = $(DoServer)
+                Set ClientInstalled = $(DoClient)
+                Set AdminInstalled  = $(DoAdmin)
+                Install InstallUpdate
+                ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    goto filecopycancel
+                endif
+                Install InstallResources
+                ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    goto filecopycancel
+                endif
+                Install InstallRasFiles
+                ifstr(i) $(STF_INSTALL_OUTCOME) != STF_SUCCESS
+                    goto filecopycancel
+                endif
+            endif
+            SetRegValue $(KeyProduct) {MajorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMajorVersion)}
+            SetRegValue $(KeyProduct) {MinorVersion,$(NoTitle),$(!REG_VT_SZ),$(ProductMinorVersion)}
+            CloseRegKey $(KeyProduct)
+        else
+            Set RegistryErrorIndex = $($R0)
+            goto fatalregistry
+        endif
+    endif
+    goto end
+successful = +
+    Ifstr(i) $(!NTN_InstallMode) == "install"
+       Debug-Output "OEMNSVRA.INF: Creating Ras Group and Icons"
+       ifstr(i) $(DoServerOnly) == FALSE
+           install CreateRasGroup
+       endif
+    EndIf
+    Ifstr(i) $(!NTN_InstallPhase) == primary
+        goto installstep1
+    else-ifstr(i) $(!NTN_InstallMode) == configure
+        goto installstep1
+    endif
+    read-syms SuccessfulInstall$(!STF_LANGUAGE)
+    set DlgText = $(Success)
+    ifstr(i) $(DoAdmin) == TRUE
+      ifstr(i) $(DoServer) == TRUE
+        set DlgText = $(DlgText)$(LF)$(LF)$(AdminMsg)
+        read-syms RasInstallOverDlg$(!STF_LANGUAGE)
+        ui start "RasInstallOver" $(RASDLGHANDLE)
+      else
+        read-syms RasInstallOverDlg2$(!STF_LANGUAGE)
+        ui start "RasInstallOver" $(RASDLGHANDLE)
+      endif
+    else
+        read-syms RasInstallOverDlg2$(!STF_LANGUAGE)
+        ui start "RasInstallOver" $(RASDLGHANDLE)
+    endif
+    ui pop 1
+installstep1 = +
+    goto end
+warning = +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "WARNING", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+       goto $(to)
+    else-ifstr(i) $($R1) == "CANCEL"
+       goto $(from)
+    else
+       Debug-Msg "Error Error Bad DLGEVENT"
+       goto "end"
+    endif
+nonfatal = +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "NONFATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    goto ShellCodeError
+    endif
+    ifstr(i) $($R1) == "OK"
+        goto $(from)
+    else
+        goto "end"
+    endif
+fatalregistry = +
+    Shell $(UtilityInf) RegistryErrorString $(RegistryErrorIndex)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+       Debug-Output "fatalregistry: shell to find RegistryErrorString failed."
+       goto ShellCodeError
+    endif
+    set Error = $($R0)" - service "$(RasSpecificString)"."
+    read-syms AbortMessage$(!STF_LANGUAGE)
+    set Error = $(Error)$(!LF)$(!LF)$(AbortText)
+    goto fatal
+fatal =    +
+    Shell $(subroutninf) SetupMessage, $(!STF_LANGUAGE), "FATAL", $(Error)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "fatal: shell to SetupMessage failed."
+    goto ShellCodeError
+    endif
+    goto setfailed
+ShellCodeError = +
+    read-syms ShellCodeErrorMsg$(!STF_LANGUAGE)
+    ui start "Error Message"
+    goto setfailed
+setfailed = +
+    set CommonStatus = STATUS_FAILED
+    ifstr(i) $(fRemoveRas) == TRUE
+        set fRemoveRas = FALSE
+        set from = setfailed
+        set to   = end
+        goto RemoveRas
+    endif
+    goto end
+filecopycancel =+
+    set CommonStatus = STATUS_NO_EFFECT
+    ifstr(i) $(fRemoveRas) == TRUE
+        set fRemoveRas = FALSE
+        set from = setfailed
+        set to   = end
+        goto RemoveRas
+    endif
+end = +
+    ifstr(i) $(RASDLGHANDLE) != $(HandleNull)
+        Debug-Output "Unloading RASRES.DLL"
+        FreeLibrary $(RASDLGHANDLE)
+    endif
+    ifstr(i) $(PORTSDLGHANDLE) != $(HandleNull)
+        Debug-Output "Unloading RASCFG.DLL"
+        FreeLibrary $(PORTSDLGHANDLE)
+    endif
+    Debug-Output "ending at last!!"
+    goto term
+term = +
+    Debug-Output "OEMNSVRA.INF:term: CommonStatus "$(CommonStatus)
+    Return $(CommonStatus)
+[InstallResources]
+    set STF_VITAL = ""
+    Debug-Output  "In Copying Files"
+    CreateDir $(RasDir)
+    AddSectionFilesToCopyList Files-Resource $(SourceDir) $(!STF_WINDOWSSYSPATH)
+    AddSectionFilesToCopyList Files-Ras-Inf $(SourceDir) $(ProductPath)
+    set !STF_NCPA_FLUSH_COPYLIST = TRUE
+    ifstr(i) $(DoCopy) == "YES"
+       CopyFilesInCopyList
+    endif
+    Debug-Output  "Done Copying Files"
+    exit
+[RemoveResources]
+    Debug-Output "In removing infs and dll"
+    set RemoveList = {}
+    set RenameList = {}
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, MODEMINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, PADINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, SWITCHINF, 1))
+    set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSETUPHLP, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASRESDLL, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASCFGDLL, 1))
+    set RenameList = >($(RenameList), #(Files-RemoveList, RASFIL32DLL, 1))
+    ForListDo $(RemoveList)
+        Debug-Output "Removing "$($)
+        LibraryProcedure Status , $(!LIBHANDLE), DelFile $($)
+        Debug-Output "Status is "$(Status)
+    EndForListDo
+    ForListDo $(RenameList)
+        Split-String $($) "\" FilePath
+        QueryListSize PathLen $(FilePath)
+        Split-String *($(FilePath),$(PathLen)) "." FullFileName
+        Set FileName = *($(FullFileName),1)
+        Debug-Output "FileName is "$(FileName)
+        LibraryProcedure STATUS, $(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        Debug-Output "CheckFile Status = "$(STATUS)
+        ifstr(i) $(STATUS) == YES
+            LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+            Debug-Output "Delfile Status = "$(STATUS)
+        endif
+        Debug-Output "Renaming from "$($)
+        Debug-Output "Renaming to "$(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        LibraryProcedure Status1 , $(!LIBHANDLE), RenFile $($), $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+        Debug-Output "Status is "$(Status1)
+        AddFileToDeleteList $(!STF_WINDOWSSYSPATH)"\"$(FileName)".old"
+    EndForListDo
+    exit
+[InstallRasFiles]
+    set STF_VITAL = ""
+    Debug-Output  "In InstallRasFiles Copying Files"
+    Debug-Output  "ServerInstalled "$(ServerInstalled)
+    Debug-Output  "ClientInstalled "$(ClientInstalled)
+    ifstr(i) $(DoAdmin) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Admin $(SourceDir) +
+                  $(!STF_WINDOWSSYSPATH)
+        ifstr(i) $(DoAdminOnly) == TRUE
+            goto InstallRasFiles1
+        endif
+    endif
+    ifstr(i) $(DoClient) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Client $(SourceDir) +
+                 $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(DoServer) == TRUE
+        AddSectionFilesToCopyList Files-Ras-Server $(SourceDir) +
+                 $(!STF_WINDOWSSYSPATH)
+    endif
+    ifstr(i) $(ServerInstalled) == FALSE
+        ifstr(i) $(ClientInstalled) == FALSE
+            AddSectionFilesToCopyList Files-Ras-Common $(SourceDir) +
+                         $(!STF_WINDOWSSYSPATH)
+            AddSectionFilesToCopyList Files-Ras-Drivers $(SourceDir) +
+                         $(!STF_WINDOWSSYSPATH)\drivers
+        endif
+    endif
+InstallRasFiles1 = +
+    set !STF_NCPA_FLUSH_COPYLIST = TRUE
+    ifstr(i) $(DoCopy) == "YES"
+       CopyFilesInCopyList
+    endif
+    Debug-Output  "Done Copying Files"
+    exit
+[RemoveRasFiles]
+    set RemoveList = {}
+    set RenameList = {}
+    set fCommonRemoved = FALSE
+    ifstr(i) $(DoServer) == TRUE
+       set fCommonRemoved = TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASGTWYDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSRVEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSAUTHDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASADMINDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMSGDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMXSDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSERDLL, 1))
+       set RenameList = >($(RenameList), #(Files-RemoveList, ASYNCMACSYS, 1))
+       set RenameList = >($(RenameList), #(Files-RemoveList, RASHUBSYS, 1))
+    endif
+    ifstr(i) $(DoClient) == TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASDIALEXE, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASPHONEHLP, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASCAUTHDLL, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASAPI32DLL, 1))
+       ifstr(i) $(fCommonRemoved) == FALSE
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMANEXE, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMSGDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASMXSDLL, 1))
+           set RemoveList = >($(RemoveList), #(Files-RemoveList, RASSERDLL, 1))
+           set RenameList = >($(RenameList), #(Files-RemoveList, ASYNCMACSYS, 1))
+           set RenameList = >($(RenameList), #(Files-RemoveList, RASHUBSYS, 1))
+       endif
+    endif
+    ifstr(i) $(DoAdmin) == TRUE
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASADMINHLP, 1))
+       set RemoveList = >($(RemoveList), #(Files-RemoveList, RASGLOSSHLP, 1))
+    endif
+    ForListDo $(RemoveList)
+        Debug-Output "Removing "$($)
+        LibraryProcedure Status , $(!LIBHANDLE), DelFile $($)
+        Debug-Output "Status is "$(Status)
+    EndForListDo
+    ForListDo $(RenameList)
+        Split-String $($) "\" FilePath
+        QueryListSize PathLen $(FilePath)
+        Split-String *($(FilePath),$(PathLen)) "." FullFileName
+        Set FileName = *($(FullFileName),1)
+        Debug-Output "FileName is "$(FileName)
+        LibraryProcedure STATUS, $(!LIBHANDLE),CheckFileExistance $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        Debug-Output "CheckFile Status = "$(STATUS)
+        ifstr(i) $(STATUS) == YES
+            LibraryProcedure STATUS, $(!LIBHANDLE), DelFile $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+            Debug-Output "Delfile Status = "$(STATUS)
+        endif
+        Debug-Output "Renaming from "$($)
+        Debug-Output "Renaming to "$(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        LibraryProcedure Status1 , $(!LIBHANDLE), RenFile $($), $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+        Debug-Output "Status is "$(Status1)
+        AddFileToDeleteList $(!STF_WINDOWSSYSPATH)"\DRIVERS\"$(FileName)".old"
+    EndForListDo
+    exit
+[InstallUpdate]
+    set STF_VITAL = ""
+    set STF_OVERWRITE   = "VERIFYSOURCEOLDER"
+    Debug-Output  "In InstallUpdate "
+    AddSectionFilesToCopyList Files-Inf $(SourceDir) $(!STF_WINDOWSSYSPATH)
+    set !STF_NCPA_FLUSH_COPYLIST = TRUE
+    ifstr(i) $(DoCopy) == "YES"
+       CopyFilesInCopyList
+    endif
+    exit
+[CreateRasGroup]
+    CreateCommonProgManGroup $(RasGroup) ""
+    ShowCommonProgManGroup $(RasGroup), 1
+    ifstr(i) $(DoClient) == TRUE
+        CreateCommonProgManItem $(RasGroup), $(RasPhone) +
+                    $(!STF_WINDOWSSYSPATH)"\rasphone.exe" ""  0
+        CreateCommonProgManItem $(RasGroup), $(RasMon) +
+                    $(!STF_WINDOWSSYSPATH)"\rasmon.exe" ""  0
+    endif
+    ifstr(i) $(DoAdmin) == TRUE
+        CreateCommonProgManItem $(RasGroup), $(RasAdmin) +
+                    $(!STF_WINDOWSSYSPATH)"\rasadmin.exe" ""  0
+    endif
+    ifstr(i) $(ServerInstalled) == FALSE
+       ifstr(i) $(ClientInstalled) == FALSE
+          ifstr(i) $(AdminInstalled) == FALSE
+              CreateCommonProgManItem $(RasGroup), $(ReadMe) +
+                    $(!STF_WINDOWSSYSPATH)"\NOTEPAD.EXE "+
+                    $(!STF_WINDOWSSYSPATH)"\RAS\RASREAD.TXT" +
+                    "PROGMAN.EXE"  29
+          endif
+       endif
+    endif
+    ShowCommonProgManGroup $(RasGroup), 6
+    exit
+[RemoveRasGroup]
+    Debug-Output "Removing icons from "$(RasGroup)
+    CreateCommonProgManGroup $(RasGroup) ""
+    RemoveCommonProgManGroup $(RasGroup)
+    exit
+[QueryComponentsInstalled]
+    Set Status            =    STATUS_FAILED
+    Set ValueName         =    ""
+    Set InstalledList     =    {}
+    Set InstalledFlags    =    {}
+    Set TmpList           =    {}
+    Set KeyNull           =    ""
+    Set NumberOfComps     =    0
+    Set RasKeyName        =    $($0)
+    Debug-Output "QueryComponentsInstalled: "$(RasKeyName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        GetRegValue    $(KeyProduct) "RasComponents" TmpList
+        Debug-Output "QueryComponentsInstalled: "$(TmpList)
+        ForListDo *($(TmpList),4)
+            set InstalledList = >($(InstalledList), $($))
+        EndForListDo
+        CloseRegKey $(KeyProduct)
+        Ifcontains(i) "Server" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Ifcontains(i) "Client" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Ifcontains(i) "Admin" in $(InstalledList)
+            Set InstalledFlags = >($(InstalledFlags), TRUE)
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        QueryListSize NumberOfComps $(InstalledList)
+        ifint $(NumberOfComps) == 1
+            Ifcontains(i) "Server" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+            Ifcontains(i) "Client" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+            Ifcontains(i) "Admin" in $(InstalledList)
+                Set InstalledFlags = >($(InstalledFlags), TRUE)
+            else
+                Set InstalledFlags = >($(InstalledFlags), FALSE)
+            endif
+        else
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+            Set InstalledFlags = >($(InstalledFlags), FALSE)
+        endif
+        Set Status = STATUS_SUCCESSFUL
+    Else
+       Set Status = STATUS_NOT_FOUND
+    EndIf
+    Debug-Output "QueryComponentsInstalled: "$(InstalledList)
+    Return $(Status) $(InstalledList) $(InstalledFlags)
+[UpdateComponentsInstalled]
+    Set Status          =    STATUS_FAILED
+    Set InstalledList   =    $($0)
+    Set RasKeyName      =    $($1)
+    Set KeyNull        =    ""
+    Debug-Output "UpdateComponentsInstalled: "$(RasKeyName)
+    OpenRegKey $(!REG_H_LOCAL) "" $(RasKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        SetRegValue $(KeyProduct) {RasComponents,$(NoTitle),$(!REG_VT_MULTI_SZ),$(InstalledList)}
+        CloseRegKey $(KeyProduct)
+        Set Status = STATUS_SUCCESSFUL
+    else
+        Set Status = STATUS_FAILED
+    endif
+    return $(Status)
+[IsNetcardInstalled]
+    Set Status                = STATUS_FAILED
+    Set fNetcardInstalled     = FALSE
+    Set KeyNull               = ""
+    set NetworkCardKeyName    = $($0)
+    set PORTSDLGHANDLE        = $($1)
+    set ProductRASHUBDIALINName  = "RasHubDialin"
+    set ProductRASHUBDIALOUTName = "RasHubDialout"
+    set ProductRASASYMACName     = "AsyncMac"
+    set NetworkCardKey = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetworkCardKeyName) $(!MAXIMUM_ALLOWED) NetworkCardKey
+    Ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        set NetcardsList = {}
+        EnumRegKey $(NetworkCardKey) NetcardsList
+        Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+           Debug-Output "IsNetcardInstalled: EnumRegKey failed."
+           goto IsNetcardInstalledEnd
+        endif
+        ForListDo $(NetcardsList)
+           set KeyName = *($($),1)
+           set Card = $(KeyNull)
+           OpenRegKey $(NetworkCardKey) "" $(KeyName) $(!MAXIMUM_ALLOWED) Card
+           ifstr $(Card) == $(KeyNull)
+               Debug-Output "IsNetcardInstalled: could not open netcard key "$(KeyName)
+           else
+               GetRegValue $(Card), "ProductName" ProductNameInfo
+               Ifint $(RegLastError) != $(!REG_ERROR_SUCCESS)
+                  Debug-Output "IsNetcardInstalled: ProductName not found."
+               else
+                  set CardProductName = *($(ProductNameInfo), 4)
+                  Debug-Output "IsNetcardInstalled: ProductName. "$(CardProductName)
+                  ifstr(i) $(CardProductName) != $(ProductRASHUBDIALINName) 
+                    ifstr(i) $(CardProductName) != $(ProductRASHUBDIALOUTName)
+                      ifstr(i) $(CardProductName) != $(ProductRASASYMACName)
+                        Debug-Output "found installed netcard"
+                        set fNetcardInstalled = TRUE
+                        set Status = STATUS_SUCCESSFUL
+                        CloseRegKey $(Card)
+                        goto IsNetcardInstalledEnd
+                      endif
+                    endif
+                  endif
+               endif
+               CloseRegKey $(Card)
+           endif
+        EndForListDo
+    else
+        Debug-Output "IsNetcardInstalled: failed to open "$(NetworkCardKeyName)
+    endif
+IsNetcardInstalledEnd =+
+    ifstr(i) $(NetworkCardKey) != $(KeyNull)
+        CloseRegKey $(NetworkCardKey)
+    endif
+    Return $(Status) $(fNetcardInstalled)
+[IsNetworkConfigured]
+    set NbfKeyName     = $(!NTN_ServiceBase)"\Nbf"
+    set NetbiosKeyName = $(!NTN_ServiceBase)"\Netbios"
+    set WkstaKeyName   = $(!NTN_ServiceBase)"\LanmanWorkstation"
+    Set KeyNull        =    ""
+    Set status = STATUS_FAILED
+    Set NbfConfigured     = FALSE
+    Set NetbiosConfigured = FALSE
+    Set WkstaConfigured   = FALSE
+    Debug-Output "IsNetworkConfigured NbfKeyName "$(NbfKeyName)
+    set KeyProduct = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(NbfKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        set NbfConfigured = TRUE
+    endif
+    Debug-Output "IsNetworkConfigured NetbiosKeyName "$(NetbiosKeyName)
+    set KeyProduct = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(NetbiosKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        set NetbiosConfigured = TRUE
+    endif
+    Debug-Output "IsNetworkConfigured WkstaKeyName "$(WkstaKeyName)
+    set KeyProduct = $(KeyNull)
+    OpenRegKey $(!REG_H_LOCAL) "" $(WkstaKeyName) $(!MAXIMUM_ALLOWED) KeyProduct
+    Ifstr(i) $(KeyProduct) != $(KeyNull)
+        CloseRegKey $(KeyProduct)
+        set WkstaConfigured = TRUE
+    endif
+    Debug-Output "IsNetworkConfigured ServerKeyName "$(ServerKeyName)
+    set KeyProduct = $(KeyNull)
+    set status = STATUS_SUCCESSFUL
+    Debug-Output "IsNetworkConfigured exit"
+    Return $(status) $(NbfConfigured) $(NetbiosConfigured) $(WkstaConfigured)
+[QueryUserQuit]
+    set Status     = STATUS_FAILED
+    set UserAction = CANCEL
+    set STF_MB_TEXT  = "The changes will not be saved. "+
+                       "Are you sure you want to exit Setup."
+    read-syms ExitWarningDlg$(!STF_LANGUAGE)
+    ui start "ExitWarning"
+    ifstr(i) $(DLGEVENT) == "YES"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "OK"
+    else-ifstr(i) $(DLGEVENT) == "NO"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "CANCEL"
+    else
+    endif
+fin_QueryUserQuit = +
+    Return $(Status) $(UserAction)
+[QueryRasUpgrade]
+    set Status     = STATUS_FAILED
+    set UserAction = CANCEL
+    read-syms RasUpgrade$(!STF_LANGUAGE)
+    set Text = $($0)$(Ver)$($1)$(Text1)$(Ver)$($2)$(Text2)$(Text3)
+    set STF_MB_TEXT  = $(Text)
+    read-syms ExitWarningDlg$(!STF_LANGUAGE)
+    ui start "RasUpgrade"
+    ifstr(i) $(DLGEVENT) == "YES"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "OK"
+    else-ifstr(i) $(DLGEVENT) == "NO"
+        set Status     = STATUS_SUCCESSFUL
+        set UserAction = "CANCEL"
+    else
+    endif
+fin_QueryRasUpgrade = +
+    Return $(Status) $(UserAction)
+[Files-RemoveList]
+RASADMINDLL    = $(!STF_WINDOWSSYSPATH)\RASADMIN.DLL
+RASGTWYDLL     = $(!STF_WINDOWSSYSPATH)\RASGTWY.DLL
+RASSRVEXE      = $(!STF_WINDOWSSYSPATH)\RASSRV.EXE
+RASSAUTHDLL    = $(!STF_WINDOWSSYSPATH)\RASSAUTH.DLL
+RASDIALEXE     = $(!STF_WINDOWSSYSPATH)\RASDIAL.EXE
+RASPHONEHLP    = $(!STF_WINDOWSSYSPATH)\RASPHONE.HLP
+RASGLOSSHLP    = $(!STF_WINDOWSSYSPATH)\RASGLOSS.HLP
+RASAPI32DLL    = $(!STF_WINDOWSSYSPATH)\RASAPI32.DLL
+RASCAUTHDLL    = $(!STF_WINDOWSSYSPATH)\RASCAUTH.DLL
+RASADMINHLP    = $(!STF_WINDOWSSYSPATH)\RASADMIN.HLP
+RASMANDLL      = $(!STF_WINDOWSSYSPATH)\RASMAN.DLL
+RASMANEXE      = $(!STF_WINDOWSSYSPATH)\RASMAN.EXE
+RASMSGDLL      = $(!STF_WINDOWSSYSPATH)\RASMSG.DLL
+RASMXSDLL      = $(!STF_WINDOWSSYSPATH)\RASMXS.DLL
+RASSERDLL      = $(!STF_WINDOWSSYSPATH)\RASSER.DLL
+ASYNCMACSYS    = $(!STF_WINDOWSSYSPATH)\DRIVERS\ASYNCMAC.SYS
+RASHUBSYS      = $(!STF_WINDOWSSYSPATH)\DRIVERS\RASHUB.SYS
+[Files-Inf]
+2, oemsetup.inf, SIZE=1000, RENAME=$(!UG_Filename)
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = Mips
+[Files-Ras-Admin]
+2,RASADMIN.EXE , SIZE=330752 , NODELETESOURCE
+2,RASADMIN.HLP , SIZE=132096
+[Files-Ras-Client]
+2,RASAPI32.DLL , SIZE=60928
+2,RASCAUTH.DLL , SIZE=37376
+2,RASPHONE.EXE , SIZE=251904 , NODELETESOURCE
+2,RASDIAL.EXE , SIZE=23040
+2,RASMON.EXE , SIZE=78336
+2,RASGLOSS.HLP , SIZE=27648
+2,RASPHONE.HLP , SIZE=191488
+[Files-Ras-Common]
+2,RASMAN.DLL , SIZE=56832
+2,RASMSG.DLL , SIZE=16384
+2,RASMXS.DLL , SIZE=52736
+2,RASSER.DLL , SIZE=28672
+2,RASMAN.EXE , SIZE=34816
+[Files-Ras-Drivers]
+2,ASYNCMAC.SYS , SIZE=70656
+2,RASHUB.SYS , SIZE=48640
+[Files-Ras-Inf]
+2,MODEM.INF , SIZE=80896 , NODELETESOURCE
+2,PAD.INF , SIZE=6144 , NODELETESOURCE
+2,SWITCH.INF , SIZE=512 , NODELETESOURCE
+2,RASREAD.TXT , SIZE=12288 , NODELETESOURCE
+[Files-Ras-Server]
+2,RASADMIN.DLL , SIZE=23552
+2,RASGTWY.DLL , SIZE=60416
+2,RASSAUTH.DLL , SIZE=74240
+2,RASSRV.EXE , SIZE=56832
+[Files-Resource]
+2,RASCFG.DLL , SIZE=100864 , NODELETESOURCE
+2,RASFIL32.DLL , SIZE=20480 , NODELETESOURCE
+2,RASRES.DLL , SIZE=11776 , NODELETESOURCE
+2,RASSETUP.HLP , SIZE=16384 , NODELETESOURCE
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+    RAS = "Remote Access Service"
+[FileConstantsENG]
+    RasGroup    = "Remote Access Service"
+    RasPhone    = "Remote Access"
+    RasMon      = "Remote Access Monitor"
+    RasAdmin    = "Remote Access Admin"
+    ReadMe      = "Read Me"
+    ProCaption   = "Remote Access Service Setup"
+    ProCancel    = "Cance&l"
+    ProCancelMsg = "Remote Access Service is not correctly installed. "+
+                   "Are you sure you want to cancel copying files?"
+    ProCancelCap = "Remote Access Service Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+    Error        = "Unable to determine proper source disk location; copy cannot be performed."
+    FunctionTitle   ="Remote Access Setup"
+    ProductRASDescription       = "Remote Access Service"
+    ProductRASSVRDescription    = "Windows NT RAS NetBios Gateway"
+    ProductRASMANDescription    = "Windows NT RAS API Layer"
+    ProductRASHUBDescription    = "Windows NT RAS Hub"
+    ProductRASASYMACDescription = "Windows NT RAS AsyMac Adapter Driver"
+    ProductRASTitle             = "Remote Access Service"
+    ProductRASDisplayName       = "Remote Access Service"
+    ProductRASSVRTitle          = "Remote Access Server Service"
+    ProductRASSVRDisplayName    = "Remote Access Server"
+    ProductRASMANTitle          = "Remote Access Service"
+    ProductRASMANDisplayName    = "Remote Access Connection Manager"
+    ProductRASHUBTitle          = "Remote Access Hub"
+    ProductRASHUBDisplayName    = "Remote Access Hub"
+    ProductRASASYMACTitle       = "Remote Access Mac"
+    ProductRASASYMACDisplayName = "Remote Access Mac"
+[DialogConstantsENG]
+    Help        = "&Help"
+    Exit        = "E&xit"
+    OK          = "OK"
+    HelpContext = ""
+    Continue    = "C&ontinue"
+    Cancel      = "C&ancel"
+[ExitWarningDlgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TITLE = "Remote Access Service Setup"
+    STF_MB_TYPE  = 3
+    STF_MB_ICON  = 5
+    STF_MB_DEF   = 2
+[SetupAbortDlgENG]
+    DlgType     = "Info"
+    DlgTemplate = "RESTART"
+    Caption     = "Remote Access Service Setup"
+    DlgText     = "Setup for Remote Access Service failed."$(LF)$(LF)+
+                  "Please choose Exit to exit back to the Windows NT System."
+    Windows     = "E&xit to &Windows NT"
+[RasInstallOverDlgENG]
+    DlgType      = "Info"
+    DlgTemplate  = "RASINSTALLED_1"
+    Caption      = "Remote Access Service Setup"
+    Help         = "&Help"
+    Exit         = "OK"
+    HelpContext  = #( HelpContextIDs, HC_INSTALLOVER1, 1 )
+[RasInstallOverDlg2ENG]
+    DlgType      = "Info"
+    DlgTemplate  = "RASINSTALLED_2"
+    Caption      = "Remote Access Service Setup"
+    Help         = "&Help"
+    Exit         = "OK"
+    HelpContext  = #( HelpContextIDs, HC_INSTALLOVER2, 1 )
+[AbortMessageENG]
+  AbortText  =  "Aborting Remote Access Setup. Please restart the system "+
+                "to fix the problem."
+[ShellCodeErrorMsgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TITLE = "Error: "$(FunctionTitle)
+    STF_MB_TEXT  = "An error occured running the shell command. Please "+
+                   "restart the system to fix the problem."
+    STF_MB_TYPE  = 1
+    STF_MB_ICON  = 3
+    STF_MB_DEF   = 1
+[SuccessfulInstallENG]
+  Success  = "Remote Access Service has been installed successfully."
+  AdminMsg = "Please use the Remote Access Admin program to assign Remote "+
+             "Access permissions to users. "+
+             "Start Remote Access Admin from the Program Manager by "+
+             "double-clicking the Remote Access Admin icon in the "+
+             "Remote Access Service program group."
+[MsgDlgENG]
+    DlgType      = "MessageBox"
+    STF_MB_TYPE  = 1
+    STF_MB_ICON  = 2
+    STF_MB_DEF   = 2
+[StatusUpdatingRegistryENG]
+    CreatingRas        = "Please wait while Remote Access is installed..."
+    WritingRasParams   = "Writing Remote Access parameters..."
+    RemovingRas        = "Removing Remote Access Service..."
+    RemovingResources  = "Removing Remote Access resource files..."
+[StatusDeterminingConfigENG]
+    ReadingConfig      = "Determining current configuration ..."
+[StatusCopyingResENG]
+    Status = "Copying DLLs and INF files to disk ..."
+[NonFatalError1ENG]
+    NonFatal  = "Setup cannot function properly without a user name."
+[FatalErrorMemENG]
+    Fatal  = "Not enough memory is available. RAS requires atleast 2 Meg."
+[NoConfigAdminENG]
+    NoConfigAdmin = "The only component installed currently is RasAdmin which "+
+                    "cannot be configured."
+[VerExistsENG]
+    Ver   = " ver "
+    Text1 = " already exists on the system. Please use"+
+            " [Update] option from the Network Control Panel"+
+            " aplet to Update RAS."
+[NetworkConfigErrorENG]
+    Text1 = "Setup encountered an error while determining the "+
+            "network configuration.  Please make sure that "+
+            "the network is properly configured before attempting "+
+            "to install Remote Access Service."
+    Text2 = "The NT network software must be installed before "+
+            "installing Remote Access."$(!LF)$(!LF)+
+            "To install the NT network software:"$(!LF)$(!LF)+
+            "1. Exit to Control Panel and restart the 'Network' control "+
+            "panel applet."$(!LF)+
+            "2. Answer 'Yes' at the 'install network' prompt."$(!LF)+
+            "3. If no network card is installed, choose <None> from "+
+            "the network card list."
+[RasUpgradeENG]
+    Ver = " ver "
+    Text1 = " exists on the system. Are you sure you want to upgrade to"
+    Text2 = "?. "
+    Text3 = "Selecting YES will result in the new version replacing the old."
+
+
+
