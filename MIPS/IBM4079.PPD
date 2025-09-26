@@ -1,0 +1,392 @@
+*PPD-Adobe: "4.0"
+*% Adobe PostScript(R) Printer Description File
+*% For "IBM Color Jetprinter PS 4079"
+*% Produced by Lexmark International, Inc.
+*% Version 1.0
+*%
+*% Copyright (c) 1993 Lexmark International Inc.  All Rights Reserved.
+*% Permission is granted for redistribution of this file as
+*% long as this copyright notice is intact and the content
+*% of the file is not altered in any way from its original form.
+*%
+*%
+
+*FormatVersion: "4.0"
+*FileVersion: "1.0"
+*LanguageVersion: English
+*PCFileName: "IBM4079.PPD"
+*Product: "(IBM Color Jetprinter PS 4079)"
+*PSVersion: "(250.0   )"
+*ModelName: "IBM 4079 Color Jetprinter PS"
+*NickName: "IBM 4079 Color Jetprinter PS"
+
+*% === Options and Constraints ============
+
+*% === Basic Capabilities ============
+*% System Management==Base=4Meg, (6,8,10,12,16Meg with optional ram) ======
+
+*LanguageLevel: "1"
+*FreeVM: "385024"
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+*Extensions: CMYK
+*VariablePaperSize: False
+*Throughput: "1"
+*Password: "0"
+
+*ExitServer: "
+count 0 eq
+{                       % password not on the stack
+  true
+}
+{                       % check password for validity
+  dup
+  statusdict begin
+  checkpassword
+  end %statusdict
+  not
+} ifelse
+{                       % password invalid or missing
+  (WARNING! Cannot perform exitserver.) print
+  (Invalid password.) print
+  (Please contact system support.) print flush
+  quit
+} if
+serverdict begin exitserver
+"
+*End
+
+*Reset: "
+count 0 eq
+{                       % password not on the stack
+  true
+}
+{                       % check password for validity
+  dup
+  statusdict begin
+  checkpassword
+  end %statusdict
+  not
+} ifelse
+{                       % password invalid or missing
+  (WARNING! Cannot perform exitserver.) print
+  (Invalid password.) print
+  (Please contact system support.) print flush
+  quit
+} if
+serverdict begin exitserver
+systemdict /quit get exec
+(WARNING! Printer Reset failed.) print flush
+"
+*End
+
+*% === Resolution ============
+
+*DefaultResolution: 360dpi
+*Resolution 360dpi: ""
+*?Resolution: "
+save
+  initgraphics
+  0 0 matrix defaultmatrix transform
+  0 72 matrix defaultmatrix transform
+  3 -1 roll sub dup mul
+  3 1 roll exch sub dup mul
+  add sqrt round cvi
+  (          ) cvs print (dpi) print flush
+restore
+"
+*End
+
+*% === Halftone Information === (For Standard Screening) ===
+
+*ScreenFreq: "60.0"
+*ScreenAngle: "24.0"
+*DefaultScreenProc: Dot
+*ScreenProc Dot: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }
+"
+*End
+*ScreenProc Line: "{ pop }"
+*ScreenProc Ellipse: "{ dup 5 mul 8 div mul exch dup mul exch add sqrt 1 exch sub }"
+
+*DefaultTransfer: Null
+*Transfer Null: "{ }"
+*Transfer Null.Inverse: "{ 1 exch sub }"
+*Transfer Normalized: "{ }"
+*Transfer Normalized.Inverse: "{ 1 exch sub }"
+*Transfer Red: "{ }"
+*Transfer Red.Inverse: "{ 1 exch sub }"
+*Transfer Green: "{ }"
+*Transfer Green.Inverse: "{ 1 exch sub }"
+*Transfer Blue: "{ }"
+*Transfer Blue.Inverse: "{ 1 exch sub }"
+
+*% === Paper Handling ===================
+
+*% Use these entries to set paper size, unless there is
+*% specific reason to use PageRegion or PaperTray.
+*OpenUI *PageSize:  PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter: "statusdict begin /letter true setpapersize end"
+*PageSize Legal: "statusdict begin /legal true setpapersize end"
+*PageSize B5: "statusdict begin /b5 true setpapersize end"
+*PageSize A4: "statusdict begin /a4 true setpapersize end"
+*PageSize Executive: "statusdict begin /executivepage true setpapersize end"
+*PageSize A3: "statusdict begin /a3 true setpapersize end"
+*PageSize Tabloid: "statusdict begin /11x17 true setpapersize end"
+*PageSize Envelope.297.684/C10 Envelope: "statusdict begin /4.125x9.5envelope false setpapersize end 0 297 translate 270 rotate"
+*PageSize Envelope.312.624/DL Envelope: "statusdict begin /110x220envelope false setpapersize end 0 311 translate 270 rotate"
+*?PageSize: "
+save statusdict begin
+   9 dict begin
+   /letter (Letter) def
+   /legal (Legal) def
+   /b5 (B5) def
+   /a4 (A4) def
+   /executivepage (Executive) def
+   /a3 (A3) def
+   /11x17 (Tabloid) def
+   /4.125x9.5envelope (Envelope.297.684/C10 Envelope) def
+   /110x220envelope (Envelope.312.624/DL Envelope) def
+   defaultpagesize pop
+   { load exec } stopped not
+           {= flush}
+           {(Unknown) = flush}
+   ifelse
+   end             %temp
+ end             %statusdict
+restore
+"
+*End
+*CloseUI: *PageSize
+
+*% These entries will set up the frame buffer. Usually used with manual feed.
+*OpenUI *PageRegion:  PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter: "letter"
+*PageRegion Legal: "legal"
+*PageRegion B5: "b5"
+*PageRegion A4: "a4"
+*PageRegion Executive: "executivepage"
+*PageRegion A3: "a3"
+*PageRegion Tabloid: "11x17"
+*PageRegion Envelope.297.684/C10 Envelope: "4.125x9.5envelope"
+*PageRegion Envelope.312.624/DL Envelope: "110x220envelope"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea Letter: "12 27 603 781 "
+*ImageableArea Legal: "12 26 603 997 "
+*ImageableArea B5: "12 28 507 716 "
+*ImageableArea A4: "11 26 587 831 "
+*ImageableArea Executive: "12 30 512 745 "
+*ImageableArea A3: "12 29 832 1177 "
+*ImageableArea Tabloid: "12 24 782 1213 "
+*% TM, LM, Physical Page Height-BM, Physical Page Width-RM
+*ImageableArea Envelope.297.684/C10 Envelope: "11 12 265 675 "
+*ImageableArea Envelope.312.624/DL Envelope: "10 12 291 613 "
+*?ImageableArea: "
+ save
+   /cvp { cvi (            ) cvs print ( ) print } bind def
+   newpath clippath pathbbox
+   4 -2 roll exch 2 {ceiling cvp} repeat
+    exch 2 {floor cvp} repeat flush
+ restore
+"
+*End
+
+*% These provide the physical dimensions of the paper (by keyword)
+*DefaultPaperDimension: Letter
+*PaperDimension Letter: "612 792"
+*PaperDimension Legal: "612 1008"
+*PaperDimension B5: "518 727"
+*PaperDimension A4: "597 842"
+*PaperDimension Executive: "522 756"
+*PaperDimension A3: "842 1188"
+*PaperDimension Tabloid: "792 1224"
+*PaperDimension Envelope.297.684/C10 Envelope: "297 684"
+*PaperDimension Envelope.312.624/DL Envelope: "311 623"
+
+*% AutoSelect is a unique PPD KeyName for Windows
+*OpenUI *InputSlot:  PickOne
+*OrderDependency: 20 AnySetup *InputSlot
+*DefaultInputSlot: AutoSelect
+*InputSlot AutoSelect: ""
+*CloseUI: *InputSlot
+
+*RequiresPageRegion AutoSelect: True
+
+*DefaultOutputBin: OnlyOne
+*OutputBin OnlyOne: ""
+*DefaultOutputOrder: Reverse
+*OutputOrder Reverse: ""
+
+*% === Font Information =======================
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.000)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.000)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.000)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.000)" Standard ROM
+*Font Bookman-Demi: Standard "(001.000)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.000)" Standard ROM
+*Font Bookman-Light: Standard "(001.000)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.000)" Standard ROM
+*Font Courier: Standard "(001.000)" Standard ROM
+*Font Courier-Bold: Standard "(001.000)" Standard ROM
+*Font Courier-Oblique: Standard "(001.000)" Standard ROM
+*Font Courier-BoldOblique: Standard "(001.000)" Standard ROM
+*Font Helvetica: Standard "(001.000)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.000)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.000)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.000)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.000)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.000)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.000)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.000)" Standard ROM
+*Font Palatino-Roman: Standard "(001.000)" Standard ROM
+*Font Palatino-Bold: Standard "(001.000)" Standard ROM
+*Font Palatino-Italic: Standard "(001.000)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.000)" Standard ROM
+*Font Symbol: Special "(001.000)" Standard ROM
+*Font Times-Roman: Standard "(001.000)" Standard ROM
+*Font Times-Bold: Standard "(001.000)" Standard ROM
+*Font Times-Italic: Standard "(001.000)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.000)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.000)" Standard ROM
+*Font ZapfDingbats: Special "(001.000)" Special ROM
+*?FontQuery: "
+save
+4 dict begin
+/sv exch def /str (fonts/                              ) def /st2 30 string def
+  { count 0 gt
+    { dup FontDirectory exch known {pop 1}
+      { str exch st2 cvs dup length /len exch def
+        6 exch putinterval str 0 len 6 add getinterval mark exch
+        { } st2 filenameforall counttomark 0 gt
+        { cleartomark 1}{cleartomark 0}ifelse
+      }ifelse
+      print flush
+    }
+    { exit } ifelse
+  } bind loop
+sv end restore
+"
+*End
+
+*?FontList: "
+FontDirectory { pop == } forall
+/filenameforall where {
+ pop save (fonts/*) {
+  dup length 6 sub 6 exch getinterval ==
+ } 128 string filenameforall restore
+} if
+(*) print flush
+"
+*End
+
+*% Printer Messages (verbatim from printer):
+*Message: "%%[ exitserver: permanent state may be changed ]%%"
+*Message: "%%[ Flushing: rest of job (to EOF) is ignored ]%%"
+*Message: "\FontName\ not found, using Courier"
+
+*% Status (format: %%[ status: <one of these> ]%% )
+*Status: "Idle"
+*Status: "Busy"
+*Status: "Waiting"
+*Status: "Printing"
+*Status: "Initializing"
+*Status: "Printing start page"
+*Status: "PrinterError: Printer Busy"
+*Status: "PrinterError: Paper Jam"
+*Status: "PrinterError: Wrong Paper Length"
+*Status: "PrinterError: Cover Open"
+*Status: "PrinterError: Wrong Paper Size"
+*Status: "PrinterError: Paper Out or Feed Failure"
+*Status: "PrinterError: Memory Full Error"
+*Status: "PrinterError: Default Storage Error"
+*Status: "PrinterError: Ioerror"
+*Status: "PrinterError: Black Ink Cartridge Empty"
+*Status: "PrinterError: Yellow Ink Cartridge Empty"
+*Status: "PrinterError: Magenta Ink Cartridge Empty"
+*Status: "PrinterError: Cyan Ink Cartridge Empty"
+*Status: "PrinterError: Black Ink Cart. Missing"
+*Status: "PrinterError: Yellow Ink Cart. Missing"
+*Status: "PrinterError: Magenta Ink Cart. Missing"
+*Status: "PrinterError: Cyan Ink Cart. Missing"
+*Status: "PrinterError: Service Error"
+
+*% Input Sources (format: %%[ status: <stat>; source: <one of these> ]%% )
+*Source: "Serial"
+*Source: "Parallel"
+*Source: "AppleTalk"
+
+*% Printer Error (format: %%[ PrinterError: <one of these> ]%%)
+*PrinterError: "Paper Jam"
+*PrinterError: "Wrong Paper Length"
+*PrinterError: "Cover Open"
+*PrinterError: "Wrong Paper Size"
+*PrinterError: "Paper Out or Feed Failure"
+*PrinterError: "Memory Full Error"
+*PrinterError: "Default Storage Error"
+*PrinterError: "Ioerror"
+*PrinterError: "Black Ink Cartridge Empty"
+*PrinterError: "Yellow Ink Cartridge Empty"
+*PrinterError: "Magenta Ink Cartridge Empty"
+*PrinterError: "Cyan Ink Cartridge Empty"
+*PrinterError: "Black Ink Cart. Missing"
+*PrinterError: "Yellow Ink Cart. Missing"
+*PrinterError: "Magenta Ink Cart. Missing"
+*PrinterError: "Cyan Ink Cart. Missing"
+*PrinterError: "Service Error"
+
+*% Color Separation Information =====================
+
+*DefaultColorSep: ProcessCyan.60lpi/60 lpi
+
+*InkName: ProcessCyan/Process Cyan
+*InkName: ProcessMagenta/Process Magenta
+*InkName: ProcessYellow/Process Yellow
+*InkName: ProcessBlack/Process Black
+
+*ColorSepScreenAngle ProcessCyan.60lpi/60 lpi: "15"
+*ColorSepScreenAngle ProcessMagenta.60lpi/60 lpi: "75"
+*ColorSepScreenAngle ProcessYellow.60lpi/60 lpi: "0"
+*ColorSepScreenAngle ProcessBlack.60lpi/60 lpi: "45"
+
+*ColorSepScreenFreq ProcessCyan.60lpi/60 lpi: "60"
+*ColorSepScreenFreq ProcessMagenta.60lpi/60 lpi: "60"
+*ColorSepScreenFreq ProcessYellow.60lpi/60 lpi: "60"
+*ColorSepScreenFreq ProcessBlack.60lpi/60 lpi: "60"
+
+*ColorSepScreenProc ProcessCyan.60lpi/60 lpi: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+*ColorSepScreenProc ProcessMagenta.60lpi/60 lpi: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+*ColorSepScreenProc ProcessYellow.60lpi/60 lpi: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+*ColorSepScreenProc ProcessBlack.60lpi/60 lpi: "
+{abs exch abs 2 copy add 1 gt {1 sub dup mul exch 1 sub dup mul add 1
+sub }{dup mul exch dup mul add 1 exch sub }ifelse }"
+*End
+
+*ColorSepTransfer ProcessCyan.60lpi/60 lpi: "{ }"
+*ColorSepTransfer ProcessMagenta.60lpi/60 lpi: "{ }"
+*ColorSepTransfer ProcessYellow.60lpi/60 lpi: "{ }"
+*ColorSepTransfer ProcessBlack.60lpi/60 lpi: "{ }"
+
+*% End of PPD file for "IBM Color Jetprinter PS 4079"
+
