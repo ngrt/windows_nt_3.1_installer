@@ -1,0 +1,292 @@
+(To view best on-screen in Windows NT(TM) Notepad, maximize the Notepad window and turn on wordwrap if it is not already on: From the Edit menu, choose Word Wrap. For best printed results, open this document in Windows NT Write, Microsoft(R) Word, or another word processor, select the entire document and format the text in 10 point Courier before printing.)
+
+=============================================================
+Microsoft(R) Windows NT(TM) Remote Access Service Version 3.1
+Release Notes
+-------------------------------------------------------------
+
+--------
+CONTENTS
+--------
+   Starting the Remote Access Server
+
+   Restricting Remote Clients to Specific Protocols
+	or Network Segments
+
+   Modem Idiosyncrasies
+      Internal Modems
+      Callback
+      Manual Dialing
+
+   Dialing Out Through a Security Host
+
+   ISDN
+      Adding ISDN Ports
+      "No Answer" Error Message
+      PCIMAC-ISA DigiBoard Card
+
+   X.25 PAD.INF Entries
+   
+   Setting AsyncMac Timeout Parameters
+  
+   The RawIoTimeLimit Parameter
+
+   Command-Line Administrator's Utility (rasadmin)
+
+   Documentation Errata
+
+
+---------------------------------
+STARTING THE REMOTE ACCESS SERVER
+---------------------------------
+
+If the Remote Access server fails to start, check the Windows NT Event Viewer for more information.
+
+
+-----------------------------------------
+RESTRICTING REMOTE CLIENTS
+TO SPECIFIC PROTOCOLS OR NETWORK SEGMENTS
+-----------------------------------------
+
+This information supplements "Restricting Access to the Network" in Chapter 4 of the Remote Access Service Administrator's Guide.
+
+You can configure your Remote Access server so that remote clients can see only the network segments accessed through certain protocols.
+
+To limit protocols:
+
+1. Open the Windows NT Control Panel, and double-click the Network icon.
+
+2. On the Network Settings dialog box, click Bindings.
+
+3. In the Show Bindings for box, select Remote Access Server Service.
+
+4. In the list box, select the protocols you want to hide from the clients.
+
+5. Click Disable, and then click OK.
+
+6. Restart your system for configuration changes to take effect.
+
+
+--------------------
+MODEM IDIOSYNCRASIES
+--------------------
+
+This information supplements "Modem Idiosyncrasies" in the Remote Access online help.
+
+Modem				Notes
+-----				-----
+DataRace RediModem V.32bis	Error control and flow control forced on.
+Datatrek Elite 624D		Advanced features disabled.
+Datatrek V.32			Supported as a client modem only.
+MicroCom(R) QX 4232bis		Advanced features disabled.
+MicroGate MG96			Error control and flow control forced on.
+MicroGate MG144			Error control and flow control forced on.
+MultiTech MultiModem 224	Flow control forced on.
+Octocom 8324			Error control and flow control forced on.
+PDI-1000			Supported as a client modem only.
+Practical Peripherals 2400SA	Supported as a client modem only.
+Practical Peripherals 2400MNP	Advanced features disabled.
+Racal-Milgo 2412/2		Maximum DTE speed set to 2400
+Telebit(R) T1500		Supported as a client modem only.
+Telebit T1600			Advanced features disabled.
+UDS Motorola(R) V.3225		Advanced features disabled.
+UDS Motorola V.3227		Maximum DTE speed set to 9600.
+UDS Motorola FasTalk V.32/42bis	Maximum DTE speed 9600.
+Ven-Tel 9600 Plus II		Modem compression forced on.
+Western Datacom Worldcom V32bis	Supported as a client modem only.
+
+
+Internal Modems
+---------------
+The Windows NT system cannot automatically detect certain internal modems, such as the Digicom Scout Plus. You must add these by hand through the Windows NT Control Panel. For information about adding ports, see the "Microsoft Windows NT System Guide."
+
+
+Callback
+--------
+Modems supported as server modems may not support callback when used as client modems.
+
+
+Manual Dialing
+--------------
+These modems have following idiosyncrasies with manual dialing.
+
+Modem			Idiosyncrasy
+-----			------------
+Bocamodem M1440		Fails modem protocol negotiation.
+Gateway 2000 Telepath	Always disconnected by the server after
+   Internal		   negotiation.
+Intel SatisFaxtion 100	Fails authenticatation.
+PDI-1000		Doesn't support manual dialing.
+Racal-Milgo 2412	Handset should never be replaced, even
+			   after connection.
+Ven-Tel 9600 Plus II 	Fails authenticatation.
+
+
+-----------------------------------
+DIALING OUT THROUGH A SECURITY HOST
+-----------------------------------
+
+If you want to configure your server to dial out through a Security Dynamics security host, you must order two connectors through your Security Dynamics provider. Specify that you want the dial-out option when you order. The provider will then send you an AND gate and a jumper box. For the ACM/400 security host, you will also receive different software.
+
+To install the security host:
+
+1. Set up the host for a fixed bits per second (bps) speed rather than autobaud. The fixed bps should equal the value of the MAXCONNECTBPS parameter for the entry you created for this device in the MODEM.INF file.
+
+2. Make sure Hardware Flow Control is set to the default, on. See "Setting Modem Features" in the Remote Access online help.
+
+
+----
+ISDN
+----
+
+This information supplements "Configuring for ISDN " in the Remote Access online help.
+
+
+Adding ISDN Ports
+-----------------
+If you are installing more than one ISDN card, you must restart your computer after you have installed the ISDN drivers. Otherwise, all available ISDN ports may not show up when you configure Remote Access for ISDN.
+
+
+"No Answer" Error Message
+-------------------------
+When you dial through ISDN and fail to connect, the error message "No answer" appears. This message can mean one of several things may be wrong. For example:
+
+o  The Remote Access server did not answer because it was turned off, the modem wasn't connected, or so on. Contact your system administrator.
+o  The line is busy.
+o  There's a problem with your hardware. Make sure your ISDN cards have been installed and configured correctly.
+o  A poor line condition, such as too much static, interrupted your connection. Wait a few minutes and try dialing again.
+o  You did not enable line-type negotiation in the ISDN Settings dialog box, and a connection could not be made with the line type you chose in the ISDN Settings dialog box.
+o  Your ISDN switching facility may be busy. Try again later.
+
+Check for any of these potential problems. When you have fixed the problem, redial the number.
+
+
+PCIMAC-ISA DigiBoard Card
+-------------------------
+Older DigiBoard cards don't work on some computers. If you don't have the latest PCIMAC-ISA DigiBoard card, serial number A14308 or greater, contact DigiBoard for a replacement.
+
+
+--------------------
+X.25 PAD.INF Entries
+--------------------
+
+There are two SprintNet entries in PAD.INF, SprintNet, Standard, and SprintNet, Alternate. Generally, if you are calling through 9600- bits-per-second (bps) or faster dialup PADs, try SprintNet, Standard. If you are calling through 2400-bps or slower dialup PADs, try SprintNet, Alternate.
+
+If one SprintNet entry fails to connect reliably, try the other one.  SprintNet dialup PADs should work with one or the other, but there is not a hard, fast rule for which one to choose.
+
+
+-----------------------------------
+SETTING ASYNCMAC TIMEOUT PARAMETERS
+-----------------------------------
+
+If you are experiencing an abnormal number of timeout errors (more than 10 per 100 kilobytes received), try increasing the TimeoutBase value from 500 to 1000 if one of the following is true:
+
+o Your computer has a security device.
+
+o Your computer's modems have hardware compression or error control enabled. 
+
+Note:  With TimeoutBase increased to 1000, network functionality may on rare occasions act abnormally. For example, you may have to type network commands more than once, or functionality may periodically slow down.
+
+Add this parameter to the Windows NT Registry on the following path:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AsyncMacn\Parameters
+
+Note:  The n in AsyncMacn stands for a number. Look for this parameter under AsyncMac01, AsyncMac02, and so on.
+
+
+----------------------------
+THE RAWIOTIMELIMIT PARAMETER
+----------------------------
+
+This information supplements the Remote Access administrator's guide, Appendix C, "Modifying Parameters."
+
+The RawIoTimeLimit parameter lets the redirector send data in 64 kilobyte blocks. With RawIoTimeLimit turned on, throughput increases by 10-15 percent. But, while communicating at this speed, all other simultaneous data transfers are blocked.
+
+By default, this parameter is turned off for slow links and on for faster links. For example, if you are communicating at 14,400 bps or slower, this feature is turned off. But if you are communicating at faster speeds, such as through an ISDN line, this feature is turned on.
+
+The following list shows what values turn raw I/O on and off for ISDN connections:
+
+With RawIoTimeLimit set to 9:
+    Raw I/O is enabled when connected through one 64K channel.
+    Raw I/O is enabled when connected through two 64K channels.
+
+With RawIoTimeLimit set to 5 (default):
+    Raw I/O is disabled when connected through one 64K channel.
+    Raw I/O is enabled when connected through two 64K channels.
+
+With RawIoTimeLimit set to 0:
+    Raw I/O is disabled when connected through one 64K channel.
+    Raw I/O is disabled when connected through two 64K channels.
+
+The RawIoTimeLimit parameter is in the Registry, on the following path:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Rdr\Parameters
+
+
+-----------------------------------------------
+COMMAND-LINE ADMINISTRATOR'S UTILITY (RASADMIN)
+-----------------------------------------------
+
+This section tells how to invoke the Remote Access Administrator's utility from the command line.
+
+
+Syntax
+------
+
+	rasadmin [domainname | servername] [/l] [/h]
+
+where
+-----
+
+domainname	The domain you want to administer.
+
+servername	The server you want to administer.
+
+/l (letter L)	Sets the Administrator's utility to operate in
+		the low-speed connection mode. This option disables
+		browsing for domains and user names, which can take
+		a long time over a telephone line. For better
+		performance, set this option when you do not need to
+		browse for servers or users.
+
+/h		Sets the Administrator's utility to operate in the
+		default connection mode, high-speed. This option
+		enables browsing for domains and user names.
+		
+
+Remarks
+-------
+
+You can specify either a domain name or a server name, but not both.
+
+The mode of operation (low- or high-speed) for each domain or server you have previously selected is saved in the Registry. So, if you need to change the previous setting from a low speed to a high speed connection, you must specify /h as a parameter to rasadmin.
+
+
+Example
+-------
+
+To administer a server named NT_SERVER01 over a low-speed connection, type the following on the command line:
+
+	rasadmin \\nt_server01 /l
+
+
+--------------------
+DOCUMENTATION ERRATA
+--------------------
+
+The following errors in the "Microsoft Windows NT Advanced Server Remote Access Service Administrator's Guide" were discovered after the books were delivered for printing. Please mark the changes in your copies of the books. We apologize for any inconvenience.
+
+
+Page 18
+The note at the bottom of the first section should read as follows:
+
+"Note Microsoft Product Support Services will answer questions only about modems in the Windows NT Hardware Compatibility List. These modems have been tested by Microsoft."
+
+
+Page 26, "How Security Works at Connection Time"
+The last sentence in this section should read as follows:
+
+"If callback is enabled, the server calls the client back and repeats steps 2-6."
+
+
+
