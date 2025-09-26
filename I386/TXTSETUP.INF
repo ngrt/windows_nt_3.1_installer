@@ -1,0 +1,1057 @@
+[SourceDisks]
+
+d0 = "Windows NT Advanced Server Setup Disk #1",\disk1
+d1 = "Windows NT Advanced Server Setup Disk #1",\disk1
+d2 = "Windows NT Advanced Server Setup CD-ROM",\disk2,\i386,TopLevelSource
+
+[SetupData]
+LoadIdentifier = "Windows NT Advanced Server Version 3.1"
+DefaultLayout = 00000409
+#CD-ROM:
+SetupType = 0
+MinimumMemory = 12582912
+ProductType = 1
+[debug]
+# if CopySource is specified, use the given name as the copy source
+#CopySource = scsi(0)disk(3)rdisk(0)partition(1)
+# if DiagnosticOutputPort is specified, print error msgs to the given
+# com port (0 = com1, etc).
+#DiagnosticOutputPort = 0
+# if DontCopy is specified and is non-0, Setup will not actually copy any
+# files but will function otherwise normally.
+#DontCopy = 1
+# if DebugBoot is 1, then the system will not be booted /nodebug
+DebugBoot = 0
+# ScsiDebug flag
+ScsiDebug = 0
+
+[WinntDirectories]
+
+#Directories relative to the dir chosen by the user for Windows NT.
+#<shortname> = <directory>
+#<directory> must not start or end with \ unless it's the root
+
+1  = \
+2  = system32
+3  = system32\config
+4  = system32\drivers
+# leave a system directory around for wow
+5  = system
+# os/2 directory so repair can copy files into it if necessary
+6  = system32\os2
+# some Remote Access Service specific files end up in this directory
+7  = system32\ras
+
+[WinntFilesToDelete]
+# files that will be deleted if present in the target tree.
+# format: symbol_from_[WinntDirectories],filename
+
+3,security
+3,sam
+2,spoolss.exe
+2,msprivs.dll
+2,netdde.exe
+2,clipsrv.exe
+2,olecli32.dll
+2,olesvr32.dll
+2,mmdrv.dll
+1,prelim.bmp
+5,app850.fon
+5,dosapp.fon
+5,ega40woa.fon
+5,ega80woa.fon
+5,vga850.fon
+5,vga860.fon
+5,vga861.fon
+5,vga863.fon
+5,vga865.fon
+5,vgafix.fon
+5,vgaoem.fon
+5,vgasys.fon
+4,cdaudio.sys
+4,sndblst.sys
+4,parallel.sys
+4,scsiprnt.sys
+
+
+[BootDirectories]
+
+# x86 only
+#Directories on active partition on drive 80h
+
+1  = \
+
+[BootFilesToDelete]
+
+# x86 only
+# files that will be deleted if present in c:\.
+# format: symbol_from_[BootDirectories],filename
+
+1,ntbootdd.sys
+
+[msifs]
+
+FAT ,CHKDSKONLY
+HPFS
+NTFS
+
+[NoDeleteSource]
+
+#
+# This section is used when the setup run is actually a continuation of a
+# Setup started with the MS-DOS hosted Setup program.  In that case, setup
+# deletes source files as they are copied.  If a file is listed here, however,
+# the deltion is surpressed -- useful if a file might get copied twice.
+# Format is <name>=xx where xx must be present but can be anything.
+#
+
+aha154x.sys = 1
+aha154x.sy_ = 1
+aha174x.sys = 1
+aha174x.sy_ = 1
+always.sys = 1
+always.sy_ = 1
+arrow.sys = 1
+arrow.sy_ = 1
+buslogic.sys = 1
+buslogic.sy_ = 1
+#dce376nt.sys = 1
+#dce376nt.sy_ = 1
+dptscsi.sys = 1
+dptscsi.sy_ = 1
+dtc329x.sys = 1
+dtc329x.sy_ = 1
+fd16_700.sys = 1
+fd16_700.sy_ = 1
+fd7000ex.sys = 1
+fd7000ex.sy_ = 1
+fd8xx.sys = 1
+fd8xx.sy_ = 1
+ncr53c9x.sys = 1
+ncr53c9x.sy_ = 1
+ncrc700.sys = 1
+ncrc700.sy_ = 1
+ncrc710.sys = 1
+ncrc710.sy_ = 1
+oliscsi.sys = 1
+oliscsi.sy_ = 1
+rasmon.exe = 1
+rasmon.ex_ = 1
+sparrow.sys = 1
+sparrow.sy_ = 1
+spock.sys = 1
+spock.sy_ = 1
+t128.sys = 1
+t128.sy_ = 1
+t13b.sys = 1
+t13b.sy_ = 1
+tmv1.sys = 1
+tmv1.sy_ = 1
+ultra14f.sys = 1
+ultra14f.sy_ = 1
+ultra124.sys = 1
+ultra124.sy_ = 1
+ultra24f.sys = 1
+ultra24f.sy_ = 1
+i8042prt.sys = 1
+i8042prt.sy_ = 1
+c_10000.nls = 1
+c_10000.nl_ = 1
+c_10006.nls = 1
+c_10006.nl_ = 1
+c_10007.nls = 1
+c_10007.nl_ = 1
+c_10029.nls = 1
+c_10029.nl_ = 1
+c_1026.nls = 1
+c_1026.nl_ = 1
+c_1250.nls = 1
+c_1250.nl_ = 1
+c_1251.nls = 1
+c_1251.nl_ = 1
+c_1252.nls = 1
+c_1252.nl_ = 1
+c_1253.nls = 1
+c_1253.nl_ = 1
+c_1254.nls = 1
+c_1254.nl_ = 1
+c_437.nls = 1
+c_437.nl_ = 1
+c_500.nls = 1
+c_500.nl_ = 1
+c_850.nls = 1
+c_850.nl_ = 1
+c_852.nls = 1
+c_852.nl_ = 1
+c_855.nls = 1
+c_855.nl_ = 1
+c_857.nls = 1
+c_857.nl_ = 1
+c_860.nls = 1
+c_860.nl_ = 1
+c_861.nls = 1
+c_861.nl_ = 1
+c_863.nls = 1
+c_863.nl_ = 1
+c_865.nls = 1
+c_865.nl_ = 1
+c_866.nls = 1
+c_866.nl_ = 1
+c_869.nls = 1
+c_869.nl_ = 1
+c_875.nls = 1
+c_875.nl_ = 1
+l_ell.nls = 1
+l_ell.nl_ = 1
+l_intl.nls = 1
+l_intl.nl_ = 1
+l_trk.nls = 1
+l_trk.nl_ = 1
+locale.nls = 1
+locale.nl_ = 1
+vga.dll = 1
+vga.dl_ = 1
+vga64k.dll = 1
+vga64k.dl_ = 1
+vga256.dll = 1
+vga256.dl_ = 1
+vga.sys = 1
+vga.sy_ = 1
+modem.inf = 1
+modem.in_ = 1
+pad.inf = 1
+pad.in_ = 1
+switch.inf = 1
+switch.in_ = 1
+rasread.txt = 1
+rasread.tx_ = 1
+rassetup.hlp = 1
+rassetup.hl_ = 1
+rascfg.dll = 1
+rascfg.dl_ = 1
+rasres.dll = 1
+rasres.dl_ = 1
+heaptags.dll = 1
+heaptags.dl_ = 1
+rasfil32.dll = 1
+rasfil32.dl_ = 1
+rasadmin.exe = 1
+rasadmin.ex_ = 1
+rasphone.exe = 1
+rasphone.ex_ = 1
+
+[Map.Computer]
+syspro_mp   = SystemPro
+wyse7000_mp = Wyse7000
+ncr3x_mp    = Ncr3x
+oli5030_mp  = Olivetti5030
+astmf_mp    = ASTMF
+486c_up     = ISA486C
+486c_up     = EISA486C
+e_isa_up    = ISA
+e_isa_up    = EISA
+mca_up      = MCA
+cbus2_mp    = CBusII
+ps1_up      = ps1
+
+
+[Map.Display]
+#
+# key is id, value 0 is the value of the ID string that indicates
+# we have that type of display.
+#
+VGA                                = "VGA"
+VGA                                = "*COMPAQ A"
+VGA                                = "*8514"
+VGA                                = "*GENOA"
+VGA                                = "VIDEO7 VGA"
+"VIDEO7 VGA VRAM 640x480x4"        = "VIDEO7 VGA VRAM"
+"VIDEO7 VGA VRAM 640x480x4"        = "VIDEO7 VGA DRAM"
+"TRIDENT 640x480x4"                = "*TRIDENT"
+"WDVGA 640x480x4"                  = "*PARADISE VGA"
+VGA                                = "*ATI VGA"
+VGA                                = "TSENGLAB VGA ET3000"
+"TSENGLAB VGA ET4000 640x480x4x60" = "TSENGLAB VGA ET4000"
+VGA                                = "*CIRRUS"
+"XGA 640x480x8x60"                 = "XGA"
+"DELL DGX 640x480x8"               = "DELL DGX"
+#"S3 VGA 640x480x8x1"              = "*S3"
+VGA                                = "*S3"
+
+[Map.Mouse]
+msps2 = "MICROSOFT PS2 MOUSE"
+lgps2 = "LOGITECH PS2 MOUSE"
+msinp = "MICROSOFT INPORT MOUSE"
+msser = "MICROSOFT SERIAL MOUSE"
+msbpser = "MICROSOFT BALLPOINT SERIAL MOUSE"
+lgser = "LOGITECH SERIAL MOUSE"
+bus = "MICROSOFT BUS MOUSE"
+none = "NO MOUSE"
+
+
+[files.none]
+
+[Map.Keyboard]
+STANDARD = OLI_83KEY
+STANDARD = OLI_102KEY
+STANDARD = OLI_86KEY
+STANDARD = OLI_A101_102KEY
+STANDARD = XT_83KEY
+STANDARD = XT_84KEY
+STANDARD = ATT_301
+STANDARD = ATT_302
+STANDARD = PCAT_ENHANCED
+STANDARD = PCAT_86KEY
+STANDARD = PCXT_84KEY
+STANDARD = VECTRA_DIN
+
+[SCSI.ISA.Load]
+d0,ncr53c9x
+d0,aha154x
+d0,sparrow
+d0,dptscsi
+d0,ultra14F
+d0,buslogic
+d0,fd8xx
+d0,fd16_700
+d0,t128
+d0,t13b
+d0,always
+d0,dtc329x
+d0,tmv1
+
+[SCSI.EISA.Load]
+d0,ncr53c9x
+d0,oliscsi
+d0,ncrc700
+d0,ncrc710
+d0,aha154x
+d0,sparrow
+d0,aha174x
+d0,dptscsi
+d0,ultra14F
+d0,ultra124
+d0,ultra24F
+d0,buslogic
+d0,fd7000ex
+d0,fd8xx
+d0,fd16_700
+d0,t128
+d0,t13b
+d0,always
+d0,arrow
+#d0,dce376nt
+d0,dtc329x
+d0,tmv1
+
+[SCSI.MCA.Load]
+d0,ncr53c9x
+d0,spock
+d0,ncrc700
+d0,ncrc710
+d0,aha154x
+d0,buslogic
+d0,fd16_700
+
+[ASTMF]
+d2,HALAST.DLL,2,hal.dll
+
+[BootCode]
+FAT = d2, FATBOOT.BIN , 512
+HPFS = d2, HPFSBOOT.BIN , 8192
+
+[BootFiles]
+d2,NTLDR,1
+
+[cbus2]
+d2,HALCBUS.DLL,2,hal.dll
+
+[files.aha154x]
+d2,AHA154X.SYS,4
+
+[files.aha174x]
+d2,AHA174X.SYS,4
+
+[files.always]
+d2,ALWAYS.SYS,4
+
+[files.arrow]
+d2,ARROW.SYS,4
+
+[files.ati]
+d2,ATI.DLL,2
+d2,ATI.SYS,4
+
+[files.buslogic]
+d2,BUSLOGIC.SYS,4
+
+[files.busmouse]
+d2,BUSMOUSE.SYS,4
+
+[files.cirrus]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,CIRRUS.SYS,4
+
+[files.dgx]
+d2,FRAMEBUF.DLL,2
+d2,DELL_DGX.SYS,4
+
+[files.dptscsi]
+d2,DPTSCSI.SYS,4
+
+[files.dtc329x]
+d2,DTC329X.SYS,4
+
+[files.et4000]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,ET4000.SYS,4
+
+[files.fd16_700]
+d2,FD16_700.SYS,4
+
+[files.fd7000ex]
+d2,FD7000EX.SYS,4
+
+[files.fd8xx]
+d2,FD8XX.SYS,4
+
+[files.i8042]
+d2,I8042PRT.SYS,4
+
+[files.inport]
+d2,INPORT.SYS,4
+
+[Files.KeyboardLayout]
+00000405 = d2,KBDCZ.DLL,2
+00000406 = d2,KBDDA.DLL,2
+00000407 = d2,KBDGR.DLL,2
+00000408 = d2,KBDHE.DLL,2
+00000409 = d2,KBDUS.DLL,2
+0000040A = d2,KBDSP.DLL,2
+0000040B = d2,KBDFI.DLL,2
+0000040C = d2,KBDFR.DLL,2
+0000040E = d2,KBDHU.DLL,2
+0000040F = d2,KBDIC.DLL,2
+00000410 = d2,KBDIT.DLL,2
+00000413 = d2,KBDNE.DLL,2
+00000414 = d2,KBDNO.DLL,2
+00000415 = d2,KBDPL1.DLL,2
+00000419 = d2,KBDRU.DLL,2
+0000041D = d2,KBDSW.DLL,2
+00000807 = d2,KBDSG.DLL,2
+00000809 = d2,KBDUK.DLL,2
+0000080A = d2,KBDLA.DLL,2
+0000080C = d2,KBDBE.DLL,2
+00000813 = d2,KBDBE.DLL,2
+00000816 = d2,KBDPO.DLL,2
+00000C0C = d2,KBDFC.DLL,2
+00001009 = d2,KBDCA.DLL,2
+0000100C = d2,KBDSF.DLL,2
+00010409 = d2,KBDDV.DLL,2
+0001040A = d2,KBDES.DLL,2
+00010C0C = d2,KBDCA.DLL,2
+00020409 = d2,KBDUSX.DLL,2
+
+[files.ncr53c9x]
+d2,NCR53C9X.SYS,4
+
+[files.ncr77c22]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,NCR77C22.SYS,4
+
+[files.ncrc700]
+d2,NCRC700.SYS,4
+
+[files.ncrc710]
+d2,NCRC710.SYS,4
+
+[files.oliscsi]
+d2,OLISCSI.SYS,4
+
+[files.qv]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,QV.SYS,4
+
+[files.s3]
+d2,S3.DLL,2
+d2,S3.SYS,4
+
+[files.sermouse]
+d2,SERMOUSE.SYS,4
+
+[files.sparrow]
+d2,SPARROW.SYS,4
+
+[files.spock]
+d2,SPOCK.SYS,4
+
+[files.t128]
+d2,T128.SYS,4
+
+[files.t13b]
+d2,T13B.SYS,4
+
+[files.tmv1]
+d2,TMV1.SYS,4
+
+[files.trident]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,TRIDENT.SYS,4
+
+[files.ultra124]
+d2,ULTRA124.SYS,4
+
+[files.ultra14F]
+d2,ULTRA14F.SYS,4
+
+[files.ultra24F]
+d2,ULTRA24F.SYS,4
+
+[files.v7]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,V7VRAM.SYS,4
+
+[files.vga]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,VGA.SYS,4
+
+[files.wd33c93]
+d2,WD33C93.SYS,4
+
+[files.wdvga]
+d2,VGA.DLL,2
+d2,VGA256.DLL,2
+d2,WDVGA.SYS,4
+
+[files.xga]
+d2,XGA.DLL,2
+d2,XGA.SYS,4
+
+[IFSDLL]
+msifs = d2, USPIFS.DLL
+
+[ISA486C]
+d2,HAL486C.DLL,2,hal.dll
+
+[ISA]
+d2,HAL.DLL,2,hal.dll
+
+[Kernel]
+Multiprocessor =d2,NTKRNLMP.EXE,2,ntoskrnl.exe
+Uniprocessor =d2,NTOSKRNL.EXE,2
+
+[MCA]
+d2,HALMCA.DLL,2,hal.dll
+
+[MiscFiles]
+abiosdsk =d2,ABIOSDSK.SYS,4
+atdisk =d2,ATDISK.SYS,4
+cpqarray =d2,CPQARRAY.SYS,4
+delldsa =d2,DELLDSA.SYS,4
+kbdclass =d2,KBDCLASS.SYS,4
+mouclass =d2,MOUCLASS.SYS,4
+
+[Ncr3x]
+d2,HALNCR.DLL,2,hal.dll
+
+[ntdetect]
+486c_up =d2,NTDETECT.COM,1
+astmf_mp =d2,NTDETECT.COM,1
+cbus2_mp =d2,NTDETECT.COM,1
+e_isa_up =d2,NTDETECT.COM,1
+mca_up =d2,NTDETECT.COM,1
+ncr3x_mp =d2,NTDETECT.COM,1
+oli5030_mp =d2,NTDETECT.COM,1
+ps1_up =d2,NTDETECT.COM,1
+standard =d2,NTDETECT.COM,1
+syspro_mp =d2,NTDETECT.COM,1
+wyse7000_mp =d2,NTDETECT.COM,1
+
+[Olivetti5030]
+d2,HALOLI.DLL,2,hal.dll
+
+[ps1]
+d2,HAL.DLL,2,hal.dll
+
+[SystemPro]
+d2,HALSP.DLL,2,hal.dll
+
+[WinntFiles]
+d2,DEFAULT,3
+d2,SOFTWARE,3
+d2,SYSTEM,3
+d2,NCPA.CPL,2
+d2,ADVAPI32.DLL,2
+d2,AMDNCDET.DLL,2
+d2,BASESRV.DLL,2
+d2,COMCTL32.DLL,2
+d2,COMDLG32.DLL,2
+d2,CRTDLL.DLL,2
+d2,CSRSRV.DLL,2
+d2,FTENG32.DLL,2
+d2,FTUI32.DLL,2
+d2,GDI32.DLL,2
+d2,KERNEL32.DLL,2
+d2,LMUICMN0.DLL,2
+d2,LMUICMN1.DLL,2
+d2,LSASRV.DLL,2
+d2,LZ32.DLL,2
+d2,MF3216.DLL,2
+d2,MMSNDSRV.DLL,2
+d2,MPR.DLL,2
+d2,MSNCDET.DLL,2
+d2,MSV1_0.DLL,2
+d2,NETAPI32.DLL,2
+d2,NETDTECT.DLL,2
+d2,NETLOGON.DLL,2
+d2,NETMSG.DLL,2
+d2,NETRAP.DLL,2
+d2,NPINCDET.DLL,2
+d2,NTDLL.DLL,2
+d2,RASCFG.DLL,2
+d2,RASFIL32.DLL,2
+d2,RASRES.DLL,2
+d2,RPCLTC1.DLL,2
+d2,RPCLTS1.DLL,2
+d2,RPCRT4.DLL,2
+d2,SAMLIB.DLL,2
+d2,SAMSRV.DLL,2
+d2,SETUPDLL.DLL,2
+d2,SHELL32.DLL,2
+d2,USER32.DLL,2
+d2,VERSION.DLL,2
+d2,WINMM.DLL,2
+d2,WINSOCK.DLL,2
+d2,WINSRV.DLL,2
+d2,WINSTRM.DLL,2
+d2,WSOCK32.DLL,2
+d2,WINSPOOL.DRV,2
+d2,RASMON.EXE ,2
+d2,AUTOCHK.EXE,2
+d2,CSRSS.EXE,2
+d2,LSASS.EXE,2
+d2,PROGMAN.EXE,2
+d2,RASADMIN.EXE,2
+d2,RASPHONE.EXE,2
+d2,SCREG.EXE,2
+d2,SETUP.EXE,2
+d2,SMSS.EXE,2
+d2,WINHLP32.EXE,2
+d2,WINLOGON.EXE,2
+d2,COURE.FON,5
+d2,COURF.FON,5
+d2,SERIFE.FON,5
+d2,SERIFF.FON,5
+d2,SSERIFE.FON,5
+d2,SSERIFF.FON,5
+d2,VGA850.FON,5
+d2,VGAFIX.FON,5
+d2,VGAOEM.FON,5
+d2,VGASYS.FON,5
+d2,BACKUP.HLP,2
+d2,CLIPBRD.HLP,2
+d2,CONTROL.HLP,2
+d2,EVENTVWR.HLP,2
+d2,GLOSSARY.HLP,2
+d2,MSMAIL32.HLP,2
+d2,PERFMON.HLP,2
+d2,PIFEDIT.HLP,2
+d2,PRINTMAN.HLP,2
+d2,PROGMAN.HLP,2
+d2,RASSETUP.HLP,2
+d2,REGEDT32.HLP,2
+d2,SCHDPL32.HLP,2
+d2,SETUPNT.HLP,2
+d2,WINFILE.HLP,2
+d2,WINNT.HLP,2
+d2,WINNT.IND,2
+d2,APP.INF,2
+d2,FILELIST.INF,2
+d2,HARDWARE.INF,2
+d2,INITIAL.INF,2
+d2,KEYBOARD.INF,2
+d2,LANGUAGE.INF,2
+d2,LAYOUT.INF,2
+d2,NBINFO.INF,2
+d2,NCPARAM.INF,2
+d2,NCPASHEL.INF,2
+d2,NETDTECT.INF,2
+d2,NTLANMAN.INF,2
+d2,OEMNADAM.INF,2
+d2,OEMNADD1.INF,2
+d2,OEMNADD2.INF,2
+d2,OEMNADD4.INF,2
+d2,OEMNADDE.INF,2
+d2,OEMNADDI.INF,2
+d2,OEMNADDP.INF,2
+d2,OEMNADDS.INF,2
+d2,OEMNADE1.INF,2
+d2,OEMNADE2.INF,2
+d2,OEMNADE3.INF,2
+d2,OEMNADEE.INF,2
+d2,OEMNADEM.INF,2
+d2,OEMNADEN.INF,2
+d2,OEMNADFD.INF,2
+d2,OEMNADIN.INF,2
+d2,OEMNADLB.INF,2
+d2,OEMNADLM.INF,2
+d2,OEMNADLT.INF,2
+d2,OEMNADN1.INF,2
+d2,OEMNADN2.INF,2
+d2,OEMNADNE.INF,2
+d2,OEMNADNF.INF,2
+d2,OEMNADNP.INF,2
+d2,OEMNADP3.INF,2
+d2,OEMNADP9.INF,2
+d2,OEMNADTK.INF,2
+d2,OEMNADTM.INF,2
+d2,OEMNADUB.INF,2
+d2,OEMNADUM.INF,2
+d2,OEMNADWD.INF,2
+d2,OEMNADWM.INF,2
+d2,OEMNSVFT.INF,2
+d2,OEMNSVNB.INF,2
+d2,OEMNSVRA.INF,2
+d2,OEMNSVRP.INF,2
+d2,OEMNSVSV.INF,2
+d2,OEMNSVWK.INF,2
+d2,OEMNXPDL.INF,2
+d2,OEMNXPIP.INF,2
+d2,OEMNXPNB.INF,2
+d2,OEMNXPSM.INF,2
+d2,OEMNXPSN.INF,2
+d2,OEMNXPST.INF,2
+d2,OEMNXPTC.INF,2
+d2,OTHER.INF,2
+d2,PARTIAL.INF,2
+d2,POINTER.INF,2
+d2,PRINTER.INF,2
+d2,PRNSETUP.INF,2
+d2,REGISTRY.INF,2
+d2,REPAIR.INF,2
+d2,SCSI.INF,2
+d2,SETUP.INF,2
+d2,SUBROUTN.INF,2
+d2,TAPE.INF,2
+d2,UTILITY.INF,2
+d2,VIDEO.INF,2
+d2,VIRTUAL.INF,2
+d2,MODEM.INF,7
+d2,PAD.INF,7
+d2,SWITCH.INF,7
+d2,C_10000.NLS,2
+d2,C_1252.NLS,2
+d2,C_437.NLS,2
+d2,C_850.NLS,2
+d2,CTYPE1.NLS,2
+d2,CTYPE2.NLS,2
+d2,CTYPE3.NLS,2
+d2,L_INTL.NLS,2
+d2,LOCALE.NLS,2
+d2,SORTKEY.NLS,2
+d2,SORTTBLS.NLS,2
+d2,UNICODE.NLS,2
+d2,BEEP.SYS,4
+d2,CDFS.SYS,4
+d2,CDFS_REC.SYS,4
+d2,FASTFAT.SYS,4
+d2,FAT_REC.SYS,4
+d2,FLOPPY.SYS,4
+d2,FTDISK.SYS,4
+d2,HPFS_REC.SYS,4
+d2,MSFS.SYS,4
+d2,NETDTECT.SYS,4
+d2,NPFS.SYS,4
+d2,NTFS.SYS,4
+d2,NTFS_REC.SYS,4
+d2,NULL.SYS,4
+d2,PINBALL.SYS,4
+d2,SCSICDRM.SYS,4
+d2,SCSIDISK.SYS,4
+d2,SCSIFLOP.SYS,4
+d2,SCSIPORT.SYS,4
+d2,SERIAL.SYS,4
+d2,VIDEOPRT.SYS,4
+d2,RASREAD.TXT,7
+
+[Wyse7000]
+d2,HALWYSE7.DLL,2,hal.dll
+
+[Computer]
+ps1_up      = "IBM PS/1 or 100% Compatible",ps1
+mca_up      = "IBM PS/2 or other Micro Channel-based PC",mca
+e_isa_up    = "Standard PC",isa
+486c_up     = "Standard PC with C-Step i486",isa486c
+syspro_mp   = "Compaq SystemPro Multiprocessor or 100% Compatible",systempro
+wyse7000_mp = "Wyse Series 7000i Model 740MP/760MP",wyse7000
+ncr3x_mp    = "NCR System 3000 Model 3360/3450/3550",ncr3x
+oli5030_mp  = "Olivetti LSX5030/40",Olivetti5030
+astmf_mp    = "AST Manhattan SMP",ASTMF
+cbus2_mp    = "Corollary Extended C-bus",cbus2
+
+[Display]
+
+# field3,4,5,6,7 = xres,yres,bitsperpel,vrefresh,interlaced (-1 = don't set)
+
+"VGA" = "Standard VGA (640x480, 16 colors)",files.vga,vga,640,480,4,-1,-1
+"VGA VESA 800x600x4" = "VESA VGA 800x600, 16 colors",files.vga,vga,800,600,4,-1,-1
+"ATI 640x480x8" = "ATI 640x480, 256 colors",files.ati,ati,640,480,8,-1, 0
+"ATI 640x480x16" = "ATI 640x480, 65536 colors",files.ati,ati,640,480,16,-1, 0
+"ATI 640x480x24" = "ATI 640x480, 16777216 colors",files.ati,ati,640,480,24,-1, 0
+"ATI 640x480x32" = "ATI 640x480, TRUE color",files.ati,ati,640,480,32,-1, 0
+"ATI 800x600x8" = "ATI 800x600, 256 colors",files.ati,ati,800,600,8,-1, 0
+"ATI 800x600x16" = "ATI 800x600, 65536 colors",files.ati,ati,800,600,16,-1, 0
+"ATI 800x600x24" = "ATI 800x600, 16777216 colors",files.ati,ati,800,600,24,-1, 0
+"ATI 1024x768x8" = "ATI 1024x768, 256 colors",files.ati,ati,1024,768,8,-1, 0
+"ATI 1024x768x16" = "ATI 1024x768, 65536 colors",files.ati,ati,1024,768,16,-1, 0
+"ATI 1280x1024x8" = "ATI 1280x1024, 256 colors",files.ati,ati,1280,1024,8,-1, 0
+"CIRRUS VGA 640x480x4x60" = "Cirrus Logic 640x480, 16 colors, 60Hz",files.cirrus,cirrus,640,480,4,60,0
+"CIRRUS VGA 640x480x4x72" = "Cirrus Logic 640x480, 16 colors, 72Hz",files.cirrus,cirrus,640,480,4,72,0
+"CIRRUS VGA 640x480x8x60" = "Cirrus Logic 640x480, 256 colors, 60Hz",files.cirrus,cirrus,640,480,8,60,0
+"CIRRUS VGA 640x480x8x72" = "Cirrus Logic 640x480, 256 colors, 72Hz",files.cirrus,cirrus,640,480,8,72,0
+"CIRRUS VGA 800x600x4x56" = "Cirrus Logic 800x600, 16 colors, 56Hz",files.cirrus,cirrus,800,600,4,56,0
+"CIRRUS VGA 800x600x4x60" = "Cirrus Logic 800x600, 16 colors, 60Hz",files.cirrus,cirrus,800,600,4,60,0
+"CIRRUS VGA 800x600x4x72" = "Cirrus Logic 800x600, 16 colors, 72Hz",files.cirrus,cirrus,800,600,4,72,0
+"CIRRUS VGA 800x600x8x56" = "Cirrus Logic 800x600, 256 colors, 56Hz",files.cirrus,cirrus,800,600,8,56,0
+"CIRRUS VGA 800x600x8x60" = "Cirrus Logic 800x600, 256 colors, 60Hz",files.cirrus,cirrus,800,600,8,60,0
+"CIRRUS VGA 800x600x8x72" = "Cirrus Logic 800x600, 256 colors, 72Hz",files.cirrus,cirrus,800,600,8,72,0
+"CIRRUS VGA 1024x768x4x60" = "Cirrus Logic 1024x768, 16 colors, 60Hz",files.cirrus,cirrus,1024,768,4,60,0
+"CIRRUS VGA 1024x768x4x70" = "Cirrus Logic 1024x768, 16 colors, 70Hz",files.cirrus,cirrus,1024,768,4,70,0
+"CIRRUS VGA 1024x768x4x72" = "Cirrus Logic 1024x768, 16 colors, 72Hz",files.cirrus,cirrus,1024,768,4,72,0
+"CIRRUS VGA 1024x768x4x45I" = "Cirrus Logic 1024x768, 16 color interlaced",files.cirrus,cirrus,1024,768,4,45,1
+"CIRRUS VGA 1024x768x8x60" = "Cirrus Logic 1024x768, 256 colors, 60Hz",files.cirrus,cirrus,1024,768,8,60,0
+"CIRRUS VGA 1024x768x8x70" = "Cirrus Logic 1024x768, 256 colors, 70Hz",files.cirrus,cirrus,1024,768,8,70,0
+"CIRRUS VGA 1024x768x8x72" = "Cirrus Logic 1024x768, 256 colors, 72Hz",files.cirrus,cirrus,1024,768,8,72,0
+"CIRRUS VGA 1024x768x8x45I" = "Cirrus Logic 1024x768, 256 color interlaced",files.cirrus,cirrus,1024,768,8,45,1
+#"CIRRUS VGA 1280x1024x4x45I" = "Cirrus Logic 1280x1024, 16 colors interlaced",files.cirrus,cirrus,1280,1024,4,45,1
+"QVISION 640x480x8x0" = "Compaq QVision 640x480, 256 colors CPQ MON",files.qv,qv,640,480,8,0,0
+"QVISION 640x480x8x60" = "Compaq QVision 640x480, 256 colors, 60Hz",files.qv,qv,640,480,8,60,0
+"QVISION 800x600x8x0" = "Compaq QVision 800x600, 256 colors CPQ MON",files.qv,qv,800,600,8,0,0
+"QVISION 800x600x8x60" = "Compaq QVision 800x600, 256 colors, 60Hz",files.qv,qv,800,600,8,60,0
+"QVISION 800x600x8x72" = "Compaq QVision 800x600, 256 colors, 72Hz",files.qv,qv,800,600,8,72,0
+"QVISION 1024x768x8x0" = "Compaq QVision 1024x768, 256 colors CPQ MON",files.qv,qv,1024,768,8,0,0
+"QVISION 1024x768x8x60" = "Compaq QVision 1024x768, 256 colors, 60Hz",files.qv,qv,1024,768,8,60,0
+"QVISION 1024x768x8x66" = "Compaq QVision 1024x768, 256 colors, 66Hz",files.qv,qv,1024,768,8,66,0
+"QVISION 1024x768x8x72" = "Compaq QVision 1024x768, 256 colors, 72Hz",files.qv,qv,1024,768,8,72,0
+"QVISION 1024x768x8x75" = "Compaq QVision 1024x768, 256 colors, 75Hz",files.qv,qv,1024,768,8,75,0
+"QVISION 1280x1024x8x0" = "Compaq QVision 1280x1024, 256 colors CPQ MON",files.qv,qv,1280,1024,8,0,0
+"QVISION 1280x1024x8x60" = "Compaq QVision 1280x1024, 256 colors, 60Hz",files.qv,qv,1280,1024,8,60,0
+"QVISION 1280x1024x8x68" = "Compaq QVision 1280x1024, 256 colors, 68Hz",files.qv,qv,1280,1024,8,68,0
+"DELL DGX 640x480x8"   = "DGX 640x480, 256 colors",files.dgx,dell_dgx,640,480,8,-1,-1
+"DELL DGX 640x480x16"  = "DGX 640x480, 65536 colors",files.dgx,dell_dgx,640,480,16,-1,-1
+"DELL DGX 800x600x8"   = "DGX 800x600, 256 colors",files.dgx,dell_dgx,800,600,8,-1,-1
+"DELL DGX 800x600x16"  = "DGX 800x600, 65536 colors",files.dgx,dell_dgx,800,600,16,-1,-1
+"DELL DGX 1024x768x8"  = "DGX 1024x768, 256 colors",files.dgx,dell_dgx,1024,768,8,-1,-1
+"DELL DGX 1024x768x16" = "DGX 1024x768, 65536 colors",files.dgx,dell_dgx,1024,768,16,-1,-1
+"DELL DGX 1152x900x8"  = "DGX 1152x900, 256 colors",files.dgx,dell_dgx,1152,800,8,-1,-1
+"DELL DGX 1152x900x16" = "DGX 1152x900, 65536 colors",files.dgx,dell_dgx,1152,800,16,-1,-1
+"DELL DGX 1280x1024x8" = "DGX 1280x1024, 256 colors",files.dgx,dell_dgx,1280,1024,8,-1,-1
+"NCR77C22 SVGA 640x480x4x60" = "NCR 77C22/C22E 640x480, 16 colors, 60Hz",files.ncr77c22,ncr77c22,640,480,4,60,0
+"NCR77C22 SVGA 640x480x8x60" = "NCR 77C22/C22E 640x480, 256 colors, 60Hz",files.ncr77c22,ncr77c22,640,480,8,60,0
+"NCR77C22 SVGA 800x600x4x56" = "NCR 77C22/C22E 800x600, 16 colors, 56Hz",files.ncr77c22,ncr77c22,800,600,4,56,0
+"NCR77C22 SVGA 800x600x4x72" = "NCR 77C22E     800x600, 16 colors, 72Hz",files.ncr77c22,ncr77c22,800,600,4,72,0
+"NCR77C22 SVGA 800x600x8x56" = "NCR 77C22/C22E 800x600, 256 colors, 56Hz",files.ncr77c22,ncr77c22,800,600,8,56,0
+"NCR77C22 SVGA 800x600x8x72" = "NCR 77C22E     800x600, 256 colors, 72Hz",files.ncr77c22,ncr77c22,800,600,8,72,0
+"NCR77C22 SVGA 1024x768x4x60" = "NCR 77C22/C22E 1024x768, 16 colors",files.ncr77c22,ncr77c22,1024,768,4,60,0
+"NCR77C22 SVGA 1024x768x8x60" = "NCR 77C22E     1024x768, 256 colors",files.ncr77c22,ncr77c22,1024,768,8,60,0
+"S3 VGA 640x480x8x1" = "S3 640x480, 256 colors, Default Refresh",files.s3,s3,640,480,8,1,-1
+"S3 VGA 640x480x8x60" = "S3 640x480, 256 colors, 60Hz [#9, Dell only]",files.s3,s3,640,480,8,60,-1
+"S3 VGA 640x480x8x72" = "S3 640x480, 256 colors, 72Hz [#9, Dell only]",files.s3,s3,640,480,8,72,-1
+"S3 VGA 800x600x8x1" = "S3 800x600, 256 colors, Default Refresh",files.s3,s3,800,600,8,1,-1
+"S3 VGA 800x600x8x60" = "S3 800x600, 256 colors, 60Hz [#9, Dell only]",files.s3,s3,800,600,8,60,-1
+"S3 VGA 800x600x8x72" = "S3 800x600, 256 colors, 72Hz [#9, Dell only]",files.s3,s3,800,600,8,72,-1
+"S3 VGA 1024x768x8x1" = "S3 1024x768, 256 colors, Default Refresh",files.s3,s3,1024,768,8,1,-1
+"S3 VGA 1024x768x8x60" = "S3 1024x768, 256 colors, 60Hz [#9, Dell only]",files.s3,s3,1024,768,8,60,-1
+"S3 VGA 1024x768x8x72" = "S3 1024x768, 256 colors, 72Hz [#9, Dell only]",files.s3,s3,1024,768,8,72,-1
+"S3 VGA 1280x1024x8x1" = "S3 1280x1024, 256 colors, Default Refresh",files.s3,s3,1280,1024,8,1,-1
+"S3 VGA 1280x1024x8x60" = "S3 1280x1024, 256 colors, 60Hz [#9 only]",files.s3,s3,1280,1024,8,60,-1
+"S3 VGA 1280x1024x8x72" = "S3 1280x1024, 256 colors, 72Hz [#9 only]",files.s3,s3,1280,1024,8,72,-1
+"TRIDENT 640x480x4" = "Trident 640x480, 16 colors",files.trident,trident,640,480,4,0,0
+"TRIDENT 640x480x8" = "Trident 640x480, 256 colors",files.trident,trident,640,480,8,0,0
+"TRIDENT 800x600x4x56" = "Trident 800x600, 16 colors, 56Hz",files.trident,trident,800,600,4,56,0
+"TRIDENT 800x600x4x72" = "Trident 800x600, 16 colors, 72Hz",files.trident,trident,800,600,4,72,0
+"TRIDENT 800x600x8x56" = "Trident 800x600, 256 colors, 56Hz",files.trident,trident,800,600,8,56,0
+"TRIDENT 800x600x8x62" = "Trident 800x600, 256 colors, 62Hz",files.trident,trident,800,600,8,62,0
+"TRIDENT 1024x768x4xI" = "Trident 1024x768, 16 color interlaced",files.trident,trident,1024,768,4,0,1
+"TRIDENT 1024x768x4" = "Trident 1024x768, 16 colors",files.trident,trident,1024,768,4,0,0
+"TRIDENT 1024x768x8xI" = "Trident 1024x768, 256 color interlaced",files.trident,trident,1024,768,8,0,1
+"TRIDENT 1024x768x8" = "Trident 1024x768, 256 colors",files.trident,trident,1024,768,8,0,0
+"TSENGLAB VGA ET4000 640x480x4x60" = "Tseng ET4000 640x480, 16 colors, 60Hz",files.et4000,et4000,640,480,4,60,0
+"TSENGLAB VGA ET4000 640x480x4x72" = "Tseng ET4000 640x480, 16 colors, 72Hz",files.et4000,et4000,640,480,4,72,0
+"TSENGLAB VGA ET4000 640x480x8x60" = "Tseng ET4000 640x480, 256 colors, 60Hz",files.et4000,et4000,640,480,8,60,0
+"TSENGLAB VGA ET4000 640x480x8x72" = "Tseng ET4000 640x480, 256 colors, 72Hz",files.et4000,et4000,640,480,8,72,0
+"TSENGLAB VGA ET4000 800x600x4x56" = "Tseng ET4000 800x600, 16 colors, 56Hz",files.et4000,et4000,800,600,4,56,0
+"TSENGLAB VGA ET4000 800x600x4x60" = "Tseng ET4000 800x600, 16 colors, 60Hz",files.et4000,et4000,800,600,4,60,0
+"TSENGLAB VGA ET4000 800x600x4x72" = "Tseng ET4000 800x600, 16 colors, 72Hz",files.et4000,et4000,800,600,4,72,0
+"TSENGLAB VGA ET4000 800x600x8x56" = "Tseng ET4000 800x600, 256 colors, 56Hz",files.et4000,et4000,800,600,8,56,0
+"TSENGLAB VGA ET4000 800x600x8x60" = "Tseng ET4000 800x600, 256 colors, 60Hz",files.et4000,et4000,800,600,8,60,0
+"TSENGLAB VGA ET4000 800x600x8x72" = "Tseng ET4000 800x600, 256 colors, 72Hz",files.et4000,et4000,800,600,8,72,0
+"TSENGLAB VGA ET4000 1024x768x4x60" = "Tseng ET4000 1024x768, 16 colors, 60Hz",files.et4000,et4000,1024,768,4,60,0
+"TSENGLAB VGA ET4000 1024x768x4x70" = "Tseng ET4000 1024x768, 16 colors, 70Hz",files.et4000,et4000,1024,768,4,70,0
+"TSENGLAB VGA ET4000 1024x768x4x45I" = "Tseng ET4000 1024x768, 16 color interlaced",files.et4000,et4000,1024,768,4,45,1
+"TSENGLAB VGA ET4000 1024x768x8x60" = "Tseng ET4000 1024x768, 256 colors, 60Hz",files.et4000,et4000,1024,768,8,60,0
+"TSENGLAB VGA ET4000 1024x768x8x70" = "Tseng ET4000 1024x768, 256 colors, 70Hz",files.et4000,et4000,1024,768,8,70,0
+"TSENGLAB VGA ET4000 1024x768x8x45I" = "Tseng ET4000 1024x768, 256 color interlaced",files.et4000,et4000,1024,768,8,45,1
+"VIDEO7 VGA VRAM 640x480x4" = "Video 7 VRAM 640x480, 16 colors",files.v7,v7vram,640,480,4,-1,-1
+"VIDEO7 VGA VRAM 640x480x8" = "Video 7 VRAM 640x480, 256 colors",files.v7,v7vram,640,480,8,-1,-1
+"VIDEO7 VGA VRAM 800x600x4" = "Video 7 VRAM 800x600, 16 colors",files.v7,v7vram,800,600,4,-1,-1
+"VIDEO7 VGA VRAM 800x600x8" = "Video 7 VRAM 800x600, 256 colors",files.v7,v7vram,800,600,8,-1,-1
+"VIDEO7 VGA VRAM 1024x768x4" = "Video 7 VRAM 1024x768, 16 colors",files.v7,v7vram,1024,768,4,-1,-1
+"VIDEO7 VGA VRAM 1024x768x8" = "Video 7 VRAM 1024x768, 256 colors",files.v7,v7vram,1024,768,8,-1,-1
+"WDVGA 640x480x4" = "WD 640x480, 16 colors",files.wdvga,wdvga,640,480,4,-1,0 
+"WDVGA 640x480x8" = "WD 640x480, 256 colors",files.wdvga,wdvga,640,480,8,-1,0 
+"WDVGA 800x600x4x56" = "WD 800x600, 16 colors, 56Hz",files.wdvga,wdvga,800,600,4,56,0
+"WDVGA 800x600x4x60" = "WD 800x600, 16 colors, 60Hz",files.wdvga,wdvga,800,600,4,60,0
+"WDVGA 800x600x4x72" = "WD 800x600, 16 colors, 72Hz",files.wdvga,wdvga,800,600,4,72,0 
+"WDVGA 800x600x8x56" = "WD 800x600, 256 colors, 56Hz",files.wdvga,wdvga,800,600,8,56,0
+"WDVGA 800x600x8x60" = "WD 800x600, 256 colors, 60Hz",files.wdvga,wdvga,800,600,8,60,0
+"WDVGA 800x600x8x72" = "WD 800x600, 256 colors, 72Hz",files.wdvga,wdvga,800,600,8,72,0 
+"WDVGA 1024x768x4x44I" = "WD 1024x768, 16 colors, interlaced",files.wdvga,wdvga,1024,768,4,44,1 
+"WDVGA 1024x768x4x60" = "WD 1024x768, 16 colors, 60Hz",files.wdvga,wdvga,1024,768,4,60,0
+"WDVGA 1024x768x4x70" = "WD 1024x768, 16 colors, 70Hz",files.wdvga,wdvga,1024,768,4,70,0
+"WDVGA 1024x768x4x72" = "WD 1024x768, 16 colors, 72Hz",files.wdvga,wdvga,1024,768,4,72,0 
+"WDVGA 1024x768x8x44I" = "WD 1024x768, 256 colors, interlaced",files.wdvga,wdvga,1024,768,8,44,1 
+"WDVGA 1024x768x8x60" = "WD 1024x768, 256 colors, 60Hz",files.wdvga,wdvga,1024,768,8,60,0
+"WDVGA 1024x768x8x70" = "WD 1024x768, 256 colors, 70Hz",files.wdvga,wdvga,1024,768,8,70,0
+"WDVGA 1024x768x8x72" = "WD 1024x768, 256 colors, 72Hz",files.wdvga,wdvga,1024,768,8,72,0
+"XGA 640x400x8x70" = "XGA 640x400, 256 colors, 70Hz",files.xga,xga,640,400,8,70,0
+"XGA 640x400x8x84" = "XGA 640x400, 256 colors, 84Hz",files.xga,xga,640,400,8,84,0
+"XGA 640x400x8x88" = "XGA 640x400, 256 colors, 88Hz",files.xga,xga,640,400,8,88,0
+"XGA 640x480x8x60" = "XGA 640x480, 256 colors, 60Hz [IBM 85xx,7554]",files.xga,xga,640,480,8,60,0
+"XGA 640x480x8x72" = "XGA 640x480, 256 colors, 72Hz [IBM 6312,6314,6319]",files.xga,xga,640,480,8,72,0
+"XGA 640x480x8x75" = "XGA 640x480, 256 colors, 75Hz [IBM 9515,9517,9518]",files.xga,xga,640,480,8,75,0
+"XGA 800x600x8x56" = "XGA 800x600, 256 colors, 56Hz",files.xga,xga,800,600,8,56,0
+"XGA 800x600x8x60" = "XGA 800x600, 256 colors, 60Hz",files.xga,xga,800,600,8,60,0
+"XGA 800x600x8x72" = "XGA 800x600, 256 colors, 72Hz [IBM 6312,6314,6319]",files.xga,xga,800,600,8,72,0
+"XGA 800x600x8x75" = "XGA 800x600, 256 colors, 75Hz",files.xga,xga,800,600,8,75,0
+"XGA 1024x768x8x43" = "XGA 1024x768, 256 colors, interlaced [IBM 8514-17]",files.xga,xga,1024,768,8,43,1
+"XGA 1024x768x8x60" = "XGA 1024x768, 256 colors, 60Hz [IBM 6312]",files.xga,xga,1024,768,8,60,0
+"XGA 1024x768x8x70" = "XGA 1024x768, 256 colors, 70Hz [IBM 8517]",files.xga,xga,1024,768,8,70,0
+"XGA 1024x768x8x72" = "XGA 1024x768, 256 colors, 72Hz [IBM 6314,6319,9517]",files.xga,xga,1024,768,8,72,0
+"XGA 1024x768x8x75" = "XGA 1024x768, 256 colors, 75Hz [IBM 9515]",files.xga,xga,1024,768,8,75,0
+"XGA 1040x768x8x43" = "XGA 1040x768, 256 colors, interlaced",files.xga,xga,1040,768,8,43,1
+"XGA 1040x768x8x60" = "XGA 1040x768, 256 colors, 60Hz",files.xga,xga,1040,768,8,60,0
+"XGA 1040x768x8x70" = "XGA 1040x768, 256 colors, 70Hz",files.xga,xga,1040,768,8,70,0
+"XGA 1040x768x8x72" = "XGA 1040x768, 256 colors, 72Hz",files.xga,xga,1040,768,8,72,0
+"XGA 1040x768x8x75" = "XGA 1040x768, 256 colors, 75Hz",files.xga,xga,1040,768,8,75,0
+
+
+[Mouse]
+msps2 = "Microsoft Mouse Port Mouse (includes BallPoint)",files.i8042,i8042prt
+lgps2 = "Logitech Mouse Port Mouse",files.i8042,i8042prt
+msinp = "Microsoft InPort Bus Mouse",files.inport,inport
+msser = "Microsoft Serial Mouse",files.sermouse,sermouse
+msbpser = "Microsoft BallPoint Serial Mouse",files.sermouse,sermouse
+lgser = "Logitech Serial Mouse",files.sermouse,sermouse
+bus = "Microsoft (Green Buttons) or Logitech Bus Mouse",files.busmouse,busmouse
+none = "No Mouse or Other Pointing Device",files.none,""
+
+[Keyboard]
+STANDARD = "XT, AT, or Enhanced Keyboard (83-102 keys)",files.i8042,i8042prt
+
+[SCSI.EISA]
+sparrow  = "Adaptec 151x/152x / AIC 6260/6360",files.sparrow,sparrow,1
+aha154x  = "Adaptec 154x",files.aha154x,aha154x,1
+aha174x  = "Adaptec 174x",files.aha174x,aha174x,1
+arrow    = "Adaptec 2740 / AIC 777x",files.arrow,arrow,1
+always   = "Always IN-2000",files.always,always,1
+buslogic = "BusLogic Family",files.buslogic,buslogic,1
+dptscsi  = "DPT PM201x",files.dptscsi,dptscsi,1
+dtc329x  = "DTC 329X",files.dtc329x,dtc329x,1
+fd7000ex = "Future Domain / Western Digital 7000EX",files.fd7000ex,fd7000ex,1
+fd8xx    = "Future Domain 8xx",files.fd8xx,fd8xx,1
+fd16_700 = "Future Domain 16xx",files.fd16_700,fd16_700,1
+wd33c93  = "Maynard / Western Digital 33c93",files.wd33c93,wd33c93,1
+#dce376nt= "Mylex DCE376",files.dce376nt,dce376nt,1
+ncr53c9x = "NCR 53c9x",files.ncr53c9x,ncr53c9x,1
+ncrc700  = "NCR 53c700",files.ncrc700,ncrc700,1
+ncrc710  = "NCR 53c710",files.ncrc710,ncrc710,1
+oliscsi  = "Olivetti ESC-1/ESC-2",files.oliscsi,oliscsi,1
+t128     = "Trantor T128",files.t128,t128,1
+t13b     = "Trantor T130b",files.t13b,t13b,1
+tmv1     = "Trantor MediaVision",files.tmv1,tmv1,1
+ultra14F = "UltraStor 14f, 34f",files.ultra14f,ultra14f,1
+ultra24F = "UltraStor 24f",files.ultra24f,ultra24f,1
+ultra124 = "UltraStor 124f",files.ultra124,ultra124,1
+
+[SCSI.ISA]
+sparrow  = "Adaptec 151x/152x / AIC 6260/6360",files.sparrow,sparrow,1
+aha154x  = "Adaptec 154x",files.aha154x,aha154x,1
+always   = "Always IN-2000",files.always,always,1
+buslogic = "BusLogic Family",files.buslogic,buslogic,1
+dptscsi  = "DPT PM201x",files.dptscsi,dptscsi,1
+dtc329x  = "DTC 329X",files.dtc329x,dtc329x,1
+fd8xx    = "Future Domain 8xx",files.fd8xx,fd8xx,1
+fd16_700 = "Future Domain 16xx",files.fd16_700,fd16_700,1
+wd33c93  = "Maynard / Western Digital 33c93",files.wd33c93,wd33c93,1
+ncr53c9x = "NCR 53c9x",files.ncr53c9x,ncr53c9x,1
+t128     = "Trantor T128",files.t128,t128,1
+t13b     = "Trantor T130b",files.t13b,t13b,1
+tmv1     = "Trantor MediaVision",files.tmv1,tmv1,1
+ultra14F = "UltraStor 14f, 34f",files.ultra14f,ultra14f,1
+
+[SCSI.MCA]
+aha154x  = "Adaptec 164x",files.aha154x,aha154x,1
+buslogic = "BusLogic Family",files.buslogic,buslogic,1
+fd16_700 = "Future Domain 16xx",files.fd16_700,fd16_700,1
+spock    = "IBM PS/2",files.spock,spock,1
+ncr53c9x = "NCR 53c9x",files.ncr53c9x,ncr53c9x,1
+ncrc700  = "NCR 53c700",files.ncrc700,ncrc700,1
+ncrc710  = "NCR 53c710",files.ncrc710,ncrc710,1
+
+["Keyboard Layout"]
+00000813 = "Belgian Dutch"
+0000080C = "Belgian French"
+00000809 = "British"
+00001009 = "Canadian English (Multilingual)"
+00000C0C = "Canadian French"
+00010C0C = "Canadian French (Multilingual)"
+00000405 = "Czech"
+00000406 = "Danish"
+00000413 = "Dutch"
+0000040B = "Finnish"
+0000040C = "French"
+00000407 = "German"
+00000408 = "Greek"
+0000040E = "Hungarian"
+0000040F = "Icelandic"
+00000410 = "Italian"
+0000080A = "Latin American"
+00000414 = "Norwegian"
+00000415 = "Polish (Programmers)"
+00000816 = "Portuguese"
+00000419 = "Russian"
+0000040A = "Spanish"
+0001040A = "Spanish variation"
+0000041D = "Swedish"
+0000100C = "Swiss French"
+00000807 = "Swiss German"
+00000409 = "US"
+00010409 = "US-Dvorak"
+00020409 = "US-International"
+
+#
+#  Font list
+#
+#  Setup will create an entry in the [Fonts] section of win.ini
+#  for each of the following fonts.  (Fonts copied during GUI setup
+#  have entries in [FontList] in a gui inf file -- see eng_ansi.txt.)
+#  Note that the [fonts] section of win.ini is shadowed into
+#  HEKY_LOCAL_MACHINE\software\Microsoft\Windows NT\CurrentVersion\Fonts.
+#
+[FontListE]
+"Courier 10,12,15 (VGA res)"               = COURE.FON
+"MS Sans Serif 8,10,12,14,18,24 (VGA res)" = SSERIFE.FON
+"MS Serif 8,10,12,14,18,24 (VGA res)"      = SERIFE.FON
+
+[FontListF]
+"Courier 10,12,15 (8514/a res)"               = COURF.FON
+"MS Sans Serif 8,10,12,14,18,24 (8514/a res)" = SSERIFF.FON
+"MS Serif 8,10,12,14,18,24 (8514/a res)"      = SERIFF.FON

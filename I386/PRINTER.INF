@@ -1,0 +1,1952 @@
+[Identification]
+    OptionType = PRINTER
+[Options]
+"Adobe LaserJet II Cartridge v52.3"                = pscrptui, aljii523,  pscript
+"Agfa Compugraphic 400PS"                          = pscrptui, agfap400,  pscript
+"Agfa Compugraphic Genics"                         = rasddui,  hppcl,     rasdd
+"Agfa Matrix ChromaScript v51.8"                   = pscrptui, amchr518,  pscript
+"Agfa TabScript C500 PostScript Printer v50.3"     = pscrptui, ac500503,  pscript
+"Agfa-Compugraphic 9400P v49.3"                    = pscrptui, cg94_493,  pscript
+"Apple LaserWriter II NT v47.0"                    = pscrptui, lwnt_470,  pscript
+"Apple LaserWriter II NTX v47.0"                   = pscrptui, lwntx470,  pscript
+"Apple LaserWriter II NTX v51.8"                   = pscrptui, lwntx518,  pscript
+"Apple LaserWriter II NTX-J v50.5"                 = pscrptui, ap_ntxj1,  pscript
+"Apple LaserWriter IIf v2010.113"                  = pscrptui, aplwiif1,  pscript
+"Apple LaserWriter IIg v2010.113"                  = pscrptui, aplwiig1,  pscript
+"Apple LaserWriter Plus v38.0"                     = pscrptui, apple380,  pscript
+"Apple LaserWriter Plus v42.2"                     = pscrptui, apple422,  pscript
+"Apple LaserWriter v23.0"                          = pscrptui, apple230,  pscript
+"Apple Personal LaserWriter NTR v2010.129"         = pscrptui, aplwntr1,  pscript
+"Apricot Laser"                                    = rasddui,  kyocera,   rasdd
+"APS-PS PIP with APS-6-108 v49.3 or 52.2"          = pscrptui, aps08522,  pscript
+"APS-PS PIP with APS-6-80 v49.3 or 52.2"           = pscrptui, aps80522,  pscript
+"APS-PS PIP with LZR 1200 v49.3 or 52.2"           = pscrptui, aps12522,  pscript
+"APS-PS PIP with LZR 2600 v49.3 or 52.2"           = pscrptui, aps26522,  pscript
+"AST TurboLaser-PS v47.0"                          = pscrptui, ast__470,  pscript
+"AT&T 470/475"                                     = rasddui,  citoh,     rasdd
+"AT&T 473/478"                                     = rasddui,  oki9ibm,   rasdd
+"Brother HJ-100"                                   = rasddui,  canon330,  rasdd
+"Brother HJ-100i"                                  = rasddui,  canon330,  rasdd
+"Brother HJ-770"                                   = rasddui,  brhj770,   rasdd
+"Brother HL-10DV"                                  = rasddui,  hppcl5ms,  rasdd
+"Brother HL-10V"                                   = rasddui,  hppcl5ms,  rasdd
+"Brother HL-4"                                     = rasddui,  hppcl,     rasdd
+"Brother HL-4V"                                    = rasddui,  hppcl5ms,  rasdd
+"Brother HL-4Ve"                                   = rasddui,  hppcl5ms,  rasdd
+"Brother HL-8"                                     = rasddui,  hppcl,     rasdd
+"Brother HL-8D"                                    = rasddui,  hppcl,     rasdd
+"Brother HL-8e"                                    = rasddui,  hppcl,     rasdd
+"Brother HL-8V"                                    = rasddui,  hppcl5ms,  rasdd
+"Brother M-1309"                                   = rasddui,  brother9,  rasdd
+"Brother M-1324"                                   = rasddui,  brothr24,  rasdd
+"Brother M-1809"                                   = rasddui,  brother9,  rasdd
+"Brother M-1818"                                   = rasddui,  brother9,  rasdd
+"Brother M-1824L"                                  = rasddui,  brothr24,  rasdd
+"Brother M-1909"                                   = rasddui,  brother9,  rasdd
+"Brother M-1918"                                   = rasddui,  brother9,  rasdd
+"Brother M-1924L"                                  = rasddui,  brothr24,  rasdd
+"Bull Compuprint PageMaster 1025"                  = rasddui,  hppcl5ms,  rasdd
+"Bull Compuprint PageMaster 413"                   = rasddui,  hppcl5ms,  rasdd
+"Bull Compuprint PM 201"                           = rasddui,  jp350,     rasdd
+"C-Itoh 8510"                                      = rasddui,  citoh,     rasdd
+"Canon Bubble-Jet BJ-10e"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-10ex"                         = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-10sx"                         = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-130"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-130e"                         = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-20"                           = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-200"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-230"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-300"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJ-330"                          = rasddui,  canon330,  rasdd
+"Canon Bubble-Jet BJC-800"                         = rasddui,  canon800,  rasdd
+"Canon LBP-4 PS-2 v51.4"                           = pscrptui, cnlbp4_1,  pscript
+"Canon LBP-8III PS-1 v51.4"                        = pscrptui, cnlbp8_1,  pscript
+"Canon LBP-8IIIR PS-1 v51.4"                       = pscrptui, cnlbp8r1,  pscript
+"Canon LBP-8IIIT PS-1 v51.4"                       = pscrptui, cnlbp8t1,  pscript
+"Canon PS-IPU Color Laser Copier v52.3"            = pscrptui, cn_500_1,  pscript
+"Canon PS-IPU Kanji Color Laser Copier v52.3"      = pscrptui, cn_500j1,  pscript
+"Citizen 120D"                                     = rasddui,  cit9us,    rasdd
+"Citizen 120D+"                                    = rasddui,  cit9us,    rasdd
+"Citizen 124D"                                     = rasddui,  cit24us,   rasdd
+"Citizen 180D"                                     = rasddui,  cit9us,    rasdd
+"Citizen 200GX"                                    = rasddui,  cit9us,    rasdd
+"Citizen 200GX/15"                                 = rasddui,  cit9us,    rasdd
+"Citizen 224"                                      = rasddui,  cit24us,   rasdd
+"Citizen GSX 240 Scalable Font"                    = rasddui,  escp2e,    rasdd
+"Citizen GSX-130"                                  = rasddui,  cit24us,   rasdd
+"Citizen GSX-140"                                  = rasddui,  cit24us,   rasdd
+"Citizen GSX-140+"                                 = rasddui,  cit24us,   rasdd
+"Citizen GSX-145"                                  = rasddui,  cit24us,   rasdd
+"Citizen GSX-230"                                  = rasddui,  cit24us,   rasdd
+"Citizen HSP-500"                                  = rasddui,  cit9us,    rasdd
+"Citizen HSP-550"                                  = rasddui,  cit9us,    rasdd
+"Citizen PN48"                                     = rasddui,  cit24us,   rasdd
+"Citizen Prodot 24"                                = rasddui,  cit24us,   rasdd
+"Citizen Prodot 9"                                 = rasddui,  cit9us,    rasdd
+"Citizen Prodot 9x"                                = rasddui,  cit9us,    rasdd
+"Citizen PROjet"                                   = rasddui,  jp350,     rasdd
+"Citizen Swift 200"                                = rasddui,  cit24us,   rasdd
+"Citizen Swift 24"                                 = rasddui,  cit24us,   rasdd
+"Citizen Swift 240 Scalable Font"                  = rasddui,  escp2e,    rasdd
+"Citizen Swift 24e"                                = rasddui,  cit24us,   rasdd
+"Citizen Swift 24x"                                = rasddui,  cit24us,   rasdd
+"Citizen Swift 9"                                  = rasddui,  cit9us,    rasdd
+"Citizen Swift 9x"                                 = rasddui,  cit9us,    rasdd
+"Colormate PS v51.9"                               = pscrptui, ncol_519,  pscript
+"COMPAQ PAGEMARQ 15 v2012.015"                     = pscrptui, cppmq151,  pscript
+"COMPAQ PAGEMARQ 20 v2012.015"                     = pscrptui, cppmq201,  pscript
+"Dataproducts LZR 1260 v47.0"                      = pscrptui, dp_us470,  pscript
+"Dataproducts LZR 1560 v2010.127"                  = pscrptui, dpl15601,  pscript
+"Dataproducts LZR 960 v2010.106"                   = pscrptui, dplz9601,  pscript
+"Dataproducts LZR-2665 v46.2"                      = pscrptui, datap462,  pscript
+"Diconix 150 Plus"                                 = rasddui,  diconix,   rasdd
+"Digital Colormate PS v51.9"                       = pscrptui, deccolor,  pscript
+"Digital DEClaser 1100 (LJ)"                       = rasddui,  hppcl,     rasdd
+"Digital DEClaser 1100"                            = rasddui,  dec3200,   rasdd
+"Digital DEClaser 1150 v51.4"                      = pscrptui, dcd11501,  pscript
+"Digital DEClaser 1152  17 fonts"                  = pscrptui, dc1152_1,  pscript
+"Digital DEClaser 1152  43 fonts"                  = pscrptui, dc1152f1,  pscript
+"Digital DEClaser 2100"                            = rasddui,  dec3200,   rasdd
+"Digital DEClaser 2100plus (LJ)"                   = rasddui,  hppcl,     rasdd
+"Digital DEClaser 2150 plus v51.4"                 = pscrptui, dc2150p1,  pscript
+"Digital DEClaser 2150 v51.4"                      = pscrptui, dcd21501,  pscript
+"Digital DEClaser 2200"                            = rasddui,  dec3200,   rasdd
+"Digital DEClaser 2200plus (LJ)"                   = rasddui,  hppcl,     rasdd
+"Digital DEClaser 2250 plus v51.4"                 = pscrptui, dc2250p1,  pscript
+"Digital DEClaser 2250 v51.4"                      = pscrptui, dcd22501,  pscript
+"Digital DEClaser 3200 (LJ)"                       = rasddui,  hppcl,     rasdd
+"Digital DEClaser 3200"                            = rasddui,  dec3200,   rasdd
+"Digital DEClaser 3250 v47"                        = pscrptui, dec3250,   pscript
+"Digital DECmultiJET 1000"                         = rasddui,  jp350,     rasdd
+"Digital DECmultiJET 2000"                         = rasddui,  jp350,     rasdd
+"Digital DECwriter 95"                             = rasddui,  dec24pin,  rasdd
+"Digital LA310"                                    = rasddui,  dec9pin,   rasdd
+"Digital LA324"                                    = rasddui,  dec24pin,  rasdd
+"Digital LA424"                                    = rasddui,  dec24pin,  rasdd
+"Digital LA70"                                     = rasddui,  dec9pin,   rasdd
+"Digital LA75 Plus"                                = rasddui,  dec24pin,  rasdd
+"Digital LA75"                                     = rasddui,  dec9pin,   rasdd
+"Digital LN03R ScriptPrinter"                      = pscrptui, dcln03r1,  pscript
+"Digital PrintServer 17 v48.3"                     = pscrptui, dclps171,  pscript
+"Digital PrintServer 20 v48.3"                     = pscrptui, dclps201,  pscript
+"Digital PrintServer 32 v48.3"                     = pscrptui, dclps321,  pscript
+"Digital PrintServer 40 Plus v48.3"                = pscrptui, dclps401,  pscript
+"Digital turbo PrintServer 20"                     = pscrptui, dctps201,  pscript
+"Epson ActionLaser II"                             = rasddui,  hppcl,     rasdd
+"Epson AP-3250 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson AP-5000 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson AP-5500 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson Compatible 24 Pin"                          = rasddui,  epson24,   rasdd
+"Epson Compatible 9 Pin"                           = rasddui,  epson9,    rasdd
+"Epson DFX-5000"                                   = rasddui,  epson9,    rasdd
+"Epson DLQ-2000"                                   = rasddui,  epson24,   rasdd
+"Epson EPL-4000"                                   = rasddui,  hppcl,     rasdd
+"Epson EPL-4300"                                   = rasddui,  hppcl5ms,  rasdd
+"Epson EPL-6000"                                   = rasddui,  hppcl,     rasdd
+"Epson EPL-7000"                                   = rasddui,  hppcl,     rasdd
+"EPSON EPL-7500 v52.3"                             = pscrptui, epl75523,  pscript
+"Epson EPL-8000"                                   = rasddui,  hppcl5ms,  rasdd
+"Epson EPL-8100"                                   = rasddui,  hppcl5ms,  rasdd
+"Epson EX-1000"                                    = rasddui,  epson9,    rasdd
+"Epson EX-800"                                     = rasddui,  epson9,    rasdd
+"Epson FX-100"                                     = rasddui,  epson9,    rasdd
+"Epson FX-100+"                                    = rasddui,  epson9,    rasdd
+"Epson FX-1000"                                    = rasddui,  epson9,    rasdd
+"Epson FX-105"                                     = rasddui,  epson9,    rasdd
+"Epson FX-1050"                                    = rasddui,  epson9,    rasdd
+"Epson FX-185"                                     = rasddui,  epson9,    rasdd
+"Epson FX-286"                                     = rasddui,  epson9,    rasdd
+"Epson FX-286e"                                    = rasddui,  epson9,    rasdd
+"Epson FX-80"                                      = rasddui,  epson9,    rasdd
+"Epson FX-80+"                                     = rasddui,  epson9,    rasdd
+"Epson FX-800"                                     = rasddui,  epson9,    rasdd
+"Epson FX-85"                                      = rasddui,  epson9,    rasdd
+"Epson FX-850"                                     = rasddui,  epson9,    rasdd
+"Epson FX-86e"                                     = rasddui,  epson9,    rasdd
+"Epson GQ-3500"                                    = rasddui,  hppcl,     rasdd
+"Epson JX-80"                                      = rasddui,  epson9,    rasdd
+"Epson L-1000"                                     = rasddui,  epson24,   rasdd
+"Epson L-750"                                      = rasddui,  epson24,   rasdd
+"EPSON LP-3000PS F2 v52.3"                         = pscrptui, epl3kf21,  pscript
+"EPSON LP-3000PS F5 v52.3"                         = pscrptui, epl3kf51,  pscript
+"Epson LQ-100 Scalable Font"                       = rasddui,  escp2e,    rasdd
+"Epson LQ-1000"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-1010"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-1050"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-1060"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-1070 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson LQ-1170 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson LQ-1500"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-200"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-2500"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-2550"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-400"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-450"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-500"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-510"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-550"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-570 Scalable Font"                       = rasddui,  escp2e,    rasdd
+"Epson LQ-800"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-850"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-850+"                                    = rasddui,  epson24,   rasdd
+"Epson LQ-860"                                     = rasddui,  epson24,   rasdd
+"Epson LQ-870 Scalable Font"                       = rasddui,  escp2e,    rasdd
+"Epson LQ-950"                                     = rasddui,  epson24,   rasdd
+"Epson LX-1050"                                    = rasddui,  epson9,    rasdd
+"Epson LX-400"                                     = rasddui,  epson9,    rasdd
+"Epson LX-80"                                      = rasddui,  epson9,    rasdd
+"Epson LX-800"                                     = rasddui,  epson9,    rasdd
+"Epson LX-810"                                     = rasddui,  epson9,    rasdd
+"Epson LX-850"                                     = rasddui,  epson9,    rasdd
+"Epson LX-850+"                                    = rasddui,  epson9,    rasdd
+"Epson LX-86"                                      = rasddui,  epson9,    rasdd
+"Epson MX-100"                                     = rasddui,  epson9,    rasdd
+"Epson MX-80 F/T"                                  = rasddui,  epson9,    rasdd
+"Epson MX-80"                                      = rasddui,  epson9,    rasdd
+"EPSON PostScript CARD v52.5"                      = pscrptui, ep826051,  pscript
+"Epson RX-100"                                     = rasddui,  epson9,    rasdd
+"Epson RX-100+"                                    = rasddui,  epson9,    rasdd
+"Epson RX-80 F/T"                                  = rasddui,  epson9,    rasdd
+"Epson RX-80 F/T+"                                 = rasddui,  epson9,    rasdd
+"Epson RX-80"                                      = rasddui,  epson9,    rasdd
+"Epson SQ-1170 Scalable Font"                      = rasddui,  escp2e,    rasdd
+"Epson SQ-2000"                                    = rasddui,  epson24,   rasdd
+"Epson SQ-2500"                                    = rasddui,  epson24,   rasdd
+"Epson SQ-2550"                                    = rasddui,  epson24,   rasdd
+"Epson SQ-850"                                     = rasddui,  epson24,   rasdd
+"Epson SQ-870 Scalable Font"                       = rasddui,  escp2e,    rasdd
+"Epson T-1000"                                     = rasddui,  epson9,    rasdd
+"Epson T-750"                                      = rasddui,  epson9,    rasdd
+"Fujitsu Breeze 100"                               = rasddui,  jp350,     rasdd
+"Fujitsu Breeze 200"                               = rasddui,  jp350,     rasdd
+"Fujitsu DL 1100 Colour"                           = rasddui,  fuji24,    rasdd
+"Fujitsu DL 1100"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 1150"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 1200"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 1250"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 2400"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 2600"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 3300"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 3350"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 3400"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 3450"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 3600"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 4400"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 4600"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 5600"                                  = rasddui,  fuji24,    rasdd
+"Fujitsu DL 900"                                   = rasddui,  fuji24,    rasdd
+"Fujitsu DX 2100"                                  = rasddui,  fuji9,     rasdd
+"Fujitsu DX 2200"                                  = rasddui,  fuji9,     rasdd
+"Fujitsu DX 2300"                                  = rasddui,  fuji9,     rasdd
+"Fujitsu DX 2400"                                  = rasddui,  fuji9,     rasdd
+"Fujitsu RX7100PS v50.3"                           = pscrptui, f71rx503,  pscript
+"GCC BLP Elite v52.3"                              = pscrptui, gcblpel1,  pscript
+"GCC BLP II v52.3"                                 = pscrptui, gcblp2_1,  pscript
+"GCC BLP IIS v52.3"                                = pscrptui, gcblp2s1,  pscript
+"GCC Business LaserPrinter v49.2"                  = pscrptui, gcbl4921,  pscript
+"GCC Business LaserPrinter v51.4"                  = pscrptui, gcbl5141,  pscript
+"Generic IBM Graphics 9pin wide"                   = rasddui,  oki9ibm,   rasdd
+"Generic IBM Graphics 9pin"                        = rasddui,  oki9ibm,   rasdd
+"Gestetner GLP800-Scout v52.3"                     = pscrptui, gdgl8001,  pscript
+"Hermes H 606 PS (13 Fonts)"                       = pscrptui, hermes_1,  pscript
+"Hermes H 606 PS (35 fonts)"                       = pscrptui, hermes_2,  pscript
+"Hermes H 606"                                     = rasddui,  hppcl,     rasdd
+"HP DeskJet 1200C"                                 = rasddui,  hppcl5ms,  rasdd
+"HP DeskJet 500"                                   = rasddui,  hpdskjet,  rasdd
+"HP DeskJet 500C (Monochrome)"                     = rasddui,  hpdskjet,  rasdd
+"HP DeskJet 500C"                                  = rasddui,  hpdskjet,  rasdd
+"HP DeskJet 510"                                   = rasddui,  hpdskjet,  rasdd
+"HP DeskJet 550C"                                  = rasddui,  hpdskjet,  rasdd
+"HP DeskJet Plus"                                  = rasddui,  hpdskjet,  rasdd
+"HP DeskJet Portable"                              = rasddui,  hpdskjet,  rasdd
+"HP DeskJet"                                       = rasddui,  hpdskjet,  rasdd
+"HP LaserJet 2000"                                 = rasddui,  hppcl,     rasdd
+"HP LaserJet 4 PostScript v2011.110"               = pscrptui, hplj_4m,   pscript
+"HP LaserJet 4"                                    = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet 4Si"                                  = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet 4Si/4Si MX PS"                        = pscrptui, hp4si6_1,  pscript
+"HP LaserJet 500+"                                 = rasddui,  hppcl,     rasdd
+"HP LaserJet ELI PostScript v52.3"                 = pscrptui, hpeli522,  pscript
+"HP LaserJet IID PostScript Cartridge v52.2"       = pscrptui, hpiid522,  pscript
+"HP LaserJet IID"                                  = rasddui,  hppcl,     rasdd
+"HP LaserJet III PostScript Cartridge v52.2"       = pscrptui, hpiii522,  pscript
+"HP LaserJet III PostScript Plus v2010.118"        = pscrptui, hplj_31,   pscript
+"HP LaserJet III"                                  = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet IIID PostScript Cartridge v52.2"      = pscrptui, hp_3d522,  pscript
+"HP LaserJet IIID PostScript Plus v2010.118"       = pscrptui, hplj_3d1,  pscript
+"HP LaserJet IIID"                                 = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet IIIP PostScript Cartridge v52.2"      = pscrptui, hp_3p522,  pscript
+"HP LaserJet IIIP PostScript Plus v2010.118"       = pscrptui, hplj_3p1,  pscript
+"HP LaserJet IIIP"                                 = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet IIISi PostScript v52.3"               = pscrptui, hp3si523,  pscript
+"HP LaserJet IIISi"                                = rasddui,  hppcl5ms,  rasdd
+"HP LaserJet IIP"                                  = rasddui,  hppcl,     rasdd
+"HP LaserJet IIP Plus"                             = rasddui,  hppcl,     rasdd
+"HP LaserJet IIP PostScript Cartridge v52.2"       = pscrptui, hpiip522,  pscript
+"HP LaserJet Plus"                                 = rasddui,  hppcl,     rasdd
+"HP LaserJet Series II"                            = rasddui,  hppcl,     rasdd
+"HP LaserJet"                                      = rasddui,  hppcl,     rasdd
+"HP PaintJet XL 300"                               = rasddui,  hppcl5ms,  rasdd
+"HP PaintJet XL"                                   = rasddui,  paintjet,  rasdd
+"HP PaintJet XL300 v2011.112"                      = pscrptui, hppjxl31,  pscript
+"HP PaintJet"                                      = rasddui,  paintjet,  rasdd
+"HP QuietJet Plus"                                 = rasddui,  quietjet,  rasdd
+"HP QuietJet"                                      = rasddui,  quietjet,  rasdd
+"HP ThinkJet (2225 C-D)"                           = rasddui,  thinkjet,  rasdd
+"IBM 4019 LaserPrinter PS17"                       = pscrptui, ibm17523,  pscript
+"IBM 4019 LaserPrinter PS39"                       = pscrptui, ibm39523,  pscript
+"IBM 4029 LaserPrinter PS17"                       = pscrptui, 40291730,  pscript
+"IBM 4029 LaserPrinter PS39"                       = pscrptui, 40293930,  pscript
+"IBM 4039 LaserPrinter PS"                         = pscrptui, ibm4039,   pscript
+"IBM 4070 IJ"                                      = rasddui,  canon330,  rasdd
+"IBM 4079 Color Jetprinter PS"                     = pscrptui, ibm4079,   pscript
+"IBM 4216-020 v47.0"                               = pscrptui, ibm20470,  pscript
+"IBM 4216-030 v50.5"                               = pscrptui, ibm30505,  pscript
+"IBM ExecJet 4072"                                 = rasddui,  canon330,  rasdd
+"IBM Graphics"                                     = rasddui,  oki9ibm,   rasdd
+"IBM LaserPrinter 4039"                            = rasddui,  hppcl5ms,  rasdd
+"IBM Personal Page Printer II-31"                  = pscrptui, ibm31514,  pscript
+"IBM Personal Printer II 2380"                     = rasddui,  ibm238x,   rasdd
+"IBM Personal Printer II 2381"                     = rasddui,  ibm238x,   rasdd
+"IBM Personal Printer II 2390"                     = rasddui,  ibm239x,   rasdd
+"IBM Personal Printer II 2391"                     = rasddui,  ibm239x,   rasdd
+"IBM Portable 5183"                                = rasddui,  ibmport,   rasdd
+"IBM Proprinter II"                                = rasddui,  proprint,  rasdd
+"IBM Proprinter III"                               = rasddui,  proprint,  rasdd
+"IBM Proprinter X24"                               = rasddui,  proprn24,  rasdd
+"IBM Proprinter X24e"                              = rasddui,  proprn24,  rasdd
+"IBM Proprinter XL II"                             = rasddui,  proprint,  rasdd
+"IBM Proprinter XL III"                            = rasddui,  proprint,  rasdd
+"IBM Proprinter XL"                                = rasddui,  proprint,  rasdd
+"IBM Proprinter XL24"                              = rasddui,  proprn24,  rasdd
+"IBM Proprinter XL24e"                             = rasddui,  proprn24,  rasdd
+"IBM Proprinter"                                   = rasddui,  proprint,  rasdd
+"IBM PS/1 2205"                                    = rasddui,  ps1,       rasdd
+"IBM QuickWriter 5204"                             = rasddui,  ibm5204,   rasdd
+"IBM QuietWriter III"                              = rasddui,  qwiii,     rasdd
+"Kodak EktaPlus 7016"                              = rasddui,  hppcl,     rasdd
+"Kyocera F-1000"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-1000A"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-1010"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-1200S"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-1800"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-1800A"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-2000A"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-2010"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-2200"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-2200S"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-3000"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-3000A"                                  = rasddui,  kyocera,   rasdd
+"Kyocera F-3010"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-3300"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-5000"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-800"                                    = rasddui,  kyocera,   rasdd
+"Kyocera F-800A"                                   = rasddui,  kyocera,   rasdd
+"Kyocera F-820"                                    = rasddui,  kyocera,   rasdd
+"Kyocera FS-1500 / FS-1500A"                       = rasddui,  hppcl5ms,  rasdd
+"Kyocera FS-3500 / FS-3500A"                       = rasddui,  hppcl5ms,  rasdd
+"Kyocera FS-5500 / FS-5500A"                       = rasddui,  hppcl5ms,  rasdd
+"Kyocera FS-850 / FS-850A"                         = rasddui,  hppcl5ms,  rasdd
+"LaserWriter Personal NT v51.8"                    = pscrptui, a_pnt518,  pscript
+"Linotronic 100 v42.5"                             = pscrptui, l100_425,  pscript
+"Linotronic 200 v47.1"                             = pscrptui, l200_471,  pscript
+"Linotronic 200 v49.3"                             = pscrptui, l200_493,  pscript
+"Linotronic 200/230"                               = pscrptui, l200230,   pscript
+"Linotronic 300 v47.1"                             = pscrptui, l300_471,  pscript
+"Linotronic 300 v49.3"                             = pscrptui, l300_493,  pscript
+"Linotronic 330 v52.3"                             = pscrptui, l330_523,  pscript
+"Linotronic 330-RIP 30 v52.3"                      = pscrptui, l3330523,  pscript
+"Linotronic 500 v49.3"                             = pscrptui, l500_493,  pscript
+"Linotronic 530 v52.3"                             = pscrptui, l530_523,  pscript
+"Linotronic 530-RIP 30 v52.3"                      = pscrptui, l5330523,  pscript
+"Linotronic 630 v52.3"                             = pscrptui, lh_630_1,  pscript
+"Mannesmann Tally MT 130/24"                       = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 131/24"                       = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 150/24"                       = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 151/24"                       = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 230/24"                       = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 330"                          = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 350"                          = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 360"                          = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 730/735"                      = rasddui,  mt735,     rasdd
+"Mannesmann Tally MT 82"                           = rasddui,  mantal24,  rasdd
+"Mannesmann Tally MT 90"                           = rasddui,  mantal90,  rasdd
+"Mannesmann Tally MT 904 Plus"                     = rasddui,  hppcl5ms,  rasdd
+"Mannesmann Tally MT 908"                          = rasddui,  hppcl5ms,  rasdd
+"Mannesmann Tally MT 91"                           = rasddui,  canon330,  rasdd
+"Mannesmann Tally MT 92"                           = rasddui,  mantalbj,  rasdd
+"Mannesmann Tally MT 92C"                          = rasddui,  mantalbj,  rasdd
+"Mannesmann Tally MT 93"                           = rasddui,  canon330,  rasdd
+"Mannesmann Tally MT 94"                           = rasddui,  canon330,  rasdd
+"Mannesmann Tally MT 98/99"                        = rasddui,  mt99,      rasdd
+"Microtek TrueLaser"                               = pscrptui, mt_ti101,  pscript
+"Minolta SP 3000"                                  = rasddui,  hppcl5ms,  rasdd
+"Minolta SP 3500"                                  = rasddui,  hppcl5ms,  rasdd
+"Monotype ImageMaster 1200 v52.3"                  = pscrptui, moim1201,  pscript
+"Monotype Imagesetter v52.2"                       = pscrptui, mono_522,  pscript
+"NEC Colormate PS/40 v51.9"                        = pscrptui, nccps401,  pscript
+"NEC Colormate PS/80 v51.9"                        = pscrptui, nccps801,  pscript
+"NEC Jetmate 400"                                  = rasddui,  jp350,     rasdd
+"NEC Jetmate 800"                                  = rasddui,  jp350,     rasdd
+"NEC Pinwriter CP6"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter CP7"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P20"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P2200"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P2plus"                             = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P30"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P3200"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P3300"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P5200"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P5300"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P5XL"                               = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P6"                                 = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P60"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P6200"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P6300"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P6plus"                             = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P7"                                 = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P70"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P7plus"                             = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P90"                                = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P9300"                              = rasddui,  nec24pin,  rasdd
+"NEC Pinwriter P9XL"                               = rasddui,  nec24pin,  rasdd
+"NEC SilentWriter 95 v2010.119"                    = pscrptui, ncsw_951,  pscript
+"NEC Silentwriter 95 v2011.111"                    = pscrptui, nc95fax1,  pscript
+"NEC Silentwriter 97 v2011.111"                    = pscrptui, nc97fax1,  pscript
+"NEC Silentwriter LC 860 Plus"                     = rasddui,  hppcl,     rasdd
+"NEC Silentwriter LC 860"                          = rasddui,  hppcl,     rasdd
+"NEC Silentwriter LC890 v47.0"                     = pscrptui, n890_470,  pscript
+"NEC Silentwriter LC890XL v50.5"                   = pscrptui, n890x505,  pscript
+"NEC Silentwriter S102"                            = rasddui,  hppcl5ms,  rasdd
+"NEC Silentwriter2 290 v52.0"                      = pscrptui, n2290520,  pscript
+"NEC Silentwriter2 90 v52.2"                       = pscrptui, n2090522,  pscript
+"NEC Silentwriter2 990 v52.3"                      = pscrptui, ncs29901,  pscript
+"NeXT 400 dpi Laser Printer v2000.6"               = pscrptui, nx_nlp_1,  pscript
+"OceColor G5241 PS"                                = pscrptui, o5241503,  pscript
+"OceColor G5242 PostScript Printer v50.3"          = pscrptui, o5242503,  pscript
+"OKI MICROLINE 801PS+F v52.3"                      = pscrptui, ok801pf1,  pscript
+"Oki ML 182 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 192 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 193 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 280 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 320 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 321 Elite (IBM)"                           = rasddui,  oki9ibm,   rasdd
+"Oki ML 3410 Elite (IBM)"                          = rasddui,  oki9ibm,   rasdd
+"Oki ML 380 Elite"                                 = rasddui,  oki24,     rasdd
+"Oki ML 390 Elite"                                 = rasddui,  oki24,     rasdd
+"Oki ML 391 Elite"                                 = rasddui,  oki24,     rasdd
+"Oki ML 393 Elite"                                 = rasddui,  oki24,     rasdd
+"Oki ML 393C Elite"                                = rasddui,  oki24,     rasdd
+"Oki ML 590"                                       = rasddui,  oki24,     rasdd
+"Oki ML 591"                                       = rasddui,  oki24,     rasdd
+"OKI OL-400"                                       = rasddui,  hppcl,     rasdd
+"Oki OL-410"                                       = rasddui,  hppcl5ms,  rasdd
+"OKI OL-800/840"                                   = rasddui,  hppcl,     rasdd
+"Oki OL-810"                                       = rasddui,  hppcl5ms,  rasdd
+"Oki OL830-PS v52.5"                               = pscrptui, ol830525,  pscript
+"Oki OL840-PS v51.8"                               = pscrptui, ol840518,  pscript
+"Okidata LaserLine 6"                              = rasddui,  hppcl,     rasdd
+"Okidata ML 192 Plus"                              = rasddui,  oki9,      rasdd
+"Okidata ML 192"                                   = rasddui,  oki9,      rasdd
+"Okidata ML 192-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 193 Plus"                              = rasddui,  oki9,      rasdd
+"Okidata ML 193"                                   = rasddui,  oki9,      rasdd
+"Okidata ML 193-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 292-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 293-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 320"                                   = rasddui,  oki9,      rasdd
+"Okidata ML 320-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 321"                                   = rasddui,  oki9,      rasdd
+"Okidata ML 321-IBM"                               = rasddui,  oki9ibm,   rasdd
+"Okidata ML 380"                                   = rasddui,  oki24,     rasdd
+"Okidata ML 390 Plus"                              = rasddui,  oki24,     rasdd
+"Okidata ML 390"                                   = rasddui,  oki24,     rasdd
+"Okidata ML 391 Plus"                              = rasddui,  oki24,     rasdd
+"Okidata ML 391"                                   = rasddui,  oki24,     rasdd
+"Okidata ML 393 Plus"                              = rasddui,  oki24,     rasdd
+"Okidata ML 393"                                   = rasddui,  oki24,     rasdd
+"Okidata ML 393C Plus"                             = rasddui,  oki24,     rasdd
+"Okidata ML 393C"                                  = rasddui,  oki24,     rasdd
+"Okidata ML 92-IBM"                                = rasddui,  oki9ibm,   rasdd
+"Okidata ML 93-IBM"                                = rasddui,  oki9ibm,   rasdd
+"Okidata OL-400"                                   = rasddui,  hppcl,     rasdd
+"Okidata OL-800"                                   = rasddui,  hppcl,     rasdd
+"Olivetti DM 109"                                  = rasddui,  olidm9,    rasdd
+"Olivetti DM 124 C"                                = rasddui,  olidm24,   rasdd
+"Olivetti DM 124 L"                                = rasddui,  olidm24,   rasdd
+"Olivetti DM 124"                                  = rasddui,  olidm24,   rasdd
+"Olivetti DM 309 L"                                = rasddui,  olidm9,    rasdd
+"Olivetti DM 309 S"                                = rasddui,  olidm9,    rasdd
+"Olivetti DM 309 SL"                               = rasddui,  olidm9,    rasdd
+"Olivetti DM 309"                                  = rasddui,  olidm9,    rasdd
+"Olivetti DM 324 L"                                = rasddui,  olidm24,   rasdd
+"Olivetti DM 324 S"                                = rasddui,  olidm24,   rasdd
+"Olivetti DM 324 SL"                               = rasddui,  olidm24,   rasdd
+"Olivetti DM 324"                                  = rasddui,  olidm24,   rasdd
+"Olivetti DM 600 S"                                = rasddui,  olidm24,   rasdd
+"Olivetti DM 600"                                  = rasddui,  olidm24,   rasdd
+"Olivetti DM 624"                                  = rasddui,  olidm24,   rasdd
+"Olivetti ETV 5000"                                = rasddui,  hppcl,     rasdd
+"Olivetti JP 150"                                  = rasddui,  jp350,     rasdd
+"Olivetti JP 350"                                  = rasddui,  jp350,     rasdd
+"Olivetti JP 350S"                                 = rasddui,  jp350,     rasdd
+"Olivetti PG 108"                                  = rasddui,  hppcl,     rasdd
+"Olivetti PG 208 M2"                               = rasddui,  hppcl,     rasdd
+"Olivetti PG 306 PS (13 Fonts)"                    = pscrptui, oliveti1,  pscript
+"Olivetti PG 306 PS (35 Fonts)"                    = pscrptui, oliveti2,  pscript
+"Olivetti PG 306"                                  = rasddui,  hppcl,     rasdd
+"Olivetti PG 308 HS PostScript"                    = pscrptui, oliv5000,  pscript
+"Olivetti PG 308 HS"                               = rasddui,  hppcl,     rasdd
+"Olivetti PG 308"                                  = rasddui,  hppcl,     rasdd
+"Olivetti PG 404"                                  = rasddui,  hppcl5ms,  rasdd
+"Olivetti PG 408"                                  = rasddui,  hppcl5ms,  rasdd
+"Panasonic KX-P1081"                               = rasddui,  panson9,   rasdd
+"Panasonic KX-P1123"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P1124"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P1124i"                              = rasddui,  panson24,  rasdd
+"Panasonic KX-P1180"                               = rasddui,  panson9,   rasdd
+"Panasonic KX-P1624"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P1695"                               = rasddui,  panson9,   rasdd
+"Panasonic KX-P2123"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P2124"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P2180"                               = rasddui,  panson9,   rasdd
+"Panasonic KX-P2624"                               = rasddui,  panson24,  rasdd
+"Panasonic KX-P4410"                               = rasddui,  hppcl,     rasdd
+"Panasonic KX-P4420"                               = rasddui,  hppcl,     rasdd
+"Panasonic KX-P4430"                               = rasddui,  hppcl5ms,  rasdd
+"Panasonic KX-P4450"                               = rasddui,  hppcl,     rasdd
+"Panasonic KX-P4450i"                              = rasddui,  hppcl,     rasdd
+"Panasonic KX-P4451"                               = rasddui,  hppcl5ms,  rasdd
+"Panasonic KX-P4455 v51.4"                         = pscrptui, p4455514,  pscript
+"QMS 1725 Print System"                            = pscrptui, qms1725,   pscript
+"QMS 2025 Print System"                            = pscrptui, qms2025,   pscript
+"QMS 3225 Print System"                            = pscrptui, qms3225,   pscript
+"QMS 420 Print System v2011.22 r15"                = pscrptui, qms420,    pscript
+"QMS 4525 Print System"                            = pscrptui, qms4525,   pscript
+"QMS 860 Print System v2011.22 r15"                = pscrptui, qms860,    pscript
+"QMS ColorScript 100 Mod 30si"                     = pscrptui, q30si503,  pscript
+"QMS ColorScript 100 Model 10 v50.3"               = pscrptui, qcs10503,  pscript
+"QMS ColorScript 100 Model 20 v50.3"               = pscrptui, qcs20503,  pscript
+"QMS ColorScript 100 Model 30 v50.3"               = pscrptui, qcs30503,  pscript
+"QMS ColorScript 100 v49.4"                        = pscrptui, qmscs494,  pscript
+"QMS ColorScript 210 v2011.22"                     = pscrptui, qmscs210,  pscript
+"QMS ColorScript 230 v2011.22"                     = pscrptui, qmscs230,  pscript
+"QMS PS Jet Plus v46.1"                            = pscrptui, qmsjp461,  pscript
+"QMS PS Jet v46.1"                                 = pscrptui, qmsj_461,  pscript
+"QMS-PS 1700 v52.4"                                = pscrptui, qm1700_1,  pscript
+"QMS-PS 2000 v52.4"                                = pscrptui, qm2000_1,  pscript
+"QMS-PS 2200 v51.0 or 52.3"                        = pscrptui, q2200523,  pscript
+"QMS-PS 2210 v51.0 or 52.3"                        = pscrptui, q2210523,  pscript
+"QMS-PS 2220 v51.0 or 52.3"                        = pscrptui, q2220523,  pscript
+"QMS-PS 410 v52.4"                                 = pscrptui, qmps4104,  pscript
+"QMS-PS 800 Plus v46.1"                            = pscrptui, qms8p461,  pscript
+"QMS-PS 800 v46.1"                                 = pscrptui, qms8_461,  pscript
+"QMS-PS 810 Turbo v. 51.7"                         = pscrptui, q810t517,  pscript
+"QMS-PS 810 v47.0"                                 = pscrptui, qms81470,  pscript
+"QMS-PS 815 MR v52.4"                              = pscrptui, qm815mr1,  pscript
+"QMS-PS 815 v52.4"                                 = pscrptui, qmps8151,  pscript
+"QMS-PS 820 Turbo v51.7"                           = pscrptui, q820t517,  pscript
+"QMS-PS 820 v51.7"                                 = pscrptui, q820_517,  pscript
+"QMS-PS 825 MR v52.4"                              = pscrptui, qm825mr1,  pscript
+"QMS-PS 825 v52.4"                                 = pscrptui, qmps8251,  pscript
+"QuadLaser I"                                      = rasddui,  hppcl,     rasdd
+"Qume ScripTEN v47.0"                              = pscrptui, qume_470,  pscript
+"Ricoh LP-1200"                                    = rasddui,  hppcl5ms,  rasdd
+"Ricoh PC Laser 6000-PS v50.5"                     = pscrptui, r6000505,  pscript
+"Royal CJP 450"                                    = rasddui,  jp350,     rasdd
+"Scantext 2030-51 v49.3 or 52.2"                   = pscrptui, scg20522,  pscript
+"Schlumberger 5232 Color PostScript Printer v50.3" = pscrptui, s5232503,  pscript
+"Seiko ColorPoint PS Model 04"                     = pscrptui, seiko_04,  pscript
+"Seiko ColorPoint PS Model 14"                     = pscrptui, seiko_14,  pscript
+"Seiko Professional ColorPoint 8BPP"               = rasddui,  seiko,     rasdd
+"Seikosha LT-20"                                   = rasddui,  seiko24e,  rasdd
+"Seikosha SL-80 IP"                                = rasddui,  seiko24e,  rasdd
+"Seikosha SL-92 Plus"                              = rasddui,  seiko24e,  rasdd
+"Seikosha SL-92"                                   = rasddui,  seiko24e,  rasdd
+"Seikosha SP-1900"                                 = rasddui,  seikosh9,  rasdd
+"Seikosha SP-1900+"                                = rasddui,  seikosh9,  rasdd
+"Seikosha SP-2000"                                 = rasddui,  seikosh9,  rasdd
+"Seikosha SP-2400"                                 = rasddui,  seikosh9,  rasdd
+"Seikosha SP-2415"                                 = rasddui,  seikosh9,  rasdd
+"Sharp JX-9300"                                    = rasddui,  hppcl,     rasdd
+"Sharp JX-9500"                                    = rasddui,  hppcl,     rasdd
+"Sharp JX-9500E"                                   = rasddui,  hppcl,     rasdd
+"Sharp JX-9500H"                                   = rasddui,  hppcl,     rasdd
+"Sharp JX-9600"                                    = rasddui,  hppcl5ms,  rasdd
+"Sharp JX-9700"                                    = rasddui,  hppcl,     rasdd
+"Sharp JX-9700E"                                   = rasddui,  hppcl5ms,  rasdd
+"Shinko Color CHC-746PSJ PostScript Printer v52.2" = pscrptui, s746j522,  pscript
+"Star FR-10"                                       = rasddui,  star9e,    rasdd
+"Star FR-15"                                       = rasddui,  star9e,    rasdd
+"Star LaserPrinter 4 III"                          = rasddui,  hppcl5ms,  rasdd
+"Star LaserPrinter 4"                              = rasddui,  hppcl,     rasdd
+"Star LaserPrinter 5 EX"                           = rasddui,  hppcl5ms,  rasdd
+"Star LaserPrinter 5"                              = rasddui,  hppcl,     rasdd
+"Star LaserPrinter 8 DB"                           = rasddui,  hppcl,     rasdd
+"Star LaserPrinter 8 DX"                           = rasddui,  hppcl,     rasdd
+"Star LaserPrinter 8 II"                           = rasddui,  hppcl,     rasdd
+"Star LaserPrinter 8 III"                          = rasddui,  hppcl5ms,  rasdd
+"Star LaserPrinter 8"                              = rasddui,  hppcl,     rasdd
+"Star LC-10"                                       = rasddui,  star9e,    rasdd
+"Star LC-10 Colour"                                = rasddui,  star9e,    rasdd
+"Star LC-100 Colour"                               = rasddui,  star9e,    rasdd
+"Star LC-15"                                       = rasddui,  star9e,    rasdd
+"Star LC-20"                                       = rasddui,  star9e,    rasdd
+"Star LC-200"                                      = rasddui,  star9e,    rasdd
+"Star LC24-10"                                     = rasddui,  star24e,   rasdd
+"Star LC24-100"                                    = rasddui,  star24e,   rasdd
+"Star LC24-15"                                     = rasddui,  star24e,   rasdd
+"Star LC24-20"                                     = rasddui,  star24e,   rasdd
+"Star LC24-200"                                    = rasddui,  star24e,   rasdd
+"Star LC24-200 Colour"                             = rasddui,  star24e,   rasdd
+"Star NB24-10"                                     = rasddui,  star24e,   rasdd
+"Star NB24-15"                                     = rasddui,  star24e,   rasdd
+"Star NL-10"                                       = rasddui,  star9e,    rasdd
+"Star NX-1000 Rainbow"                             = rasddui,  star9e,    rasdd
+"Star NX-1000"                                     = rasddui,  star9e,    rasdd
+"Star NX-1001"                                     = rasddui,  star9e,    rasdd
+"Star NX-1020 Rainbow"                             = rasddui,  star9e,    rasdd
+"Star NX-1500"                                     = rasddui,  star9e,    rasdd
+"Star NX-2400"                                     = rasddui,  star24e,   rasdd
+"Star NX-2410"                                     = rasddui,  star24e,   rasdd
+"Star NX-2415"                                     = rasddui,  star24e,   rasdd
+"Star NX-2420 Rainbow"                             = rasddui,  star24e,   rasdd
+"Star NX-2420"                                     = rasddui,  star24e,   rasdd
+"Star NX-2430"                                     = rasddui,  star24e,   rasdd
+"Star SJ-48"                                       = rasddui,  starjet,   rasdd
+"Star XB-2410"                                     = rasddui,  star24e,   rasdd
+"Star XB-2415"                                     = rasddui,  star24e,   rasdd
+"Star XB-2420"                                     = rasddui,  star24e,   rasdd
+"Star XB-2425"                                     = rasddui,  star24e,   rasdd
+"Star XB24-10"                                     = rasddui,  star24e,   rasdd
+"Star XB24-15"                                     = rasddui,  star24e,   rasdd
+"Star XB24-200"                                    = rasddui,  star24e,   rasdd
+"Star XB24-250"                                    = rasddui,  star24e,   rasdd
+"Star XR-1000"                                     = rasddui,  star9e,    rasdd
+"Star XR-1020"                                     = rasddui,  star9e,    rasdd
+"Star XR-1500"                                     = rasddui,  star9e,    rasdd
+"Star XR-1520"                                     = rasddui,  star9e,    rasdd
+"Star ZA-200"                                      = rasddui,  star9e,    rasdd
+"Star ZA-250"                                      = rasddui,  star9e,    rasdd
+"Tandy LP-1000"                                    = rasddui,  hppcl,     rasdd
+"Tegra Genesis"                                    = rasddui,  hppcl,     rasdd
+"Tektronix Phaser 200e with 17 fonts v2011.108(3)"  = pscrptui, tk200172,  pscript
+"Tektronix Phaser 200e with 39 fonts v2011.108(3)"  = pscrptui, tk200392,  pscript
+"Tektronix Phaser 200i v2011.108(3)"               = pscrptui, tkp200i2,  pscript
+"Tektronix Phaser II PX"                           = pscrptui, phiipx,    pscript
+"Tektronix Phaser II PXe v2010.128 with 17 fonts"  = pscrptui, tkpxe171,  pscript
+"Tektronix Phaser II PXe v2010.128 with 39 fonts"  = pscrptui, tkpxe391,  pscript
+"Tektronix Phaser II PXi v2010.116"                = pscrptui, tkphzr21,  pscript
+"Tektronix Phaser II PXi v2011.108"                = pscrptui, tkphzr22,  pscript
+"Tektronix Phaser II PXiJ v2011.108"               = pscrptui, tkphz2j1,  pscript
+"Tektronix Phaser III PXi v2010.116"               = pscrptui, tkphzr31,  pscript
+"Tektronix Phaser III PXi v2011.108"               = pscrptui, tkphzr32,  pscript
+"Tektronix Phaser III PXiJ v2011.108"              = pscrptui, tkphz3j1,  pscript
+"Tektronix Phaser IISD v2011.108"                  = pscrptui, tkph2sd1,  pscript
+"Tektronix Phaser PX"                              = pscrptui, px,        pscript
+"TI 2115 13 fonts v47.0"                           = pscrptui, t1513470,  pscript
+"TI 2115 35 fonts v47.0"                           = pscrptui, t1535470,  pscript
+"TI 850/855"                                       = rasddui,  ti850,     rasdd
+"TI microLaser PS17 v.52.1"                        = pscrptui, tim17521,  pscript
+"TI microLaser PS35 v.52.1"                        = pscrptui, tim35521,  pscript
+"TI microLaser XL PS17 v.52.1"                     = pscrptui, tix17521,  pscript
+"TI microLaser XL PS35 v.52.1"                     = pscrptui, tix35521,  pscript
+"TI microLaser16 Turbo v2010.119"                  = pscrptui, titrb161,  pscript
+"TI microLaser6 Turbo v2010.119"                   = pscrptui, titrbo61,  pscript
+"TI microLaser9 Turbo v2010.119"                   = pscrptui, titrbo91,  pscript
+"TI OmniLaser 2108 v45.0"                          = pscrptui, ti08_450,  pscript
+"TI Omnilaser 2115 v47.0"                          = pscrptui, ti15_470,  pscript
+"Toshiba GX-400"                                   = rasddui,  hppcl5ms,  rasdd
+"Toshiba PageLaser12"                              = rasddui,  hppcl,     rasdd
+"Triumph Adler SDR 7706 PS13"                      = pscrptui, triumph1,  pscript
+"Triumph Adler SDR 7706 PS35"                      = pscrptui, triumph2,  pscript
+"Triumph Adler SDR 7706"                           = rasddui,  hppcl,     rasdd
+"UNISYS AP9210 17 Fonts v52.1"                     = pscrptui, uni17521,  pscript
+"UNISYS AP9210 39 Fonts v52.1"                     = pscrptui, uni39521,  pscript
+"Unisys AP9210"                                    = rasddui,  hppcl,     rasdd
+"Unisys AP9415 v47.0"                              = pscrptui, u9415470,  pscript
+"Varityper 4000-L300 v52.3"                        = pscrptui, vt4l3001,  pscript
+"Varityper 4000-L330 v52.3"                        = pscrptui, vt4l3301,  pscript
+"Varityper 4000-L500 v52.3"                        = pscrptui, vt4l5001,  pscript
+"Varityper 4000-L530 v52.3"                        = pscrptui, vt4l5301,  pscript
+"Varityper 4200B-P v49.3 or 52.2"                  = pscrptui, vt42p522,  pscript
+"Varityper 4300P v49.3 or 52.2"                    = pscrptui, vt43p522,  pscript
+"Varityper Series 4000-5300 v49.3 or 52.2"         = pscrptui, vt530522,  pscript
+"Varityper Series 4000-5330 v49.3 or 52.2"         = pscrptui, v5334522,  pscript
+"Varityper Series 4000-5500 v52.2"                 = pscrptui, vt550522,  pscript
+"Varityper VT-600P v48.0"                          = pscrptui, vt60p480,  pscript
+"Varityper VT-600P"                                = pscrptui, vt600p1,   pscript
+"Varityper VT-600W v48.0"                          = pscrptui, vt600w1,   pscript
+"Varityper VT4990 v52.3"                           = pscrptui, vt49901,   pscript
+"Varityper VT4_510A v52.3"                         = pscrptui, vt4510a1,  pscript
+"VT4_530A v52.3"                                   = pscrptui, vt4530a1,  pscript
+"VT4_530B v52.3"                                   = pscrptui, vt4530b1,  pscript
+"VT4_530C v52.3"                                   = pscrptui, vt4530c1,  pscript
+"VT4_533B v52.3"                                   = pscrptui, vt4533b1,  pscript
+"VT4_533C v52.3"                                   = pscrptui, vt4533c1,  pscript
+"VT4_53EA v52.3"                                   = pscrptui, vt453ea1,  pscript
+"VT4_53EB v52.3"                                   = pscrptui, vt453eb1,  pscript
+"VT4_550A v52.3"                                   = pscrptui, vt4550a1,  pscript
+"VT4_550B v52.3"                                   = pscrptui, vt4550b1,  pscript
+"VT4_550C v52.3"                                   = pscrptui, vt4550c1,  pscript
+"VT4_551A v52.3"                                   = pscrptui, vt4551a1,  pscript
+"VT4_563A v52.3"                                   = pscrptui, vt4563a1,  pscript
+"VT4_563B v52.3"                                   = pscrptui, vt4563b1,  pscript
+"Wang LCS15 FontPlus"                              = pscrptui, wang15fp,  pscript
+"Wang LCS15"                                       = pscrptui, wang15,    pscript
+"Wang LDP8"                                        = rasddui,  hppcl,     rasdd
+"Xerox DocuTech 135 v2010.130"                     = pscrptui, xrdt1351,  pscript
+"Xerox DocuTech 85 v2010.130"                      = pscrptui, xrdt0851,  pscript
+"Xerox DocuTech 90 v2010.130"                      = pscrptui, xrdt0901,  pscript
+[Identify]
+    read-syms Identification
+    set Status     = STATUS_SUCCESSFUL
+    set Identifier = $(OptionType)
+    set Media      = #("Source Media Descriptions", 1, 1)
+    Return $(Status) $(Identifier) $(Media)
+[ReturnOptions]
+    set Status        = STATUS_FAILED
+    set OptionList     = {}
+    set OptionTextList = {}
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+        goto returnoptions
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_ReturnOptions
+    endif
+returnoptions = +
+    set OptionList     = ^(Options, 0)
+    set OptionTextList = ^(OptionsText$($0), 1)
+    set Status         = STATUS_SUCCESSFUL
+finish_ReturnOptions = +
+    Return $(Status) $(OptionList) $(OptionTextList)
+[InstallOption]
+    set Status   = STATUS_FAILED
+    set Option   = $($1)
+    set SrcDir   = $($2)
+    set AddCopy  = $($3)
+    set DoCopy   = $($4)
+    set DoConfig = $($5)
+    set LanguageList = ^(LanguagesSupported, 1)
+    Ifcontains(i) $($0) in $(LanguageList)
+    else
+        set Status = STATUS_NOLANGUAGE
+        goto finish_InstallOption
+    endif
+    read-syms Strings$($0)
+    set OptionList = ^(Options, 0)
+    ifcontains $(Option) in $(OptionList)
+    else
+        goto finish_InstallOption
+    endif
+    set OptionList = ""
+    set ConfigOption = #(Options, $(Option), 1)
+    set DataOption   = #(Options, $(Option), 2)
+    set DriverOption = #(Options, $(Option), 3)
+installtheoption = +
+    ifstr(i) $(AddCopy) == "YES"
+        install Install-AddCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) != "STF_SUCCESS"
+            Debug-Output "Adding video files to copy list failed"
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoCopy) == "YES"
+        read-syms ProgressCopy$($0)
+        install Install-DoCopyOption
+        ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_FAILURE"
+            Debug-Output "Copying files failed"
+            goto finish_InstallOption
+        else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+            set Status = STATUS_USERCANCEL
+            goto finish_InstallOption
+        endif
+    endif
+    ifstr(i) $(DoConfig) == "YES"
+        set DriverPath      = $(!STF_PRNDRIVERPATH)"\"#(Files-PrinterDriver, $(DriverOption), 2)
+        set DataFilePath    = $(!STF_PRNDRIVERPATH)"\"#(Files-PrinterData,   $(DataOption),   2)
+        set ConfigFilePath  = $(!STF_PRNDRIVERPATH)"\"#(Files-PrinterConfig, $(ConfigOption), 2)
+        LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(DriverPath)
+        ifstr(i) $(STATUS) == YES
+            LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(DataFilePath)
+            ifstr(i) $(STATUS) == YES
+                LibraryProcedure STATUS,$(!LIBHANDLE),CheckFileExistance $(ConfigFilePath)
+            endif
+        endif
+        ifstr(i) $(STATUS) == NO
+            set OptionText = #(OptionsText$($0), $(Option), 1)
+            shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String4)$(OptionText)$(String5)
+            Debug-Output "Copying printer files failed"
+            goto finish_InstallOption
+        endif
+        install Install-Configure
+        ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_FAILURE"
+            Debug-Output "Installing printer driver failed"
+            goto finish_InstallOption
+        else-ifstr(i) $(STF_INSTALL_OUTCOME) == "STF_USERQUIT"
+            set Status = STATUS_USERCANCEL
+            goto finish_InstallOption
+        endif
+        ifstr(i) $(STATUS) != "ADDED"
+            set OptionText = #(OptionsText$($0), $(Option), 1)
+            ifstr(i) $(STATUS) == "PRESENT"
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String1)$(OptionText)$(String2)
+                set Status = STATUS_SUCCESSFUL
+            else-ifstr(i) $(STATUS) == "DENIED"
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String6)
+            else
+                shell "subroutn.inf" SetupMessage $($0) "NONFATAL" $(String1)$(OptionText)$(String7)
+            endif
+            goto finish_InstallOption
+        endif
+    endif
+    set Status = STATUS_SUCCESSFUL
+finish_InstallOption = +
+    Return $(Status)
+[Install-AddCopyOption]
+    set STF_VITAL = ""
+    set STF_OVERWRITE   = "VERIFYSOURCEOLDER"
+    AddSectionKeyFileToCopyList   Files-PrinterConfig          +
+                                  $(ConfigOption)              +
+                                  $(SrcDir)                    +
+                                  $(!STF_PRNDRIVERPATH)
+    AddSectionKeyFileToCopyList   Files-PrinterData            +
+                                  $(DataOption)                +
+                                  $(SrcDir)                    +
+                                  $(!STF_PRNDRIVERPATH)
+    AddSectionKeyFileToCopyList   Files-PrinterDriver          +
+                                  $(DriverOption)              +
+                                  $(SrcDir)                    +
+                                  $(!STF_PRNDRIVERPATH)
+    AddSectionKeyFileToCopyList   Files-PrinterDriverHelp      +
+                                  $(DriverOption)              +
+                                  $(SrcDir)                    +
+                                  $(!STF_PRNDRIVERPATH)
+    exit
+[Install-DoCopyOption]
+    CopyFilesInCopyList
+    exit
+[Install-Configure]
+    set Model       = $(Option)
+    set Driver      = #(Files-PrinterDriver, $(DriverOption), 2)
+    set DataFile    = #(Files-PrinterData,   $(DataOption),   2)
+    set ConfigFile  = #(Files-PrinterConfig, $(ConfigOption), 2)
+    LibraryProcedure STATUS,$(!LIBHANDLE), SetupAddPrinterDriver   +
+                                               $(Model)            +
+                                               $(!STF_PRNENVIRONM) +
+                                               $(Driver)           +
+                                               $(DataFile)         +
+                                               $(ConfigFile)       +
+                                               $(!STF_PRINTSERVER)
+    exit
+[ExternalInstallOption]
+    Set !G:DebugOutputControl = 0
+    set Exit_Code    = $(!SETUP_ERROR_GENERAL)
+    set DrivesToFree = {}
+    install LoadSetupLibrary
+    ifstr(i)      $(STF_LANGUAGE)  == ""
+        goto end
+    else-ifstr(i) $(OPTION)        == ""
+        goto end
+    else-ifstr(i) $(ADDCOPY)       == ""
+        goto end
+    else-ifstr(i) $(DOCOPY)        == ""
+        goto end
+    else-ifstr(i) $(DOCONFIG)      == ""
+        goto end
+    endif
+    read-syms PlatformID
+    read-syms ProductType
+    ifstr(i) $(STF_PLATFORM) == $(PlatformID_I386)
+        set STF_PRNPLATFORM = "w32x86"
+        set STF_PRNENVIRONM = "Windows NT x86"
+    else-ifstr(i) $(STF_PLATFORM) == $(PlatformID_Mips)
+        set STF_PRNPLATFORM = "w32mips"
+        set STF_PRNENVIRONM = "Windows NT R4000"
+    else
+        goto end
+    endif
+    read-syms UiVars
+    detect    UiVars
+    read-syms Strings$(STF_LANGUAGE)
+    ifstr(i) $(STF_SRCDIR) != $(STF_CWDDIR)
+        goto skip_asksource
+    endif
+    set STF_SRCDIR = A:\
+    shell "registry.inf" GetNTSource
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+    else-ifstr(i) $($R0) != STATUS_SUCCESSFUL
+    else
+        set STF_SRCDIR = $($R1)
+    endif
+    shell "subroutn.inf" DoAskSource $(STF_SRCDIR)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "shelling DoAskSource failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set STF_SRCDIR  = $($R1)
+        ifstr(i) $($R2) != ""
+            set DrivesToFree = >($(DrivesToFree), $($R2))
+        endif
+    else
+        goto end
+    endif
+skip_asksource = +
+    LibraryProcedure IsFullPath, $(!LIBHANDLE), CheckPathFullPathSpec $(STF_PRNDRIVERPATH)
+    ifstr(i) $(IsFullPath) == "NO"
+        LibraryProcedure STATUS, $(!LIBHANDLE), ProcessForUNC $(STF_PRNDRIVERPATH)
+        ifstr(i) $(STATUS) == "ERROR"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else-ifstr(i) $(STATUS) == "NOT-UNC"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else-ifstr(i) $(STATUS) == "UNC-FAILCONNECT"
+            shell "subroutn.inf" SetupMessage $(!STF_LANGUAGE) "NONFATAL" $(String3)
+            goto end
+        else
+            set STF_PRNDRIVERPATH = $(STATUS)
+        endif
+    endif
+    shell "" InstallOption $(STF_LANGUAGE) $(OPTION) $(STF_SRCDIR) $(ADDCOPY) $(DOCOPY) $(DOCONFIG)
+    ifint $($ShellCode) != $(!SHELL_CODE_OK)
+        Debug-Output "Execing InstallOption failed"
+        goto end
+    endif
+    ifstr(i) $($R0) == STATUS_SUCCESSFUL
+        set Exit_Code = $(!SETUP_ERROR_SUCCESS)
+    else-ifstr(i) $($R0) == STATUS_USERCANCEL
+        set Exit_Code = $(!SETUP_ERROR_USERCANCEL)
+    endif
+end =+
+    ForListDo $(DrivesToFree)
+        LibraryProcedure STATUS,$(!LIBHANDLE), DeleteNetConnection $($) "TRUE"
+    EndForListDo
+    install   FreeSetupLibrary
+    exit
+[LoadSetupLibrary]
+    LoadLibrary "x" $(!STF_CWDDIR)setupdll.dll !LIBHANDLE
+    exit
+[FreeSetupLibrary]
+    FreeLibrary $(!LIBHANDLE)
+    exit
+[PlatformID]
+    PlatformID_I386 = I386
+    PlatformID_Mips = Mips
+[UiVars]
+    STF_CONTROLSET     = CurrentControlSet
+    STF_WINDOWSPATH    = "" ? $(!LIBHANDLE) GetWindowsNtDir
+    STF_WINDOWSSYSPATH = "" ? $(!LIBHANDLE) GetWindowsNtSysDir
+    STF_PRNDRIVERPATH  = "" ? $(!LIBHANDLE) GetPrinterDriverDir $(!STF_PRINTSERVER) $(!STF_PRNENVIRONM)
+[Source Media Descriptions]
+    1  = "Windows NT Advanced Server Setup Disk #1"	, TAGFILE = disk1
+    2  = "Windows NT Advanced Server Setup CD-ROM Disk"	, TAGFILE = disk2
+[ProductType]
+STF_PRODUCT  = LanmanNT
+STF_PLATFORM = I386
+[Files-PrinterConfig]
+pscrptui = 2,PSCRPTUI.DLL , SIZE=257536
+rasddui = 2,RASDDUI.DLL , SIZE=77824
+[Files-PrinterData]
+brhj770 = 2,BRHJ770.DLL , SIZE=21504
+brother9 = 2,BROTHER9.DLL , SIZE=26112
+brothr24 = 2,BROTHR24.DLL , SIZE=59392
+canon330 = 2,CANON330.DLL , SIZE=52736
+canon800 = 2,CANON800.DLL , SIZE=23552
+cit24us = 2,CIT24US.DLL , SIZE=70144
+cit9us = 2,CIT9US.DLL , SIZE=53248
+citoh = 2,CITOH.DLL , SIZE=10752
+dec24pin = 2,DEC24PIN.DLL , SIZE=19968
+dec3200 = 2,DEC3200.DLL , SIZE=17408
+dec9pin = 2,DEC9PIN.DLL , SIZE=16896
+diconix = 2,DICONIX.DLL , SIZE=10752
+epson24 = 2,EPSON24.DLL , SIZE=38912
+epson9 = 2,EPSON9.DLL , SIZE=44544
+escp2e = 2,ESCP2E.DLL , SIZE=55808
+fuji24 = 2,FUJI24.DLL , SIZE=51200
+fuji9 = 2,FUJI9.DLL , SIZE=19456
+hpdskjet = 2,HPDSKJET.DLL , SIZE=112128
+hppcl = 2,HPPCL.DLL , SIZE=252416
+hppcl5ms = 2,HPPCL5MS.DLL , SIZE=250880
+ibm238x = 2,IBM238X.DLL , SIZE=24576
+ibm239x = 2,IBM239X.DLL , SIZE=54784
+ibm5204 = 2,IBM5204.DLL , SIZE=32768
+ibmport = 2,IBMPORT.DLL , SIZE=22016
+jp350 = 2,JP350.DLL , SIZE=68608
+kyocera = 2,KYOCERA.DLL , SIZE=46592
+mantal24 = 2,MANTAL24.DLL , SIZE=47616
+mantal90 = 2,MANTAL90.DLL , SIZE=13312
+mantalbj = 2,MANTALBJ.DLL , SIZE=41472
+mt735 = 2,MT735.DLL , SIZE=29184
+mt99 = 2,MT99.DLL , SIZE=14848
+nec24pin = 2,NEC24PIN.DLL , SIZE=38912
+oki24 = 2,OKI24.DLL , SIZE=58368
+oki9 = 2,OKI9.DLL , SIZE=22528
+oki9ibm = 2,OKI9IBM.DLL , SIZE=81408
+olidm24 = 2,OLIDM24.DLL , SIZE=32768
+olidm9 = 2,OLIDM9.DLL , SIZE=41472
+paintjet = 2,PAINTJET.DLL , SIZE=13824
+panson24 = 2,PANSON24.DLL , SIZE=44544
+panson9 = 2,PANSON9.DLL , SIZE=48640
+proprint = 2,PROPRINT.DLL , SIZE=18432
+proprn24 = 2,PROPRN24.DLL , SIZE=17408
+ps1 = 2,PS1.DLL , SIZE=25600
+quietjet = 2,QUIETJET.DLL , SIZE=13824
+qwiii = 2,QWIII.DLL , SIZE=29696
+seiko = 2,SEIKO.DLL , SIZE=10240
+seiko24e = 2,SEIKO24E.DLL , SIZE=58880
+seikosh9 = 2,SEIKOSH9.DLL , SIZE=29696
+star24e = 2,STAR24E.DLL , SIZE=111616
+star9e = 2,STAR9E.DLL , SIZE=67584
+starjet = 2,STARJET.DLL , SIZE=17920
+thinkjet = 2,THINKJET.DLL , SIZE=11776
+ti850 = 2,TI850.DLL , SIZE=10752
+40291730 = 2,40291730.PPD , SIZE=19456
+40293930 = 2,40293930.PPD , SIZE=20992
+a_pnt518 = 2,A_PNT518.PPD , SIZE=12800
+ac500503 = 2,AC500503.PPD , SIZE=11264
+agfap400 = 2,AGFAP400.PPD , SIZE=3584
+aljii523 = 2,ALJII523.PPD , SIZE=11776
+amchr518 = 2,AMCHR518.PPD , SIZE=9728
+ap_ntxj1 = 2,AP_NTXJ1.PPD , SIZE=16384
+aplwiif1 = 2,APLWIIF1.PPD , SIZE=14336
+aplwiig1 = 2,APLWIIG1.PPD , SIZE=14848
+aplwntr1 = 2,APLWNTR1.PPD , SIZE=14336
+apple230 = 2,APPLE230.PPD , SIZE=10752
+apple380 = 2,APPLE380.PPD , SIZE=11776
+apple422 = 2,APPLE422.PPD , SIZE=11776
+aps08522 = 2,APS08522.PPD , SIZE=12288
+aps12522 = 2,APS12522.PPD , SIZE=10752
+aps26522 = 2,APS26522.PPD , SIZE=10752
+aps80522 = 2,APS80522.PPD , SIZE=11776
+ast__470 = 2,AST__470.PPD , SIZE=12288
+cg94_493 = 2,CG94_493.PPD , SIZE=16384
+cn_500_1 = 2,CN_500_1.PPD , SIZE=14336
+cn_500j1 = 2,CN_500J1.PPD , SIZE=20480
+cnlbp4_1 = 2,CNLBP4_1.PPD , SIZE=15360
+cnlbp8_1 = 2,CNLBP8_1.PPD , SIZE=13312
+cnlbp8r1 = 2,CNLBP8R1.PPD , SIZE=14336
+cnlbp8t1 = 2,CNLBP8T1.PPD , SIZE=13824
+cppmq151 = 2,CPPMQ151.PPD , SIZE=29696
+cppmq201 = 2,CPPMQ201.PPD , SIZE=31232
+datap462 = 2,DATAP462.PPD , SIZE=11776
+dc1152_1 = 2,DC1152_1.PPD , SIZE=17920
+dc1152f1 = 2,DC1152F1.PPD , SIZE=19456
+dc2150p1 = 2,DC2150P1.PPD , SIZE=17920
+dc2250p1 = 2,DC2250P1.PPD , SIZE=24576
+dcd11501 = 2,DCD11501.PPD , SIZE=18432
+dcd21501 = 2,DCD21501.PPD , SIZE=17920
+dcd22501 = 2,DCD22501.PPD , SIZE=24576
+dcln03r1 = 2,DCLN03R1.PPD , SIZE=10240
+dclps171 = 2,DCLPS171.PPD , SIZE=23552
+dclps201 = 2,DCLPS201.PPD , SIZE=23040
+dclps321 = 2,DCLPS321.PPD , SIZE=26624
+dclps401 = 2,DCLPS401.PPD , SIZE=20992
+dctps201 = 2,DCTPS201.PPD , SIZE=23040
+dec3250 = 2,DEC3250.PPD , SIZE=17408
+deccolor = 2,DECCOLOR.PPD , SIZE=12288
+dp_us470 = 2,DP_US470.PPD , SIZE=22016
+dpl15601 = 2,DPL15601.PPD , SIZE=22016
+dplz9601 = 2,DPLZ9601.PPD , SIZE=15872
+ep826051 = 2,EP826051.PPD , SIZE=12800
+epl3kf21 = 2,EPL3KF21.PPD , SIZE=15360
+epl3kf51 = 2,EPL3KF51.PPD , SIZE=18944
+epl75523 = 2,EPL75523.PPD , SIZE=12800
+f71rx503 = 2,F71RX503.PPD , SIZE=12288
+gcbl4921 = 2,GCBL4921.PPD , SIZE=13824
+gcbl5141 = 2,GCBL5141.PPD , SIZE=13824
+gcblp2_1 = 2,GCBLP2_1.PPD , SIZE=13824
+gcblp2s1 = 2,GCBLP2S1.PPD , SIZE=13824
+gcblpel1 = 2,GCBLPEL1.PPD , SIZE=12288
+gdgl8001 = 2,GDGL8001.PPD , SIZE=11776
+hermes_1 = 2,HERMES_1.PPD , SIZE=4096
+hermes_2 = 2,HERMES_2.PPD , SIZE=5120
+hp3si523 = 2,HP3SI523.PPD , SIZE=15360
+hp4si6_1 = 2,HP4SI6_1.PPD , SIZE=25088
+hp_3d522 = 2,HP_3D522.PPD , SIZE=15360
+hp_3p522 = 2,HP_3P522.PPD , SIZE=13824
+hpeli522 = 2,HPELI522.PPD , SIZE=13312
+hpiid522 = 2,HPIID522.PPD , SIZE=14336
+hpiii522 = 2,HPIII522.PPD , SIZE=13312
+hpiip522 = 2,HPIIP522.PPD , SIZE=13312
+hplj_31 = 2,HPLJ_31.PPD , SIZE=14848
+hplj_3d1 = 2,HPLJ_3D1.PPD , SIZE=19456
+hplj_3p1 = 2,HPLJ_3P1.PPD , SIZE=16384
+hplj_4m = 2,HPLJ_4M.PPD , SIZE=23552
+hppjxl31 = 2,HPPJXL31.PPD , SIZE=20480
+ibm17523 = 2,IBM17523.PPD , SIZE=15872
+ibm20470 = 2,IBM20470.PPD , SIZE=18432
+ibm30505 = 2,IBM30505.PPD , SIZE=12288
+ibm31514 = 2,IBM31514.PPD , SIZE=12800
+ibm39523 = 2,IBM39523.PPD , SIZE=17408
+ibm4039 = 2,IBM4039.PPD , SIZE=19968
+ibm4079 = 2,IBM4079.PPD , SIZE=13824
+l100_425 = 2,L100_425.PPD , SIZE=15360
+l200230 = 2,L200230.PPD , SIZE=19456
+l200_471 = 2,L200_471.PPD , SIZE=20992
+l200_493 = 2,L200_493.PPD , SIZE=20992
+l300_471 = 2,L300_471.PPD , SIZE=22528
+l300_493 = 2,L300_493.PPD , SIZE=22528
+l330_523 = 2,L330_523.PPD , SIZE=19456
+l3330523 = 2,L3330523.PPD , SIZE=35840
+l500_493 = 2,L500_493.PPD , SIZE=20992
+l530_523 = 2,L530_523.PPD , SIZE=16896
+l5330523 = 2,L5330523.PPD , SIZE=29696
+lh_630_1 = 2,LH_630_1.PPD , SIZE=15360
+lwnt_470 = 2,LWNT_470.PPD , SIZE=12288
+lwntx470 = 2,LWNTX470.PPD , SIZE=12288
+lwntx518 = 2,LWNTX518.PPD , SIZE=12288
+moim1201 = 2,MOIM1201.PPD , SIZE=16384
+mono_522 = 2,MONO_522.PPD , SIZE=30208
+mt_ti101 = 2,MT_TI101.PPD , SIZE=5120
+n2090522 = 2,N2090522.PPD , SIZE=10752
+n2290520 = 2,N2290520.PPD , SIZE=10240
+n890_470 = 2,N890_470.PPD , SIZE=11264
+n890x505 = 2,N890X505.PPD , SIZE=11776
+nc95fax1 = 2,NC95FAX1.PPD , SIZE=18432
+nc97fax1 = 2,NC97FAX1.PPD , SIZE=18432
+nccps401 = 2,NCCPS401.PPD , SIZE=11264
+nccps801 = 2,NCCPS801.PPD , SIZE=12288
+ncol_519 = 2,NCOL_519.PPD , SIZE=12288
+ncs29901 = 2,NCS29901.PPD , SIZE=12800
+ncsw_951 = 2,NCSW_951.PPD , SIZE=14336
+nx_nlp_1 = 2,NX_NLP_1.PPD , SIZE=8192
+o5241503 = 2,O5241503.PPD , SIZE=11264
+o5242503 = 2,O5242503.PPD , SIZE=11264
+ok801pf1 = 2,OK801PF1.PPD , SIZE=19456
+ol830525 = 2,OL830525.PPD , SIZE=13312
+ol840518 = 2,OL840518.PPD , SIZE=13312
+oliv5000 = 2,OLIV5000.PPD , SIZE=2560
+oliveti1 = 2,OLIVETI1.PPD , SIZE=4096
+oliveti2 = 2,OLIVETI2.PPD , SIZE=5120
+p4455514 = 2,P4455514.PPD , SIZE=12800
+phiipx = 2,PHIIPX.PPD , SIZE=10752
+px = 2,PX.PPD , SIZE=6656
+q2200523 = 2,Q2200523.PPD , SIZE=13824
+q2210523 = 2,Q2210523.PPD , SIZE=13824
+q2220523 = 2,Q2220523.PPD , SIZE=13824
+q30si503 = 2,Q30SI503.PPD , SIZE=10752
+q810t517 = 2,Q810T517.PPD , SIZE=12288
+q820_517 = 2,Q820_517.PPD , SIZE=12288
+q820t517 = 2,Q820T517.PPD , SIZE=12288
+qcs10503 = 2,QCS10503.PPD , SIZE=10752
+qcs20503 = 2,QCS20503.PPD , SIZE=10752
+qcs30503 = 2,QCS30503.PPD , SIZE=10752
+qm1700_1 = 2,QM1700_1.PPD , SIZE=16384
+qm2000_1 = 2,QM2000_1.PPD , SIZE=14848
+qm815mr1 = 2,QM815MR1.PPD , SIZE=15872
+qm825mr1 = 2,QM825MR1.PPD , SIZE=15872
+qmps4104 = 2,QMPS4104.PPD , SIZE=13312
+qmps8151 = 2,QMPS8151.PPD , SIZE=13824
+qmps8251 = 2,QMPS8251.PPD , SIZE=13824
+qms1725 = 2,QMS1725.PPD , SIZE=16384
+qms2025 = 2,QMS2025.PPD , SIZE=14848
+qms3225 = 2,QMS3225.PPD , SIZE=14848
+qms420 = 2,QMS420.PPD , SIZE=14848
+qms4525 = 2,QMS4525.PPD , SIZE=13312
+qms81470 = 2,QMS81470.PPD , SIZE=11264
+qms860 = 2,QMS860.PPD , SIZE=14848
+qms8_461 = 2,QMS8_461.PPD , SIZE=10240
+qms8p461 = 2,QMS8P461.PPD , SIZE=11776
+qmscs210 = 2,QMSCS210.PPD , SIZE=14848
+qmscs230 = 2,QMSCS230.PPD , SIZE=14336
+qmscs494 = 2,QMSCS494.PPD , SIZE=10752
+qmsj_461 = 2,QMSJ_461.PPD , SIZE=9216
+qmsjp461 = 2,QMSJP461.PPD , SIZE=10752
+qume_470 = 2,QUME_470.PPD , SIZE=10752
+r6000505 = 2,R6000505.PPD , SIZE=12800
+s5232503 = 2,S5232503.PPD , SIZE=10752
+s746j522 = 2,S746J522.PPD , SIZE=11264
+scg20522 = 2,SCG20522.PPD , SIZE=33280
+seiko_04 = 2,SEIKO_04.PPD , SIZE=11264
+seiko_14 = 2,SEIKO_14.PPD , SIZE=12288
+t1513470 = 2,T1513470.PPD , SIZE=10752
+t1535470 = 2,T1535470.PPD , SIZE=12288
+ti08_450 = 2,TI08_450.PPD , SIZE=10240
+ti15_470 = 2,TI15_470.PPD , SIZE=11264
+tim17521 = 2,TIM17521.PPD , SIZE=14848
+tim35521 = 2,TIM35521.PPD , SIZE=15872
+titrb161 = 2,TITRB161.PPD , SIZE=16896
+titrbo61 = 2,TITRBO61.PPD , SIZE=16896
+titrbo91 = 2,TITRBO91.PPD , SIZE=16896
+tix17521 = 2,TIX17521.PPD , SIZE=14848
+tix35521 = 2,TIX35521.PPD , SIZE=15872
+tk200172 = 2,TK200172.PPD , SIZE=12800
+tk200392 = 2,TK200392.PPD , SIZE=14336
+tkp200i2 = 2,TKP200I2.PPD , SIZE=14336
+tkph2sd1 = 2,TKPH2SD1.PPD , SIZE=13312
+tkphz2j1 = 2,TKPHZ2J1.PPD , SIZE=16384
+tkphz3j1 = 2,TKPHZ3J1.PPD , SIZE=23040
+tkphzr21 = 2,TKPHZR21.PPD , SIZE=13824
+tkphzr22 = 2,TKPHZR22.PPD , SIZE=13824
+tkphzr31 = 2,TKPHZR31.PPD , SIZE=20480
+tkphzr32 = 2,TKPHZR32.PPD , SIZE=21504
+tkpxe171 = 2,TKPXE171.PPD , SIZE=11264
+tkpxe391 = 2,TKPXE391.PPD , SIZE=12800
+triumph1 = 2,TRIUMPH1.PPD , SIZE=4096
+triumph2 = 2,TRIUMPH2.PPD , SIZE=5120
+u9415470 = 2,U9415470.PPD , SIZE=12288
+uni17521 = 2,UNI17521.PPD , SIZE=15872
+uni39521 = 2,UNI39521.PPD , SIZE=16896
+v5334522 = 2,V5334522.PPD , SIZE=30720
+vt42p522 = 2,VT42P522.PPD , SIZE=17408
+vt43p522 = 2,VT43P522.PPD , SIZE=19968
+vt4510a1 = 2,VT4510A1.PPD , SIZE=17920
+vt4530a1 = 2,VT4530A1.PPD , SIZE=44032
+vt4530b1 = 2,VT4530B1.PPD , SIZE=33280
+vt4530c1 = 2,VT4530C1.PPD , SIZE=27648
+vt4533b1 = 2,VT4533B1.PPD , SIZE=49152
+vt4533c1 = 2,VT4533C1.PPD , SIZE=39936
+vt453ea1 = 2,VT453EA1.PPD , SIZE=44544
+vt453eb1 = 2,VT453EB1.PPD , SIZE=33792
+vt4550a1 = 2,VT4550A1.PPD , SIZE=27648
+vt4550b1 = 2,VT4550B1.PPD , SIZE=30720
+vt4550c1 = 2,VT4550C1.PPD , SIZE=27648
+vt4551a1 = 2,VT4551A1.PPD , SIZE=19968
+vt4563a1 = 2,VT4563A1.PPD , SIZE=33792
+vt4563b1 = 2,VT4563B1.PPD , SIZE=33280
+vt49901 = 2,VT49901.PPD , SIZE=27136
+vt4l3001 = 2,VT4L3001.PPD , SIZE=80896
+vt4l3301 = 2,VT4L3301.PPD , SIZE=89600
+vt4l5001 = 2,VT4L5001.PPD , SIZE=82944
+vt4l5301 = 2,VT4L5301.PPD , SIZE=82944
+vt530522 = 2,VT530522.PPD , SIZE=27136
+vt550522 = 2,VT550522.PPD , SIZE=13312
+vt600p1 = 2,VT600P1.PPD , SIZE=10752
+vt600w1 = 2,VT600W1.PPD , SIZE=10752
+vt60p480 = 2,VT60P480.PPD , SIZE=10240
+wang15 = 2,WANG15.PPD , SIZE=2560
+wang15fp = 2,WANG15FP.PPD , SIZE=3584
+xrdt0851 = 2,XRDT0851.PPD , SIZE=16896
+xrdt0901 = 2,XRDT0901.PPD , SIZE=16896
+xrdt1351 = 2,XRDT1351.PPD , SIZE=25088
+[Files-PrinterDriver]
+pscript = 2,PSCRIPT.DLL , SIZE=278528
+rasdd = 2,RASDD.DLL , SIZE=75264
+[Files-PrinterDriverHelp]
+pscript = 2,PSCRIPT.HLP , SIZE=38400
+rasdd = 2,RASDDUI.HLP , SIZE=33280
+[LanguagesSupported]
+    ENG
+[OptionsTextENG]
+"Adobe LaserJet II Cartridge v52.3"                = "Adobe LaserJet II Cartridge v52.3"
+"Agfa Compugraphic 400PS"                          = "Agfa Compugraphic 400PS"
+"Agfa Compugraphic Genics"                         = "Agfa Compugraphic Genics"
+"Agfa Matrix ChromaScript v51.8"                   = "Agfa Matrix ChromaScript v51.8"
+"Agfa TabScript C500 PostScript Printer v50.3"     = "Agfa TabScript C500 PostScript Printer v50.3"
+"Agfa-Compugraphic 9400P v49.3"                    = "Agfa-Compugraphic 9400P v49.3"
+"Apple LaserWriter II NT v47.0"                    = "Apple LaserWriter II NT v47.0"
+"Apple LaserWriter II NTX v47.0"                   = "Apple LaserWriter II NTX v47.0"
+"Apple LaserWriter II NTX v51.8"                   = "Apple LaserWriter II NTX v51.8"
+"Apple LaserWriter II NTX-J v50.5"                 = "Apple LaserWriter II NTX-J v50.5"
+"Apple LaserWriter IIf v2010.113"                  = "Apple LaserWriter IIf v2010.113"
+"Apple LaserWriter IIg v2010.113"                  = "Apple LaserWriter IIg v2010.113"
+"Apple LaserWriter Plus v38.0"                     = "Apple LaserWriter Plus v38.0"
+"Apple LaserWriter Plus v42.2"                     = "Apple LaserWriter Plus v42.2"
+"Apple LaserWriter v23.0"                          = "Apple LaserWriter v23.0"
+"Apple Personal LaserWriter NTR v2010.129"         = "Apple Personal LaserWriter NTR v2010.129"
+"Apricot Laser"                                    = "Apricot Laser"
+"APS-PS PIP with APS-6-108 v49.3 or 52.2"          = "APS-PS PIP with APS-6-108 v49.3 or 52.2"
+"APS-PS PIP with APS-6-80 v49.3 or 52.2"           = "APS-PS PIP with APS-6-80 v49.3 or 52.2"
+"APS-PS PIP with LZR 1200 v49.3 or 52.2"           = "APS-PS PIP with LZR 1200 v49.3 or 52.2"
+"APS-PS PIP with LZR 2600 v49.3 or 52.2"           = "APS-PS PIP with LZR 2600 v49.3 or 52.2"
+"AST TurboLaser-PS v47.0"                          = "AST TurboLaser-PS v47.0"
+"AT&T 470/475"                                     = "AT&T 470/475"
+"AT&T 473/478"                                     = "AT&T 473/478"
+"Brother HJ-100"                                   = "Brother HJ-100"
+"Brother HJ-100i"                                  = "Brother HJ-100i"
+"Brother HJ-770"                                   = "Brother HJ-770"
+"Brother HL-10DV"                                  = "Brother HL-10DV"
+"Brother HL-10V"                                   = "Brother HL-10V"
+"Brother HL-4"                                     = "Brother HL-4"
+"Brother HL-4V"                                    = "Brother HL-4V"
+"Brother HL-4Ve"                                   = "Brother HL-4Ve"
+"Brother HL-8"                                     = "Brother HL-8"
+"Brother HL-8D"                                    = "Brother HL-8D"
+"Brother HL-8e"                                    = "Brother HL-8e"
+"Brother HL-8V"                                    = "Brother HL-8V"
+"Brother M-1309"                                   = "Brother M-1309"
+"Brother M-1324"                                   = "Brother M-1324"
+"Brother M-1809"                                   = "Brother M-1809"
+"Brother M-1818"                                   = "Brother M-1818"
+"Brother M-1824L"                                  = "Brother M-1824L"
+"Brother M-1909"                                   = "Brother M-1909"
+"Brother M-1918"                                   = "Brother M-1918"
+"Brother M-1924L"                                  = "Brother M-1924L"
+"Bull Compuprint PageMaster 1025"                  = "Bull Compuprint PageMaster 1025"
+"Bull Compuprint PageMaster 413"                   = "Bull Compuprint PageMaster 413"
+"Bull Compuprint PM 201"                           = "Bull Compuprint PM 201"
+"C-Itoh 8510"                                      = "C-Itoh 8510"
+"Canon Bubble-Jet BJ-10e"                          = "Canon Bubble-Jet BJ-10e"
+"Canon Bubble-Jet BJ-10ex"                         = "Canon Bubble-Jet BJ-10ex"
+"Canon Bubble-Jet BJ-10sx"                         = "Canon Bubble-Jet BJ-10sx"
+"Canon Bubble-Jet BJ-130"                          = "Canon Bubble-Jet BJ-130"
+"Canon Bubble-Jet BJ-130e"                         = "Canon Bubble-Jet BJ-130e"
+"Canon Bubble-Jet BJ-20"                           = "Canon Bubble-Jet BJ-20"
+"Canon Bubble-Jet BJ-200"                          = "Canon Bubble-Jet BJ-200"
+"Canon Bubble-Jet BJ-230"                          = "Canon Bubble-Jet BJ-230"
+"Canon Bubble-Jet BJ-300"                          = "Canon Bubble-Jet BJ-300"
+"Canon Bubble-Jet BJ-330"                          = "Canon Bubble-Jet BJ-330"
+"Canon Bubble-Jet BJC-800"                         = "Canon Bubble-Jet BJC-800"
+"Canon LBP-4 PS-2 v51.4"                           = "Canon LBP-4 PS-2 v51.4"
+"Canon LBP-8III PS-1 v51.4"                        = "Canon LBP-8III PS-1 v51.4"
+"Canon LBP-8IIIR PS-1 v51.4"                       = "Canon LBP-8IIIR PS-1 v51.4"
+"Canon LBP-8IIIT PS-1 v51.4"                       = "Canon LBP-8IIIT PS-1 v51.4"
+"Canon PS-IPU Color Laser Copier v52.3"            = "Canon PS-IPU Color Laser Copier v52.3"
+"Canon PS-IPU Kanji Color Laser Copier v52.3"      = "Canon PS-IPU Kanji Color Laser Copier v52.3"
+"Citizen 120D"                                     = "Citizen 120D"
+"Citizen 120D+"                                    = "Citizen 120D+"
+"Citizen 124D"                                     = "Citizen 124D"
+"Citizen 180D"                                     = "Citizen 180D"
+"Citizen 200GX"                                    = "Citizen 200GX"
+"Citizen 200GX/15"                                 = "Citizen 200GX/15"
+"Citizen 224"                                      = "Citizen 224"
+"Citizen GSX 240 Scalable Font"                    = "Citizen GSX 240 Scalable Font"
+"Citizen GSX-130"                                  = "Citizen GSX-130"
+"Citizen GSX-140"                                  = "Citizen GSX-140"
+"Citizen GSX-140+"                                 = "Citizen GSX-140+"
+"Citizen GSX-145"                                  = "Citizen GSX-145"
+"Citizen GSX-230"                                  = "Citizen GSX-230"
+"Citizen HSP-500"                                  = "Citizen HSP-500"
+"Citizen HSP-550"                                  = "Citizen HSP-550"
+"Citizen PN48"                                     = "Citizen PN48"
+"Citizen Prodot 24"                                = "Citizen Prodot 24"
+"Citizen Prodot 9"                                 = "Citizen Prodot 9"
+"Citizen Prodot 9x"                                = "Citizen Prodot 9x"
+"Citizen PROjet"                                   = "Citizen PROjet"
+"Citizen Swift 200"                                = "Citizen Swift 200"
+"Citizen Swift 24"                                 = "Citizen Swift 24"
+"Citizen Swift 240 Scalable Font"                  = "Citizen Swift 240 Scalable Font"
+"Citizen Swift 24e"                                = "Citizen Swift 24e"
+"Citizen Swift 24x"                                = "Citizen Swift 24x"
+"Citizen Swift 9"                                  = "Citizen Swift 9"
+"Citizen Swift 9x"                                 = "Citizen Swift 9x"
+"Colormate PS v51.9"                               = "Colormate PS v51.9"
+"COMPAQ PAGEMARQ 15 v2012.015"                     = "COMPAQ PAGEMARQ 15 v2012.015"
+"COMPAQ PAGEMARQ 20 v2012.015"                     = "COMPAQ PAGEMARQ 20 v2012.015"
+"Dataproducts LZR 1260 v47.0"                      = "Dataproducts LZR 1260 v47.0"
+"Dataproducts LZR 1560 v2010.127"                  = "Dataproducts LZR 1560 v2010.127"
+"Dataproducts LZR 960 v2010.106"                   = "Dataproducts LZR 960 v2010.106"
+"Dataproducts LZR-2665 v46.2"                      = "Dataproducts LZR-2665 v46.2"
+"Diconix 150 Plus"                                 = "Diconix 150 Plus"
+"Digital Colormate PS v51.9"                       = "Digital Colormate PS v51.9"
+"Digital DEClaser 1100 (LJ)"                       = "Digital DEClaser 1100 (LJ)"
+"Digital DEClaser 1100"                            = "Digital DEClaser 1100"
+"Digital DEClaser 1150 v51.4"                      = "Digital DEClaser 1150 v51.4"
+"Digital DEClaser 1152  17 fonts"                  = "Digital DEClaser 1152  17 fonts"
+"Digital DEClaser 1152  43 fonts"                  = "Digital DEClaser 1152  43 fonts"
+"Digital DEClaser 2100"                            = "Digital DEClaser 2100"
+"Digital DEClaser 2100plus (LJ)"                   = "Digital DEClaser 2100plus (LJ)"
+"Digital DEClaser 2150 plus v51.4"                 = "Digital DEClaser 2150 plus v51.4"
+"Digital DEClaser 2150 v51.4"                      = "Digital DEClaser 2150 v51.4"
+"Digital DEClaser 2200"                            = "Digital DEClaser 2200"
+"Digital DEClaser 2200plus (LJ)"                   = "Digital DEClaser 2200plus (LJ)"
+"Digital DEClaser 2250 plus v51.4"                 = "Digital DEClaser 2250 plus v51.4"
+"Digital DEClaser 2250 v51.4"                      = "Digital DEClaser 2250 v51.4"
+"Digital DEClaser 3200 (LJ)"                       = "Digital DEClaser 3200 (LJ)"
+"Digital DEClaser 3200"                            = "Digital DEClaser 3200"
+"Digital DEClaser 3250 v47"                        = "Digital DEClaser 3250 v47"
+"Digital DECmultiJET 1000"                         = "Digital DECmultiJET 1000"
+"Digital DECmultiJET 2000"                         = "Digital DECmultiJET 2000"
+"Digital DECwriter 95"                             = "Digital DECwriter 95"
+"Digital LA310"                                    = "Digital LA310"
+"Digital LA324"                                    = "Digital LA324"
+"Digital LA424"                                    = "Digital LA424"
+"Digital LA70"                                     = "Digital LA70"
+"Digital LA75 Plus"                                = "Digital LA75 Plus"
+"Digital LA75"                                     = "Digital LA75"
+"Digital LN03R ScriptPrinter"                      = "Digital LN03R ScriptPrinter"
+"Digital PrintServer 17 v48.3"                     = "Digital PrintServer 17 v48.3"
+"Digital PrintServer 20 v48.3"                     = "Digital PrintServer 20 v48.3"
+"Digital PrintServer 32 v48.3"                     = "Digital PrintServer 32 v48.3"
+"Digital PrintServer 40 Plus v48.3"                = "Digital PrintServer 40 Plus v48.3"
+"Digital turbo PrintServer 20"                     = "Digital turbo PrintServer 20"
+"Epson ActionLaser II"                             = "Epson ActionLaser II"
+"Epson AP-3250 Scalable Font"                      = "Epson AP-3250 Scalable Font"
+"Epson AP-5000 Scalable Font"                      = "Epson AP-5000 Scalable Font"
+"Epson AP-5500 Scalable Font"                      = "Epson AP-5500 Scalable Font"
+"Epson Compatible 24 Pin"                          = "Epson Compatible 24 Pin"
+"Epson Compatible 9 Pin"                           = "Epson Compatible 9 Pin"
+"Epson DFX-5000"                                   = "Epson DFX-5000"
+"Epson DLQ-2000"                                   = "Epson DLQ-2000"
+"Epson EPL-4000"                                   = "Epson EPL-4000"
+"Epson EPL-4300"                                   = "Epson EPL-4300"
+"Epson EPL-6000"                                   = "Epson EPL-6000"
+"Epson EPL-7000"                                   = "Epson EPL-7000"
+"EPSON EPL-7500 v52.3"                             = "EPSON EPL-7500 v52.3"
+"Epson EPL-8000"                                   = "Epson EPL-8000"
+"Epson EPL-8100"                                   = "Epson EPL-8100"
+"Epson EX-1000"                                    = "Epson EX-1000"
+"Epson EX-800"                                     = "Epson EX-800"
+"Epson FX-100"                                     = "Epson FX-100"
+"Epson FX-100+"                                    = "Epson FX-100+"
+"Epson FX-1000"                                    = "Epson FX-1000"
+"Epson FX-105"                                     = "Epson FX-105"
+"Epson FX-1050"                                    = "Epson FX-1050"
+"Epson FX-185"                                     = "Epson FX-185"
+"Epson FX-286"                                     = "Epson FX-286"
+"Epson FX-286e"                                    = "Epson FX-286e"
+"Epson FX-80"                                      = "Epson FX-80"
+"Epson FX-80+"                                     = "Epson FX-80+"
+"Epson FX-800"                                     = "Epson FX-800"
+"Epson FX-85"                                      = "Epson FX-85"
+"Epson FX-850"                                     = "Epson FX-850"
+"Epson FX-86e"                                     = "Epson FX-86e"
+"Epson GQ-3500"                                    = "Epson GQ-3500"
+"Epson JX-80"                                      = "Epson JX-80"
+"Epson L-1000"                                     = "Epson L-1000"
+"Epson L-750"                                      = "Epson L-750"
+"EPSON LP-3000PS F2 v52.3"                         = "EPSON LP-3000PS F2 v52.3"
+"EPSON LP-3000PS F5 v52.3"                         = "EPSON LP-3000PS F5 v52.3"
+"Epson LQ-100 Scalable Font"                       = "Epson LQ-100 Scalable Font"
+"Epson LQ-1000"                                    = "Epson LQ-1000"
+"Epson LQ-1010"                                    = "Epson LQ-1010"
+"Epson LQ-1050"                                    = "Epson LQ-1050"
+"Epson LQ-1060"                                    = "Epson LQ-1060"
+"Epson LQ-1070 Scalable Font"                      = "Epson LQ-1070 Scalable Font"
+"Epson LQ-1170 Scalable Font"                      = "Epson LQ-1170 Scalable Font"
+"Epson LQ-1500"                                    = "Epson LQ-1500"
+"Epson LQ-200"                                     = "Epson LQ-200"
+"Epson LQ-2500"                                    = "Epson LQ-2500"
+"Epson LQ-2550"                                    = "Epson LQ-2550"
+"Epson LQ-400"                                     = "Epson LQ-400"
+"Epson LQ-450"                                     = "Epson LQ-450"
+"Epson LQ-500"                                     = "Epson LQ-500"
+"Epson LQ-510"                                     = "Epson LQ-510"
+"Epson LQ-550"                                     = "Epson LQ-550"
+"Epson LQ-570 Scalable Font"                       = "Epson LQ-570 Scalable Font"
+"Epson LQ-800"                                     = "Epson LQ-800"
+"Epson LQ-850"                                     = "Epson LQ-850"
+"Epson LQ-850+"                                    = "Epson LQ-850+"
+"Epson LQ-860"                                     = "Epson LQ-860"
+"Epson LQ-870 Scalable Font"                       = "Epson LQ-870 Scalable Font"
+"Epson LQ-950"                                     = "Epson LQ-950"
+"Epson LX-1050"                                    = "Epson LX-1050"
+"Epson LX-400"                                     = "Epson LX-400"
+"Epson LX-80"                                      = "Epson LX-80"
+"Epson LX-800"                                     = "Epson LX-800"
+"Epson LX-810"                                     = "Epson LX-810"
+"Epson LX-850"                                     = "Epson LX-850"
+"Epson LX-850+"                                    = "Epson LX-850+"
+"Epson LX-86"                                      = "Epson LX-86"
+"Epson MX-100"                                     = "Epson MX-100"
+"Epson MX-80 F/T"                                  = "Epson MX-80 F/T"
+"Epson MX-80"                                      = "Epson MX-80"
+"EPSON PostScript CARD v52.5"                      = "EPSON PostScript CARD v52.5"
+"Epson RX-100"                                     = "Epson RX-100"
+"Epson RX-100+"                                    = "Epson RX-100+"
+"Epson RX-80 F/T"                                  = "Epson RX-80 F/T"
+"Epson RX-80 F/T+"                                 = "Epson RX-80 F/T+"
+"Epson RX-80"                                      = "Epson RX-80"
+"Epson SQ-1170 Scalable Font"                      = "Epson SQ-1170 Scalable Font"
+"Epson SQ-2000"                                    = "Epson SQ-2000"
+"Epson SQ-2500"                                    = "Epson SQ-2500"
+"Epson SQ-2550"                                    = "Epson SQ-2550"
+"Epson SQ-850"                                     = "Epson SQ-850"
+"Epson SQ-870 Scalable Font"                       = "Epson SQ-870 Scalable Font"
+"Epson T-1000"                                     = "Epson T-1000"
+"Epson T-750"                                      = "Epson T-750"
+"Fujitsu Breeze 100"                               = "Fujitsu Breeze 100"
+"Fujitsu Breeze 200"                               = "Fujitsu Breeze 200"
+"Fujitsu DL 1100 Colour"                           = "Fujitsu DL 1100 Colour"
+"Fujitsu DL 1100"                                  = "Fujitsu DL 1100"
+"Fujitsu DL 1150"                                  = "Fujitsu DL 1150"
+"Fujitsu DL 1200"                                  = "Fujitsu DL 1200"
+"Fujitsu DL 1250"                                  = "Fujitsu DL 1250"
+"Fujitsu DL 2400"                                  = "Fujitsu DL 2400"
+"Fujitsu DL 2600"                                  = "Fujitsu DL 2600"
+"Fujitsu DL 3300"                                  = "Fujitsu DL 3300"
+"Fujitsu DL 3350"                                  = "Fujitsu DL 3350"
+"Fujitsu DL 3400"                                  = "Fujitsu DL 3400"
+"Fujitsu DL 3450"                                  = "Fujitsu DL 3450"
+"Fujitsu DL 3600"                                  = "Fujitsu DL 3600"
+"Fujitsu DL 4400"                                  = "Fujitsu DL 4400"
+"Fujitsu DL 4600"                                  = "Fujitsu DL 4600"
+"Fujitsu DL 5600"                                  = "Fujitsu DL 5600"
+"Fujitsu DL 900"                                   = "Fujitsu DL 900"
+"Fujitsu DX 2100"                                  = "Fujitsu DX 2100"
+"Fujitsu DX 2200"                                  = "Fujitsu DX 2200"
+"Fujitsu DX 2300"                                  = "Fujitsu DX 2300"
+"Fujitsu DX 2400"                                  = "Fujitsu DX 2400"
+"Fujitsu RX7100PS v50.3"                           = "Fujitsu RX7100PS v50.3"
+"GCC BLP Elite v52.3"                              = "GCC BLP Elite v52.3"
+"GCC BLP II v52.3"                                 = "GCC BLP II v52.3"
+"GCC BLP IIS v52.3"                                = "GCC BLP IIS v52.3"
+"GCC Business LaserPrinter v49.2"                  = "GCC Business LaserPrinter v49.2"
+"GCC Business LaserPrinter v51.4"                  = "GCC Business LaserPrinter v51.4"
+"Generic IBM Graphics 9pin wide"                   = "Generic IBM Graphics 9pin wide"
+"Generic IBM Graphics 9pin"                        = "Generic IBM Graphics 9pin"
+"Gestetner GLP800-Scout v52.3"                     = "Gestetner GLP800-Scout v52.3"
+"Hermes H 606 PS (13 Fonts)"                       = "Hermes H 606 PS (13 Fonts)"
+"Hermes H 606 PS (35 fonts)"                       = "Hermes H 606 PS (35 fonts)"
+"Hermes H 606"                                     = "Hermes H 606"
+"HP DeskJet 1200C"                                 = "HP DeskJet 1200C"
+"HP DeskJet 500"                                   = "HP DeskJet 500"
+"HP DeskJet 500C (Monochrome)"                     = "HP DeskJet 500C (Monochrome)"
+"HP DeskJet 500C"                                  = "HP DeskJet 500C"
+"HP DeskJet 510"                                   = "HP DeskJet 510"
+"HP DeskJet 550C"                                  = "HP DeskJet 550C"
+"HP DeskJet Plus"                                  = "HP DeskJet Plus"
+"HP DeskJet Portable"                              = "HP DeskJet Portable"
+"HP DeskJet"                                       = "HP DeskJet"
+"HP LaserJet 2000"                                 = "HP LaserJet 2000"
+"HP LaserJet 4 PostScript v2011.110"               = "HP LaserJet 4 PostScript v2011.110"
+"HP LaserJet 4"                                    = "HP LaserJet 4"
+"HP LaserJet 4Si"                                  = "HP LaserJet 4Si"
+"HP LaserJet 4Si/4Si MX PS"                        = "HP LaserJet 4Si/4Si MX PS"
+"HP LaserJet 500+"                                 = "HP LaserJet 500+"
+"HP LaserJet ELI PostScript v52.3"                 = "HP LaserJet ELI PostScript v52.3"
+"HP LaserJet IID PostScript Cartridge v52.2"       = "HP LaserJet IID PostScript Cartridge v52.2"
+"HP LaserJet IID"                                  = "HP LaserJet IID"
+"HP LaserJet III PostScript Cartridge v52.2"       = "HP LaserJet III PostScript Cartridge v52.2"
+"HP LaserJet III PostScript Plus v2010.118"        = "HP LaserJet III PostScript Plus v2010.118"
+"HP LaserJet III"                                  = "HP LaserJet III"
+"HP LaserJet IIID PostScript Cartridge v52.2"      = "HP LaserJet IIID PostScript Cartridge v52.2"
+"HP LaserJet IIID PostScript Plus v2010.118"       = "HP LaserJet IIID PostScript Plus v2010.118"
+"HP LaserJet IIID"                                 = "HP LaserJet IIID"
+"HP LaserJet IIIP PostScript Cartridge v52.2"      = "HP LaserJet IIIP PostScript Cartridge v52.2"
+"HP LaserJet IIIP PostScript Plus v2010.118"       = "HP LaserJet IIIP PostScript Plus v2010.118"
+"HP LaserJet IIIP"                                 = "HP LaserJet IIIP"
+"HP LaserJet IIISi PostScript v52.3"               = "HP LaserJet IIISi PostScript v52.3"
+"HP LaserJet IIISi"                                = "HP LaserJet IIISi"
+"HP LaserJet IIP"                                  = "HP LaserJet IIP"
+"HP LaserJet IIP Plus"                             = "HP LaserJet IIP Plus"
+"HP LaserJet IIP PostScript Cartridge v52.2"       = "HP LaserJet IIP PostScript Cartridge v52.2"
+"HP LaserJet Plus"                                 = "HP LaserJet Plus"
+"HP LaserJet Series II"                            = "HP LaserJet Series II"
+"HP LaserJet"                                      = "HP LaserJet"
+"HP PaintJet XL 300"                               = "HP PaintJet XL 300"
+"HP PaintJet XL"                                   = "HP PaintJet XL"
+"HP PaintJet XL300 v2011.112"                      = "HP PaintJet XL300 v2011.112"
+"HP PaintJet"                                      = "HP PaintJet"
+"HP QuietJet Plus"                                 = "HP QuietJet Plus"
+"HP QuietJet"                                      = "HP QuietJet"
+"HP ThinkJet (2225 C-D)"                           = "HP ThinkJet (2225 C-D)"
+"IBM 4019 LaserPrinter PS17"                       = "IBM 4019 LaserPrinter PS17"
+"IBM 4019 LaserPrinter PS39"                       = "IBM 4019 LaserPrinter PS39"
+"IBM 4029 LaserPrinter PS17"                       = "IBM 4029 LaserPrinter PS17"
+"IBM 4029 LaserPrinter PS39"                       = "IBM 4029 LaserPrinter PS39"
+"IBM 4039 LaserPrinter PS"                         = "IBM 4039 LaserPrinter PS"
+"IBM 4070 IJ"                                      = "IBM 4070 IJ"
+"IBM 4079 Color Jetprinter PS"                     = "IBM 4079 Color Jetprinter PS"
+"IBM 4216-020 v47.0"                               = "IBM 4216-020 v47.0"
+"IBM 4216-030 v50.5"                               = "IBM 4216-030 v50.5"
+"IBM ExecJet 4072"                                 = "IBM ExecJet 4072"
+"IBM Graphics"                                     = "IBM Graphics"
+"IBM LaserPrinter 4039"                            = "IBM LaserPrinter 4039"
+"IBM Personal Page Printer II-31"                  = "IBM Personal Page Printer II-31"
+"IBM Personal Printer II 2380"                     = "IBM Personal Printer II 2380"
+"IBM Personal Printer II 2381"                     = "IBM Personal Printer II 2381"
+"IBM Personal Printer II 2390"                     = "IBM Personal Printer II 2390"
+"IBM Personal Printer II 2391"                     = "IBM Personal Printer II 2391"
+"IBM Portable 5183"                                = "IBM Portable 5183"
+"IBM Proprinter II"                                = "IBM Proprinter II"
+"IBM Proprinter III"                               = "IBM Proprinter III"
+"IBM Proprinter X24"                               = "IBM Proprinter X24"
+"IBM Proprinter X24e"                              = "IBM Proprinter X24e"
+"IBM Proprinter XL II"                             = "IBM Proprinter XL II"
+"IBM Proprinter XL III"                            = "IBM Proprinter XL III"
+"IBM Proprinter XL"                                = "IBM Proprinter XL"
+"IBM Proprinter XL24"                              = "IBM Proprinter XL24"
+"IBM Proprinter XL24e"                             = "IBM Proprinter XL24e"
+"IBM Proprinter"                                   = "IBM Proprinter"
+"IBM PS/1 2205"                                    = "IBM PS/1 2205"
+"IBM QuickWriter 5204"                             = "IBM QuickWriter 5204"
+"IBM QuietWriter III"                              = "IBM QuietWriter III"
+"Kodak EktaPlus 7016"                              = "Kodak EktaPlus 7016"
+"Kyocera F-1000"                                   = "Kyocera F-1000"
+"Kyocera F-1000A"                                  = "Kyocera F-1000A"
+"Kyocera F-1010"                                   = "Kyocera F-1010"
+"Kyocera F-1200S"                                  = "Kyocera F-1200S"
+"Kyocera F-1800"                                   = "Kyocera F-1800"
+"Kyocera F-1800A"                                  = "Kyocera F-1800A"
+"Kyocera F-2000A"                                  = "Kyocera F-2000A"
+"Kyocera F-2010"                                   = "Kyocera F-2010"
+"Kyocera F-2200"                                   = "Kyocera F-2200"
+"Kyocera F-2200S"                                  = "Kyocera F-2200S"
+"Kyocera F-3000"                                   = "Kyocera F-3000"
+"Kyocera F-3000A"                                  = "Kyocera F-3000A"
+"Kyocera F-3010"                                   = "Kyocera F-3010"
+"Kyocera F-3300"                                   = "Kyocera F-3300"
+"Kyocera F-5000"                                   = "Kyocera F-5000"
+"Kyocera F-800"                                    = "Kyocera F-800"
+"Kyocera F-800A"                                   = "Kyocera F-800A"
+"Kyocera F-820"                                    = "Kyocera F-820"
+"Kyocera FS-1500 / FS-1500A"                       = "Kyocera FS-1500 / FS-1500A"
+"Kyocera FS-3500 / FS-3500A"                       = "Kyocera FS-3500 / FS-3500A"
+"Kyocera FS-5500 / FS-5500A"                       = "Kyocera FS-5500 / FS-5500A"
+"Kyocera FS-850 / FS-850A"                         = "Kyocera FS-850 / FS-850A"
+"LaserWriter Personal NT v51.8"                    = "LaserWriter Personal NT v51.8"
+"Linotronic 100 v42.5"                             = "Linotronic 100 v42.5"
+"Linotronic 200 v47.1"                             = "Linotronic 200 v47.1"
+"Linotronic 200 v49.3"                             = "Linotronic 200 v49.3"
+"Linotronic 200/230"                               = "Linotronic 200/230"
+"Linotronic 300 v47.1"                             = "Linotronic 300 v47.1"
+"Linotronic 300 v49.3"                             = "Linotronic 300 v49.3"
+"Linotronic 330 v52.3"                             = "Linotronic 330 v52.3"
+"Linotronic 330-RIP 30 v52.3"                      = "Linotronic 330-RIP 30 v52.3"
+"Linotronic 500 v49.3"                             = "Linotronic 500 v49.3"
+"Linotronic 530 v52.3"                             = "Linotronic 530 v52.3"
+"Linotronic 530-RIP 30 v52.3"                      = "Linotronic 530-RIP 30 v52.3"
+"Linotronic 630 v52.3"                             = "Linotronic 630 v52.3"
+"Mannesmann Tally MT 130/24"                       = "Mannesmann Tally MT 130/24"
+"Mannesmann Tally MT 131/24"                       = "Mannesmann Tally MT 131/24"
+"Mannesmann Tally MT 150/24"                       = "Mannesmann Tally MT 150/24"
+"Mannesmann Tally MT 151/24"                       = "Mannesmann Tally MT 151/24"
+"Mannesmann Tally MT 230/24"                       = "Mannesmann Tally MT 230/24"
+"Mannesmann Tally MT 330"                          = "Mannesmann Tally MT 330"
+"Mannesmann Tally MT 350"                          = "Mannesmann Tally MT 350"
+"Mannesmann Tally MT 360"                          = "Mannesmann Tally MT 360"
+"Mannesmann Tally MT 730/735"                      = "Mannesmann Tally MT 730/735"
+"Mannesmann Tally MT 82"                           = "Mannesmann Tally MT 82"
+"Mannesmann Tally MT 90"                           = "Mannesmann Tally MT 90"
+"Mannesmann Tally MT 904 Plus"                     = "Mannesmann Tally MT 904 Plus"
+"Mannesmann Tally MT 908"                          = "Mannesmann Tally MT 908"
+"Mannesmann Tally MT 91"                           = "Mannesmann Tally MT 91"
+"Mannesmann Tally MT 92"                           = "Mannesmann Tally MT 92"
+"Mannesmann Tally MT 92C"                          = "Mannesmann Tally MT 92C"
+"Mannesmann Tally MT 93"                           = "Mannesmann Tally MT 93"
+"Mannesmann Tally MT 94"                           = "Mannesmann Tally MT 94"
+"Mannesmann Tally MT 98/99"                        = "Mannesmann Tally MT 98/99"
+"Microtek TrueLaser"                               = "Microtek TrueLaser"
+"Minolta SP 3000"                                  = "Minolta SP 3000"
+"Minolta SP 3500"                                  = "Minolta SP 3500"
+"Monotype ImageMaster 1200 v52.3"                  = "Monotype ImageMaster 1200 v52.3"
+"Monotype Imagesetter v52.2"                       = "Monotype Imagesetter v52.2"
+"NEC Colormate PS/40 v51.9"                        = "NEC Colormate PS/40 v51.9"
+"NEC Colormate PS/80 v51.9"                        = "NEC Colormate PS/80 v51.9"
+"NEC Jetmate 400"                                  = "NEC Jetmate 400"
+"NEC Jetmate 800"                                  = "NEC Jetmate 800"
+"NEC Pinwriter CP6"                                = "NEC Pinwriter CP6"
+"NEC Pinwriter CP7"                                = "NEC Pinwriter CP7"
+"NEC Pinwriter P20"                                = "NEC Pinwriter P20"
+"NEC Pinwriter P2200"                              = "NEC Pinwriter P2200"
+"NEC Pinwriter P2plus"                             = "NEC Pinwriter P2plus"
+"NEC Pinwriter P30"                                = "NEC Pinwriter P30"
+"NEC Pinwriter P3200"                              = "NEC Pinwriter P3200"
+"NEC Pinwriter P3300"                              = "NEC Pinwriter P3300"
+"NEC Pinwriter P5200"                              = "NEC Pinwriter P5200"
+"NEC Pinwriter P5300"                              = "NEC Pinwriter P5300"
+"NEC Pinwriter P5XL"                               = "NEC Pinwriter P5XL"
+"NEC Pinwriter P6"                                 = "NEC Pinwriter P6"
+"NEC Pinwriter P60"                                = "NEC Pinwriter P60"
+"NEC Pinwriter P6200"                              = "NEC Pinwriter P6200"
+"NEC Pinwriter P6300"                              = "NEC Pinwriter P6300"
+"NEC Pinwriter P6plus"                             = "NEC Pinwriter P6plus"
+"NEC Pinwriter P7"                                 = "NEC Pinwriter P7"
+"NEC Pinwriter P70"                                = "NEC Pinwriter P70"
+"NEC Pinwriter P7plus"                             = "NEC Pinwriter P7plus"
+"NEC Pinwriter P90"                                = "NEC Pinwriter P90"
+"NEC Pinwriter P9300"                              = "NEC Pinwriter P9300"
+"NEC Pinwriter P9XL"                               = "NEC Pinwriter P9XL"
+"NEC SilentWriter 95 v2010.119"                    = "NEC SilentWriter 95 v2010.119"
+"NEC Silentwriter 95 v2011.111"                    = "NEC Silentwriter 95 v2011.111"
+"NEC Silentwriter 97 v2011.111"                    = "NEC Silentwriter 97 v2011.111"
+"NEC Silentwriter LC 860 Plus"                     = "NEC Silentwriter LC 860 Plus"
+"NEC Silentwriter LC 860"                          = "NEC Silentwriter LC 860"
+"NEC Silentwriter LC890 v47.0"                     = "NEC Silentwriter LC890 v47.0"
+"NEC Silentwriter LC890XL v50.5"                   = "NEC Silentwriter LC890XL v50.5"
+"NEC Silentwriter S102"                            = "NEC Silentwriter S102"
+"NEC Silentwriter2 290 v52.0"                      = "NEC Silentwriter2 290 v52.0"
+"NEC Silentwriter2 90 v52.2"                       = "NEC Silentwriter2 90 v52.2"
+"NEC Silentwriter2 990 v52.3"                      = "NEC Silentwriter2 990 v52.3"
+"NeXT 400 dpi Laser Printer v2000.6"               = "NeXT 400 dpi Laser Printer v2000.6"
+"OceColor G5241 PS"                                = "OceColor G5241 PS"
+"OceColor G5242 PostScript Printer v50.3"          = "OceColor G5242 PostScript Printer v50.3"
+"OKI MICROLINE 801PS+F v52.3"                      = "OKI MICROLINE 801PS+F v52.3"
+"Oki ML 182 Elite (IBM)"                           = "Oki ML 182 Elite (IBM)"
+"Oki ML 192 Elite (IBM)"                           = "Oki ML 192 Elite (IBM)"
+"Oki ML 193 Elite (IBM)"                           = "Oki ML 193 Elite (IBM)"
+"Oki ML 280 Elite (IBM)"                           = "Oki ML 280 Elite (IBM)"
+"Oki ML 320 Elite (IBM)"                           = "Oki ML 320 Elite (IBM)"
+"Oki ML 321 Elite (IBM)"                           = "Oki ML 321 Elite (IBM)"
+"Oki ML 3410 Elite (IBM)"                          = "Oki ML 3410 Elite (IBM)"
+"Oki ML 380 Elite"                                 = "Oki ML 380 Elite"
+"Oki ML 390 Elite"                                 = "Oki ML 390 Elite"
+"Oki ML 391 Elite"                                 = "Oki ML 391 Elite"
+"Oki ML 393 Elite"                                 = "Oki ML 393 Elite"
+"Oki ML 393C Elite"                                = "Oki ML 393C Elite"
+"Oki ML 590"                                       = "Oki ML 590"
+"Oki ML 591"                                       = "Oki ML 591"
+"OKI OL-400"                                       = "OKI OL-400"
+"Oki OL-410"                                       = "Oki OL-410"
+"OKI OL-800/840"                                   = "OKI OL-800/840"
+"Oki OL-810"                                       = "Oki OL-810"
+"Oki OL830-PS v52.5"                               = "Oki OL830-PS v52.5"
+"Oki OL840-PS v51.8"                               = "Oki OL840-PS v51.8"
+"Okidata LaserLine 6"                              = "Okidata LaserLine 6"
+"Okidata ML 192 Plus"                              = "Okidata ML 192 Plus"
+"Okidata ML 192"                                   = "Okidata ML 192"
+"Okidata ML 192-IBM"                               = "Okidata ML 192-IBM"
+"Okidata ML 193 Plus"                              = "Okidata ML 193 Plus"
+"Okidata ML 193"                                   = "Okidata ML 193"
+"Okidata ML 193-IBM"                               = "Okidata ML 193-IBM"
+"Okidata ML 292-IBM"                               = "Okidata ML 292-IBM"
+"Okidata ML 293-IBM"                               = "Okidata ML 293-IBM"
+"Okidata ML 320"                                   = "Okidata ML 320"
+"Okidata ML 320-IBM"                               = "Okidata ML 320-IBM"
+"Okidata ML 321"                                   = "Okidata ML 321"
+"Okidata ML 321-IBM"                               = "Okidata ML 321-IBM"
+"Okidata ML 380"                                   = "Okidata ML 380"
+"Okidata ML 390 Plus"                              = "Okidata ML 390 Plus"
+"Okidata ML 390"                                   = "Okidata ML 390"
+"Okidata ML 391 Plus"                              = "Okidata ML 391 Plus"
+"Okidata ML 391"                                   = "Okidata ML 391"
+"Okidata ML 393 Plus"                              = "Okidata ML 393 Plus"
+"Okidata ML 393"                                   = "Okidata ML 393"
+"Okidata ML 393C Plus"                             = "Okidata ML 393C Plus"
+"Okidata ML 393C"                                  = "Okidata ML 393C"
+"Okidata ML 92-IBM"                                = "Okidata ML 92-IBM"
+"Okidata ML 93-IBM"                                = "Okidata ML 93-IBM"
+"Okidata OL-400"                                   = "Okidata OL-400"
+"Okidata OL-800"                                   = "Okidata OL-800"
+"Olivetti DM 109"                                  = "Olivetti DM 109"
+"Olivetti DM 124 C"                                = "Olivetti DM 124 C"
+"Olivetti DM 124 L"                                = "Olivetti DM 124 L"
+"Olivetti DM 124"                                  = "Olivetti DM 124"
+"Olivetti DM 309 L"                                = "Olivetti DM 309 L"
+"Olivetti DM 309 S"                                = "Olivetti DM 309 S"
+"Olivetti DM 309 SL"                               = "Olivetti DM 309 SL"
+"Olivetti DM 309"                                  = "Olivetti DM 309"
+"Olivetti DM 324 L"                                = "Olivetti DM 324 L"
+"Olivetti DM 324 S"                                = "Olivetti DM 324 S"
+"Olivetti DM 324 SL"                               = "Olivetti DM 324 SL"
+"Olivetti DM 324"                                  = "Olivetti DM 324"
+"Olivetti DM 600 S"                                = "Olivetti DM 600 S"
+"Olivetti DM 600"                                  = "Olivetti DM 600"
+"Olivetti DM 624"                                  = "Olivetti DM 624"
+"Olivetti ETV 5000"                                = "Olivetti ETV 5000"
+"Olivetti JP 150"                                  = "Olivetti JP 150"
+"Olivetti JP 350"                                  = "Olivetti JP 350"
+"Olivetti JP 350S"                                 = "Olivetti JP 350S"
+"Olivetti PG 108"                                  = "Olivetti PG 108"
+"Olivetti PG 208 M2"                               = "Olivetti PG 208 M2"
+"Olivetti PG 306 PS (13 Fonts)"                    = "Olivetti PG 306 PS (13 Fonts)"
+"Olivetti PG 306 PS (35 Fonts)"                    = "Olivetti PG 306 PS (35 Fonts)"
+"Olivetti PG 306"                                  = "Olivetti PG 306"
+"Olivetti PG 308 HS PostScript"                    = "Olivetti PG 308 HS PostScript"
+"Olivetti PG 308 HS"                               = "Olivetti PG 308 HS"
+"Olivetti PG 308"                                  = "Olivetti PG 308"
+"Olivetti PG 404"                                  = "Olivetti PG 404"
+"Olivetti PG 408"                                  = "Olivetti PG 408"
+"Panasonic KX-P1081"                               = "Panasonic KX-P1081"
+"Panasonic KX-P1123"                               = "Panasonic KX-P1123"
+"Panasonic KX-P1124"                               = "Panasonic KX-P1124"
+"Panasonic KX-P1124i"                              = "Panasonic KX-P1124i"
+"Panasonic KX-P1180"                               = "Panasonic KX-P1180"
+"Panasonic KX-P1624"                               = "Panasonic KX-P1624"
+"Panasonic KX-P1695"                               = "Panasonic KX-P1695"
+"Panasonic KX-P2123"                               = "Panasonic KX-P2123"
+"Panasonic KX-P2124"                               = "Panasonic KX-P2124"
+"Panasonic KX-P2180"                               = "Panasonic KX-P2180"
+"Panasonic KX-P2624"                               = "Panasonic KX-P2624"
+"Panasonic KX-P4410"                               = "Panasonic KX-P4410"
+"Panasonic KX-P4420"                               = "Panasonic KX-P4420"
+"Panasonic KX-P4430"                               = "Panasonic KX-P4430"
+"Panasonic KX-P4450"                               = "Panasonic KX-P4450"
+"Panasonic KX-P4450i"                              = "Panasonic KX-P4450i"
+"Panasonic KX-P4451"                               = "Panasonic KX-P4451"
+"Panasonic KX-P4455 v51.4"                         = "Panasonic KX-P4455 v51.4"
+"QMS 1725 Print System"                            = "QMS 1725 Print System"
+"QMS 2025 Print System"                            = "QMS 2025 Print System"
+"QMS 3225 Print System"                            = "QMS 3225 Print System"
+"QMS 420 Print System v2011.22 r15"                = "QMS 420 Print System v2011.22 r15"
+"QMS 4525 Print System"                            = "QMS 4525 Print System"
+"QMS 860 Print System v2011.22 r15"                = "QMS 860 Print System v2011.22 r15"
+"QMS ColorScript 100 Mod 30si"                     = "QMS ColorScript 100 Mod 30si"
+"QMS ColorScript 100 Model 10 v50.3"               = "QMS ColorScript 100 Model 10 v50.3"
+"QMS ColorScript 100 Model 20 v50.3"               = "QMS ColorScript 100 Model 20 v50.3"
+"QMS ColorScript 100 Model 30 v50.3"               = "QMS ColorScript 100 Model 30 v50.3"
+"QMS ColorScript 100 v49.4"                        = "QMS ColorScript 100 v49.4"
+"QMS ColorScript 210 v2011.22"                     = "QMS ColorScript 210 v2011.22"
+"QMS ColorScript 230 v2011.22"                     = "QMS ColorScript 230 v2011.22"
+"QMS PS Jet Plus v46.1"                            = "QMS PS Jet Plus v46.1"
+"QMS PS Jet v46.1"                                 = "QMS PS Jet v46.1"
+"QMS-PS 1700 v52.4"                                = "QMS-PS 1700 v52.4"
+"QMS-PS 2000 v52.4"                                = "QMS-PS 2000 v52.4"
+"QMS-PS 2200 v51.0 or 52.3"                        = "QMS-PS 2200 v51.0 or 52.3"
+"QMS-PS 2210 v51.0 or 52.3"                        = "QMS-PS 2210 v51.0 or 52.3"
+"QMS-PS 2220 v51.0 or 52.3"                        = "QMS-PS 2220 v51.0 or 52.3"
+"QMS-PS 410 v52.4"                                 = "QMS-PS 410 v52.4"
+"QMS-PS 800 Plus v46.1"                            = "QMS-PS 800 Plus v46.1"
+"QMS-PS 800 v46.1"                                 = "QMS-PS 800 v46.1"
+"QMS-PS 810 Turbo v. 51.7"                         = "QMS-PS 810 Turbo v. 51.7"
+"QMS-PS 810 v47.0"                                 = "QMS-PS 810 v47.0"
+"QMS-PS 815 MR v52.4"                              = "QMS-PS 815 MR v52.4"
+"QMS-PS 815 v52.4"                                 = "QMS-PS 815 v52.4"
+"QMS-PS 820 Turbo v51.7"                           = "QMS-PS 820 Turbo v51.7"
+"QMS-PS 820 v51.7"                                 = "QMS-PS 820 v51.7"
+"QMS-PS 825 MR v52.4"                              = "QMS-PS 825 MR v52.4"
+"QMS-PS 825 v52.4"                                 = "QMS-PS 825 v52.4"
+"QuadLaser I"                                      = "QuadLaser I"
+"Qume ScripTEN v47.0"                              = "Qume ScripTEN v47.0"
+"Ricoh LP-1200"                                    = "Ricoh LP-1200"
+"Ricoh PC Laser 6000-PS v50.5"                     = "Ricoh PC Laser 6000-PS v50.5"
+"Royal CJP 450"                                    = "Royal CJP 450"
+"Scantext 2030-51 v49.3 or 52.2"                   = "Scantext 2030-51 v49.3 or 52.2"
+"Schlumberger 5232 Color PostScript Printer v50.3" = "Schlumberger 5232 Color PostScript Printer v50.3"
+"Seiko ColorPoint PS Model 04"                     = "Seiko ColorPoint PS Model 04"
+"Seiko ColorPoint PS Model 14"                     = "Seiko ColorPoint PS Model 14"
+"Seiko Professional ColorPoint 8BPP"               = "Seiko Professional ColorPoint 8BPP"
+"Seikosha LT-20"                                   = "Seikosha LT-20"
+"Seikosha SL-80 IP"                                = "Seikosha SL-80 IP"
+"Seikosha SL-92 Plus"                              = "Seikosha SL-92 Plus"
+"Seikosha SL-92"                                   = "Seikosha SL-92"
+"Seikosha SP-1900"                                 = "Seikosha SP-1900"
+"Seikosha SP-1900+"                                = "Seikosha SP-1900+"
+"Seikosha SP-2000"                                 = "Seikosha SP-2000"
+"Seikosha SP-2400"                                 = "Seikosha SP-2400"
+"Seikosha SP-2415"                                 = "Seikosha SP-2415"
+"Sharp JX-9300"                                    = "Sharp JX-9300"
+"Sharp JX-9500"                                    = "Sharp JX-9500"
+"Sharp JX-9500E"                                   = "Sharp JX-9500E"
+"Sharp JX-9500H"                                   = "Sharp JX-9500H"
+"Sharp JX-9600"                                    = "Sharp JX-9600"
+"Sharp JX-9700"                                    = "Sharp JX-9700"
+"Sharp JX-9700E"                                   = "Sharp JX-9700E"
+"Shinko Color CHC-746PSJ PostScript Printer v52.2" = "Shinko Color CHC-746PSJ PostScript Printer v52.2"
+"Star FR-10"                                       = "Star FR-10"
+"Star FR-15"                                       = "Star FR-15"
+"Star LaserPrinter 4 III"                          = "Star LaserPrinter 4 III"
+"Star LaserPrinter 4"                              = "Star LaserPrinter 4"
+"Star LaserPrinter 5 EX"                           = "Star LaserPrinter 5 EX"
+"Star LaserPrinter 5"                              = "Star LaserPrinter 5"
+"Star LaserPrinter 8 DB"                           = "Star LaserPrinter 8 DB"
+"Star LaserPrinter 8 DX"                           = "Star LaserPrinter 8 DX"
+"Star LaserPrinter 8 II"                           = "Star LaserPrinter 8 II"
+"Star LaserPrinter 8 III"                          = "Star LaserPrinter 8 III"
+"Star LaserPrinter 8"                              = "Star LaserPrinter 8"
+"Star LC-10 Colour"                                = "Star LC-10 Colour"
+"Star LC-10"                                       = "Star LC-10"
+"Star LC-100 Colour"                               = "Star LC-100 Colour"
+"Star LC-15"                                       = "Star LC-15"
+"Star LC-20"                                       = "Star LC-20"
+"Star LC-200"                                      = "Star LC-200"
+"Star LC24-10"                                     = "Star LC24-10"
+"Star LC24-100"                                    = "Star LC24-100"
+"Star LC24-15"                                     = "Star LC24-15"
+"Star LC24-20"                                     = "Star LC24-20"
+"Star LC24-200 Colour"                             = "Star LC24-200 Colour"
+"Star LC24-200"                                    = "Star LC24-200"
+"Star NB24-10"                                     = "Star NB24-10"
+"Star NB24-15"                                     = "Star NB24-15"
+"Star NL-10"                                       = "Star NL-10"
+"Star NX-1000 Rainbow"                             = "Star NX-1000 Rainbow"
+"Star NX-1000"                                     = "Star NX-1000"
+"Star NX-1001"                                     = "Star NX-1001"
+"Star NX-1020 Rainbow"                             = "Star NX-1020 Rainbow"
+"Star NX-1500"                                     = "Star NX-1500"
+"Star NX-2400"                                     = "Star NX-2400"
+"Star NX-2410"                                     = "Star NX-2410"
+"Star NX-2415"                                     = "Star NX-2415"
+"Star NX-2420 Rainbow"                             = "Star NX-2420 Rainbow"
+"Star NX-2420"                                     = "Star NX-2420"
+"Star NX-2430"                                     = "Star NX-2430"
+"Star SJ-48"                                       = "Star SJ-48"
+"Star XB-2410"                                     = "Star XB-2410"
+"Star XB-2415"                                     = "Star XB-2415"
+"Star XB-2420"                                     = "Star XB-2420"
+"Star XB-2425"                                     = "Star XB-2425"
+"Star XB24-10"                                     = "Star XB24-10"
+"Star XB24-15"                                     = "Star XB24-15"
+"Star XB24-200"                                    = "Star XB24-200"
+"Star XB24-250"                                    = "Star XB24-250"
+"Star XR-1000"                                     = "Star XR-1000"
+"Star XR-1020"                                     = "Star XR-1020"
+"Star XR-1500"                                     = "Star XR-1500"
+"Star XR-1520"                                     = "Star XR-1520"
+"Star ZA-200"                                      = "Star ZA-200"
+"Star ZA-250"                                      = "Star ZA-250"
+"Tandy LP-1000"                                    = "Tandy LP-1000"
+"Tegra Genesis"                                    = "Tegra Genesis"
+"Tektronix Phaser 200e with 17 fonts v2011.108(3)"  = "Tektronix Phaser 200e with 17 fonts v2011.108(3)"
+"Tektronix Phaser 200e with 39 fonts v2011.108(3)"  = "Tektronix Phaser 200e with 39 fonts v2011.108(3)"
+"Tektronix Phaser 200i v2011.108(3)"               = "Tektronix Phaser 200i v2011.108(3)"
+"Tektronix Phaser II PX"                           = "Tektronix Phaser II PX"
+"Tektronix Phaser II PXe v2010.128 with 17 fonts"  = "Tektronix Phaser II PXe v2010.128 with 17 fonts"
+"Tektronix Phaser II PXe v2010.128 with 39 fonts"  = "Tektronix Phaser II PXe v2010.128 with 39 fonts"
+"Tektronix Phaser II PXi v2010.116"                = "Tektronix Phaser II PXi v2010.116"
+"Tektronix Phaser II PXi v2011.108"                = "Tektronix Phaser II PXi v2011.108"
+"Tektronix Phaser II PXiJ v2011.108"               = "Tektronix Phaser II PXiJ v2011.108"
+"Tektronix Phaser III PXi v2010.116"               = "Tektronix Phaser III PXi v2010.116"
+"Tektronix Phaser III PXi v2011.108"               = "Tektronix Phaser III PXi v2011.108"
+"Tektronix Phaser III PXiJ v2011.108"              = "Tektronix Phaser III PXiJ v2011.108"
+"Tektronix Phaser IISD v2011.108"                  = "Tektronix Phaser IISD v2011.108"
+"Tektronix Phaser PX"                              = "Tektronix Phaser PX"
+"TI 2115 13 fonts v47.0"                           = "TI 2115 13 fonts v47.0"
+"TI 2115 35 fonts v47.0"                           = "TI 2115 35 fonts v47.0"
+"TI 850/855"                                       = "TI 850/855"
+"TI microLaser PS17 v.52.1"                        = "TI microLaser PS17 v.52.1"
+"TI microLaser PS35 v.52.1"                        = "TI microLaser PS35 v.52.1"
+"TI microLaser XL PS17 v.52.1"                     = "TI microLaser XL PS17 v.52.1"
+"TI microLaser XL PS35 v.52.1"                     = "TI microLaser XL PS35 v.52.1"
+"TI microLaser16 Turbo v2010.119"                  = "TI microLaser16 Turbo v2010.119"
+"TI microLaser6 Turbo v2010.119"                   = "TI microLaser6 Turbo v2010.119"
+"TI microLaser9 Turbo v2010.119"                   = "TI microLaser9 Turbo v2010.119"
+"TI OmniLaser 2108 v45.0"                          = "TI OmniLaser 2108 v45.0"
+"TI Omnilaser 2115 v47.0"                          = "TI Omnilaser 2115 v47.0"
+"Toshiba GX-400"                                   = "Toshiba GX-400"
+"Toshiba PageLaser12"                              = "Toshiba PageLaser12"
+"Triumph Adler SDR 7706 PS13"                      = "Triumph Adler SDR 7706 PS13"
+"Triumph Adler SDR 7706 PS35"                      = "Triumph Adler SDR 7706 PS35"
+"Triumph Adler SDR 7706"                           = "Triumph Adler SDR 7706"
+"UNISYS AP9210 17 Fonts v52.1"                     = "UNISYS AP9210 17 Fonts v52.1"
+"UNISYS AP9210 39 Fonts v52.1"                     = "UNISYS AP9210 39 Fonts v52.1"
+"Unisys AP9210"                                    = "Unisys AP9210"
+"Unisys AP9415 v47.0"                              = "Unisys AP9415 v47.0"
+"Varityper 4000-L300 v52.3"                        = "Varityper 4000-L300 v52.3"
+"Varityper 4000-L330 v52.3"                        = "Varityper 4000-L330 v52.3"
+"Varityper 4000-L500 v52.3"                        = "Varityper 4000-L500 v52.3"
+"Varityper 4000-L530 v52.3"                        = "Varityper 4000-L530 v52.3"
+"Varityper 4200B-P v49.3 or 52.2"                  = "Varityper 4200B-P v49.3 or 52.2"
+"Varityper 4300P v49.3 or 52.2"                    = "Varityper 4300P v49.3 or 52.2"
+"Varityper Series 4000-5300 v49.3 or 52.2"         = "Varityper Series 4000-5300 v49.3 or 52.2"
+"Varityper Series 4000-5330 v49.3 or 52.2"         = "Varityper Series 4000-5330 v49.3 or 52.2"
+"Varityper Series 4000-5500 v52.2"                 = "Varityper Series 4000-5500 v52.2"
+"Varityper VT-600P v48.0"                          = "Varityper VT-600P v48.0"
+"Varityper VT-600P"                                = "Varityper VT-600P"
+"Varityper VT-600W v48.0"                          = "Varityper VT-600W v48.0"
+"Varityper VT4990 v52.3"                           = "Varityper VT4990 v52.3"
+"Varityper VT4_510A v52.3"                         = "Varityper VT4_510A v52.3"
+"VT4_530A v52.3"                                   = "VT4_530A v52.3"
+"VT4_530B v52.3"                                   = "VT4_530B v52.3"
+"VT4_530C v52.3"                                   = "VT4_530C v52.3"
+"VT4_533B v52.3"                                   = "VT4_533B v52.3"
+"VT4_533C v52.3"                                   = "VT4_533C v52.3"
+"VT4_53EA v52.3"                                   = "VT4_53EA v52.3"
+"VT4_53EB v52.3"                                   = "VT4_53EB v52.3"
+"VT4_550A v52.3"                                   = "VT4_550A v52.3"
+"VT4_550B v52.3"                                   = "VT4_550B v52.3"
+"VT4_550C v52.3"                                   = "VT4_550C v52.3"
+"VT4_551A v52.3"                                   = "VT4_551A v52.3"
+"VT4_563A v52.3"                                   = "VT4_563A v52.3"
+"VT4_563B v52.3"                                   = "VT4_563B v52.3"
+"Wang LCS15 FontPlus"                              = "Wang LCS15 FontPlus"
+"Wang LCS15"                                       = "Wang LCS15"
+"Wang LDP8"                                        = "Wang LDP8"
+"Xerox DocuTech 135 v2010.130"                     = "Xerox DocuTech 135 v2010.130"
+"Xerox DocuTech 85 v2010.130"                      = "Xerox DocuTech 85 v2010.130"
+"Xerox DocuTech 90 v2010.130"                      = "Xerox DocuTech 90 v2010.130"
+[StringsENG]
+    String1 = "The printer model "
+    String2 = " is already installed."
+    String3 = "Failed to connect to the print server."
+    String4 = "The driver files for the printer model "
+    String5 = " couldn't be copied.  Failed to install the printer model."
+    String6 = "Access is denied. You must be logged on as a member of the Administrators "+
+              "group to carry out this operation."
+    String7 = " could not be installed."
+[ProgressCopyENG]
+    ProCaption   = "Windows NT Setup"
+    ProCancel    = "Cancel"
+    ProCancelMsg = "Windows NT is not correcly installed.  Are you sure you want "+
+                   "to cancel copying files?"
+    ProCancelCap = "Setup Message"
+    ProText1     = "Copying:"
+    ProText2     = "To:"
+
+
+
